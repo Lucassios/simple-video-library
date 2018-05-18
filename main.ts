@@ -1,6 +1,16 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import databaseConnection from './database-connection';
+
+databaseConnection
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 let win, serve;
 const args = process.argv.slice(1);

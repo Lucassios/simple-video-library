@@ -1,7 +1,7 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import { videoLibraryService } from './services/video-library-service';
+import { videoLibraryService } from './electron/services/video-library-service';
 // import databaseConnection from './database-connection';
 
 // databaseConnection
@@ -17,6 +17,10 @@ videoLibraryService.create({name: 'teste'}).then(videoLibrary => {
   console.log(videoLibrary);
 }).catch(error => {
   console.log(error);
+});
+
+videoLibraryService.findAll().then(videoLibraries => {
+  console.log(videoLibraries);
 });
 
 let win, serve;

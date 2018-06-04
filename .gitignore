@@ -6,7 +6,7 @@
 /out-tsc
 /app-builds
 main.js
-/electron/*.js
+/electron/**/*.js
 
 # dependencies
 /node_modules

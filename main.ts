@@ -2,16 +2,6 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { videoLibraryService } from './electron/services/video-library-service';
-// import databaseConnection from './database-connection';
-
-// databaseConnection
-//   .authenticate()
-//   .then(() => {
-//     console.log('Connection has been established successfully.');
-//   })
-//   .catch(err => {
-//     console.error('Unable to connect to the database:', err);
-//   });
 
 videoLibraryService.create({name: 'teste'}).then(videoLibrary => {
   console.log(videoLibrary);
@@ -20,7 +10,7 @@ videoLibraryService.create({name: 'teste'}).then(videoLibrary => {
 });
 
 videoLibraryService.findAll().then(videoLibraries => {
-  console.log(videoLibraries);
+  console.log(videoLibraries[0]);
 });
 
 let win, serve;

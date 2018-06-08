@@ -1,4 +1,4 @@
-import { Instance, STRING, DATE, ARRAY } from "sequelize";
+import { Instance, STRING } from "sequelize";
 import sequelize from "../database-connection";
 
 export interface VideoLibraryAttributes {
@@ -14,7 +14,5 @@ const VideoLibrary = sequelize.define<VideoLibraryInstance, VideoLibraryAttribut
         unique: true
     }
 });
-
-VideoLibrary.sync();
 
 export default VideoLibrary;

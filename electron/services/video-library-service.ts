@@ -4,8 +4,8 @@ import { Promise } from "sequelize";
 
 export class VideoLibraryService {
 
-    create(videoLibrary): Promise<VideoLibraryInstance> {
-        return VideoLibrary.create(videoLibrary);
+    create(videoLibrary, options?): Promise<VideoLibraryInstance> {
+        return VideoLibrary.create(videoLibrary, options);
     }
 
     update(videoLibrary): Promise<VideoLibraryInstance> {
@@ -16,8 +16,8 @@ export class VideoLibraryService {
         return VideoLibrary.remove(videoLibrary);
     }
 
-    findAll(): Promise<VideoLibraryInstance[]> {
-        return VideoLibrary.findAll();
+    findAll(options?): Promise<VideoLibraryInstance[]> {
+        return VideoLibrary.findAll(options);
     }
       
 }

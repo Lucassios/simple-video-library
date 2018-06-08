@@ -1,17 +1,7 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import { videoLibraryService } from './electron/services/video-library-service';
-
-videoLibraryService.create({name: 'teste'}).then(videoLibrary => {
-  console.log(videoLibrary);
-}).catch(error => {
-  console.log(error);
-});
-
-videoLibraryService.findAll().then(videoLibraries => {
-  console.log(videoLibraries[0]);
-});
+import { initDB } from './electron';
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -34,6 +24,10 @@ function createWindow() {
     y: 0,
     width: size.width,
     height: size.height
+  });
+
+  win.once('ready-to-show', () => {
+    initDB().then(() => console.log('okok')).catch(err => console.log(err));
   });
 
   if (serve) {

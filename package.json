@@ -24,7 +24,7 @@
     "build:dev": "npm run build -- -c dev",
     "build:prod": "npm run build -- -c production",
     "ng:serve": "ng serve -o",
-    "electron:tsc": "tsc main.ts",
+    "electron:tsc": "tsc main.ts --lib ES2015,dom",
     "electron:serve": "wait-on http-get://localhost:4200/ && npm run electron:tsc && electron . --serve",
     "electron:local": "npm run build:prod && electron .",
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
@@ -34,6 +34,7 @@
     "e2e": "ng e2e"
   },
   "dependencies": {
+    "fluent-ffmpeg": "^2.1.2",
     "sequelize": "^4.37.10",
     "sqlite3": "^4.0.0"
   },

@@ -1,10 +1,14 @@
-import { VideoInstance, VideoAttributes } from "../data/models/video-model";
+import Video, { VideoInstance, VideoAttributes } from "../data/models/video-model";
 import * as fs from 'fs';
 import * as path from 'path';
 
 const videoFilesFilter = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|mov|MOV)$/;
 
 export class VideoService {
+
+    bulkCreate(videos: VideoAttributes[]): VideoInstance {
+        return Video.bulkCreate(videos);
+    }
 
     findByPath(filesPath: string): VideoInstance[] {
 
@@ -27,7 +31,7 @@ export class VideoService {
 
     }
 
-    private createVideo(completePath: string): VideoInstance {
+    private createVideo(completePath: string): VideoAttributes {
         var parsedPath = path.parse(completePath);
         return {
             name: parsedPath.name,

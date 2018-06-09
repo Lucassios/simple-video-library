@@ -16,6 +16,6 @@ const VideoLibraryPath = sequelize.define<VideoLibraryPathInstance, VideoLibrary
     }
 });
 
-VideoLibrary.hasMany(VideoLibraryPath, { as: 'paths'});
+VideoLibrary.hasMany(VideoLibraryPath, { as: 'paths', foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 
 export default VideoLibraryPath;

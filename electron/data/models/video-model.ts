@@ -38,6 +38,6 @@ const Video = sequelize.define<VideoInstance, VideoAttributes>('video', {
     }
 });
 
-Video.belongsTo(VideoLibrary);
+Video.belongsTo(VideoLibrary, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 
 export default Video;

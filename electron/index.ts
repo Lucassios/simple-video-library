@@ -7,19 +7,11 @@ import { videoService } from "./services/video-service";
 export async function initDB() {
   
   await VideoLibrary.sync();
-  console.log('VideoLibrary created');
   await Video.sync();
-  console.log('Video created');
   await VideoLibraryPath.sync();
-  console.log('VideoLibraryPath created');
 
-  await sleep(2000);
   test().then().catch(err => console.log(err));
   
-}
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function test() {
@@ -43,6 +35,7 @@ async function test() {
   }
   
   var paths = await videoLibrary.getPaths();
-  console.log(videoService.findByPath(paths[0].path));
+  var videos = videoService.findByPath(paths[0].path);
+  videoService.bulkCreate(videos);
   
 }

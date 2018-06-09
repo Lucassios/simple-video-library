@@ -26,10 +26,6 @@ function createWindow() {
     height: size.height
   });
 
-  win.once('ready-to-show', () => {
-    initDB().then(() => console.log('okok')).catch(err => console.log(err));
-  });
-
   if (serve) {
     require('electron-reload')(__dirname, {
      electron: require(`${__dirname}/node_modules/electron`)});
@@ -58,7 +54,10 @@ try {
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
-  app.on('ready', createWindow);
+  app.on('ready', function() {
+    initDB().then(() => console.log('okok')).catch(err => console.log(err));
+    createWindow();
+  });
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {

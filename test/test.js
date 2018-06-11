@@ -18,7 +18,6 @@ async function findOrCreateLibraryTest() {
         }, {
             include: [{ model: VideoLibraryPath, as: 'paths'}]
         });
-    
     } else {
         return videoLibraries[0];
     }
@@ -35,7 +34,6 @@ test('createVideo', async t => {
     var videos = videoService.findByPath(paths[0].path);
     await _.map(videos, video => {
         video.libraryId = videoLibrary.id;
-        console.log(video);
         return videoService.create(video);
     });
 

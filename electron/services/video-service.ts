@@ -6,13 +6,17 @@ const videoFilesFilter = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|
 
 export class VideoService {
 
-    bulkCreate(videos: VideoAttributes[]): VideoInstance {
-        return Video.bulkCreate(videos);
+    bulkCreate(videos: VideoAttributes[], options?): VideoInstance {
+        return Video.bulkCreate(videos, options);
     }
 
-    findByPath(filesPath: string): VideoInstance[] {
+    create(video: VideoAttributes, options?): Promise<VideoInstance> {
+        return Video.create(video, options);
+    }
 
-        let videos = new Array<VideoInstance>();
+    findByPath(filesPath: string): VideoAttributes[] {
+
+        let videos = new Array<VideoAttributes>();
         let files = fs.readdirSync(filesPath);
         for (let fileName of files) {
 

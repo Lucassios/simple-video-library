@@ -55,8 +55,7 @@ try {
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   app.on('ready', function() {
-    initDB().then(() => console.log('okok')).catch(err => console.log(err));
-    createWindow();
+    initDB().then(() => createWindow());
   });
 
   // Quit when all windows are closed.

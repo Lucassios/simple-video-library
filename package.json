@@ -30,11 +30,13 @@
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
     "electron:windows": "npm run build:prod && npx electron-builder build --windows",
     "electron:mac": "npm run build:prod && npx electron-builder build --mac",
-    "test": "ng test",
+    "test": "npm run electron:tsc && ava",
+    "test-ng": "ng test",
     "e2e": "ng e2e"
   },
   "dependencies": {
     "fluent-ffmpeg": "^2.1.2",
+    "lodash": "^4.17.10",
     "sequelize": "^4.37.10",
     "sqlite3": "^4.0.0"
   },
@@ -55,7 +57,9 @@
     "@ngx-translate/http-loader": "3.0.1",
     "@types/jasmine": "2.8.7",
     "@types/jasminewd2": "2.0.3",
+    "@types/lodash": "^4.14.109",
     "@types/node": "8.9.4",
+    "ava": "^0.25.0",
     "codelyzer": "4.2.1",
     "core-js": "2.5.6",
     "electron": "2.0.2",

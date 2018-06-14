@@ -12,6 +12,7 @@ async function findOrCreateLibraryTest() {
     var videoLibraries = await videoLibraryService.findAll();
 
     if (videoLibraries.length == 0) {
+        console.log('inserting...');
         return videoLibraryService.create({
             name: 'VideoLibraryTest',
             paths: [{ path: 'C:/Users/Lucas_Marques/Videos' }]
@@ -29,6 +30,7 @@ test('createVideo', async t => {
     await initDB();
 
     var videoLibrary = await findOrCreateLibraryTest();
+    console.log(videoLibrary);
     var paths = await videoLibrary.getPaths();
 
     var videos = videoService.findByPath(paths[0].path);

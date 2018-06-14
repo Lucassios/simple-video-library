@@ -1,16 +1,14 @@
 import Video, { VideoInstance, VideoAttributes } from "../data/models/video-model";
 import * as fs from 'fs';
 import * as path from 'path';
+import { CreateOptions } from "sequelize";
+import * as Promise from "bluebird";
 
 const videoFilesFilter = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|mov|MOV)$/;
 
 export class VideoService {
 
-    bulkCreate(videos: VideoAttributes[], options?): VideoInstance {
-        return Video.bulkCreate(videos, options);
-    }
-
-    create(video: VideoAttributes, options?): Promise<VideoInstance> {
+    create(video: VideoAttributes, options?: CreateOptions): Promise<VideoInstance> {
         return Video.create(video, options);
     }
 

@@ -30,12 +30,12 @@
     "electron:linux": "npm run build:prod && npx electron-builder build --linux",
     "electron:windows": "npm run build:prod && npx electron-builder build --windows",
     "electron:mac": "npm run build:prod && npx electron-builder build --mac",
-    "test": "npm run electron:tsc && ava",
+    "test:tsc": "npm run electron:tsc && tsc test/test.ts --lib ES2015,dom",
+    "test": "npm run test:tsc && ava",
     "test-ng": "ng test",
     "e2e": "ng e2e"
   },
   "dependencies": {
-    "@types/sequelize": "^4.27.21",
     "fluent-ffmpeg": "^2.1.2",
     "lodash": "^4.17.10",
     "sequelize": "^4.37.10",
@@ -56,6 +56,8 @@
     "@angular/router": "6.0.3",
     "@ngx-translate/core": "10.0.1",
     "@ngx-translate/http-loader": "3.0.1",
+    "@types/sequelize": "^4.27.21",
+    "@types/fluent-ffmpeg": "^2.1.6",
     "@types/jasmine": "2.8.7",
     "@types/jasminewd2": "2.0.3",
     "@types/lodash": "^4.14.109",

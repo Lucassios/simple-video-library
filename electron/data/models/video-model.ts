@@ -1,4 +1,4 @@
-import { Instance, STRING } from "sequelize";
+import { Instance, STRING, INTEGER, DECIMAL } from "sequelize";
 import sequelize from "../database-connection";
 import VideoLibrary from "./video-library-model";
 
@@ -9,6 +9,10 @@ export interface VideoAttributes {
     fileName: string
     path: string
     completePath: string
+    duration: number
+    width: number
+    height: number
+    size: number
 
 }
 
@@ -35,6 +39,22 @@ const Video = sequelize.define<VideoInstance, VideoAttributes>('video', {
         type: STRING,
         allowNull: false,
         unique: true
+    },
+    duration: {
+        type: INTEGER,
+        allowNull: false
+    },
+    width: {
+        type: INTEGER,
+        allowNull: false
+    },
+    height: {
+        type: INTEGER,
+        allowNull: false
+    },
+    size: {
+        type: DECIMAL,
+        allowNull: false
     }
 });
 

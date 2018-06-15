@@ -1,8 +1,10 @@
 import { Instance, STRING } from "sequelize";
 import sequelize from "../database-connection";
+import { VideoLibraryPathAttributes } from "./video-library-path-model";
 
 export interface VideoLibraryAttributes {
-    name: string
+    name: string,
+    paths?: VideoLibraryPathAttributes[]
 }
 
 export type VideoLibraryInstance = Instance<VideoLibraryAttributes> & VideoLibraryAttributes;

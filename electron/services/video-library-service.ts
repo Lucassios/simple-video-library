@@ -1,20 +1,20 @@
 
-import VideoLibrary, { VideoLibraryInstance } from "../data/models/video-library-model";
+import VideoLibrary, { VideoLibraryInstance, VideoLibraryAttributes } from "../data/models/video-library-model";
 import * as Promise from "bluebird";
 import { VideoAttributes } from "../data/models/video-model";
 import { CreateOptions, FindOptions } from "sequelize";
 
 export class VideoLibraryService {
 
-    create(videoLibrary: VideoAttributes, options?: CreateOptions): Promise<VideoLibraryInstance> {
+    create(videoLibrary: VideoLibraryAttributes, options?: CreateOptions): Promise<VideoLibraryInstance> {
         return VideoLibrary.create(videoLibrary, options);
     }
 
-    remove(videoLibrary: VideoAttributes): Promise<void> {
+    remove(videoLibrary: VideoLibraryAttributes): Promise<void> {
         return VideoLibrary.build(videoLibrary).destroy();
     }
 
-    findAll(options?: FindOptions<VideoAttributes>): Promise<VideoLibraryInstance[]> {
+    findAll(options?: FindOptions<VideoLibraryAttributes>): Promise<VideoLibraryInstance[]> {
         return VideoLibrary.findAll(options);
     }
       

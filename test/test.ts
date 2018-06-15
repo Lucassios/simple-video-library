@@ -33,9 +33,10 @@ test('createVideo', async t => {
     var paths = await videoLibrary.getPaths();
 
     var videos = await Promise.all(videoService.findByPath(paths[0].path));
-    await Promise.all(_.map(videos, video => {
+    await Promise.all(_.map(videos, async video => {
         // @ts-ignore
         video.libraryId = videoLibrary.id;
+        await videoService.generateScreenshots(video.completePath);
         return videoService.create(video);
     }));
 

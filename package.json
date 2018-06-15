@@ -39,7 +39,8 @@
     "fluent-ffmpeg": "^2.1.2",
     "lodash": "^4.17.10",
     "sequelize": "^4.37.10",
-    "sqlite3": "^4.0.0"
+    "sqlite3": "^4.0.0",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.6.3",
@@ -56,12 +57,13 @@
     "@angular/router": "6.0.3",
     "@ngx-translate/core": "10.0.1",
     "@ngx-translate/http-loader": "3.0.1",
-    "@types/sequelize": "^4.27.21",
     "@types/fluent-ffmpeg": "^2.1.6",
     "@types/jasmine": "2.8.7",
     "@types/jasminewd2": "2.0.3",
     "@types/lodash": "^4.14.109",
     "@types/node": "8.9.4",
+    "@types/sequelize": "^4.27.21",
+    "@types/uuid": "^3.4.3",
     "ava": "^0.25.0",
     "codelyzer": "4.2.1",
     "core-js": "2.5.6",

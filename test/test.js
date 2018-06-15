@@ -67,6 +67,7 @@ function findOrCreateLibraryTest() {
     });
 }
 ava_1["default"]('createVideo', function (t) { return __awaiter(_this, void 0, void 0, function () {
+    var _this = this;
     var videoLibrary, paths, videos;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -82,11 +83,19 @@ ava_1["default"]('createVideo', function (t) { return __awaiter(_this, void 0, v
                 return [4 /*yield*/, Promise.all(video_service_1.videoService.findByPath(paths[0].path))];
             case 4:
                 videos = _a.sent();
-                return [4 /*yield*/, Promise.all(_.map(videos, function (video) {
-                        // @ts-ignore
-                        video.libraryId = videoLibrary.id;
-                        return video_service_1.videoService.create(video);
-                    }))];
+                return [4 /*yield*/, Promise.all(_.map(videos, function (video) { return __awaiter(_this, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    // @ts-ignore
+                                    video.libraryId = videoLibrary.id;
+                                    return [4 /*yield*/, video_service_1.videoService.generateScreenshots(video.completePath)];
+                                case 1:
+                                    _a.sent();
+                                    return [2 /*return*/, video_service_1.videoService.create(video)];
+                            }
+                        });
+                    }); }))];
             case 5:
                 _a.sent();
                 t.pass();

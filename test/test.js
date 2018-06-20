@@ -36,12 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 exports.__esModule = true;
-var _ = require("lodash");
 var ava_1 = require("ava");
 var electron_1 = require("../electron");
 var video_library_path_model_1 = require("../electron/data/models/video-library-path-model");
 var video_library_service_1 = require("../electron/services/video-library-service");
-var video_service_1 = require("../electron/services/video-service");
 function findOrCreateLibraryTest() {
     return __awaiter(this, void 0, void 0, function () {
         var videoLibraries;
@@ -67,8 +65,7 @@ function findOrCreateLibraryTest() {
     });
 }
 ava_1["default"]('createVideo', function (t) { return __awaiter(_this, void 0, void 0, function () {
-    var _this = this;
-    var videoLibrary, paths, videos;
+    var videoLibrary, videos;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, electron_1.initDB()];
@@ -77,27 +74,19 @@ ava_1["default"]('createVideo', function (t) { return __awaiter(_this, void 0, v
                 return [4 /*yield*/, findOrCreateLibraryTest()];
             case 2:
                 videoLibrary = _a.sent();
-                return [4 /*yield*/, videoLibrary.getPaths()];
+                return [4 /*yield*/, video_library_service_1.videoLibraryService.refreshLibrary(videoLibrary)];
             case 3:
-                paths = _a.sent();
-                return [4 /*yield*/, Promise.all(video_service_1.videoService.findByPath(paths[0].path))];
-            case 4:
                 videos = _a.sent();
-                return [4 /*yield*/, Promise.all(_.map(videos, function (video) { return __awaiter(_this, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    // @ts-ignore
-                                    video.libraryId = videoLibrary.id;
-                                    return [4 /*yield*/, video_service_1.videoService.generateScreenshots(video.completePath)];
-                                case 1:
-                                    _a.sent();
-                                    return [2 /*return*/, video_service_1.videoService.create(video)];
-                            }
-                        });
-                    }); }))];
-            case 5:
-                _a.sent();
+                console.log(videos);
+                // // @ts-ignore
+                // var paths = await videoLibrary.getPaths();
+                // var videos = await Promise.all(videoService.findByPath(paths[0].path));
+                // await Promise.all(_.map(videos, async video => {
+                //     // @ts-ignore
+                //     video.libraryId = videoLibrary.id;
+                //     await videoService.generateScreenshots(video.completePath);
+                //     return videoService.create(video);
+                // }));
                 t.pass();
                 return [2 /*return*/];
         }

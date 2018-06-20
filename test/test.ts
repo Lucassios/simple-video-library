@@ -24,21 +24,13 @@ async function findOrCreateLibraryTest() {
 
 }
 
-test('createVideo', async t => {
+test('refreshLibrary', async t => {
 
     await initDB();
 
     var videoLibrary = await findOrCreateLibraryTest();
-    // @ts-ignore
-    var paths = await videoLibrary.getPaths();
-
-    var videos = await Promise.all(videoService.findByPath(paths[0].path));
-    await Promise.all(_.map(videos, async video => {
-        // @ts-ignore
-        video.libraryId = videoLibrary.id;
-        await videoService.generateScreenshots(video.completePath);
-        return videoService.create(video);
-    }));
+    var videos = await videoLibraryService.refreshLibrary(videoLibrary);
+    console.log(videos);
 
     t.pass();
 

@@ -3,9 +3,10 @@ import Video, { VideoInstance, VideoAttributes } from "../data/models/video-mode
 import * as fs from 'fs';
 import * as path from 'path';
 import { CreateOptions } from "sequelize";
-import * as PromiseBB from "bluebird";
+import * as Bluebird from "bluebird";
 import * as Ffmpeg from "fluent-ffmpeg";
 import * as uuid from "uuid";
+import { VideoLibraryInstance } from '../data/models/video-library-model';
 
 const VIDEO_FILE_FILTER = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|mov|MOV)$/;
 const IMAGES_PATH = process.env.NODE_ENV == 'test'
@@ -15,8 +16,16 @@ const SCREENSHOT_SIZE = '240x135';
 
 export class VideoService {
 
-    create(video: VideoAttributes, options?: CreateOptions): PromiseBB<VideoInstance> {
+    create(video: VideoAttributes, options?: CreateOptions): Bluebird<VideoInstance> {
         return Video.create(video, options);
+    }
+
+    findByLibrary(library: VideoLibraryInstance): Promise<VideoAttributes>[] {
+        let videos = new Array<Promise<VideoAttributes>>();
+        for (let path of library.paths) {
+            videos.push(...this.findByPath(path.path));
+        }
+        return videos;
     }
 
     findByPath(filesPath: string): Promise<VideoAttributes>[] {

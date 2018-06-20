@@ -7,7 +7,9 @@ export interface VideoLibraryAttributes {
     paths?: VideoLibraryPathAttributes[]
 }
 
-export type VideoLibraryInstance = Instance<VideoLibraryAttributes> & VideoLibraryAttributes;
+export type VideoLibraryInstance = Instance<VideoLibraryAttributes> & VideoLibraryAttributes & {
+    id?: number
+};
 
 const VideoLibrary = sequelize.define<VideoLibraryInstance, VideoLibraryAttributes>('videolibrary', {
     name: {

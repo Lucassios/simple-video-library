@@ -1,0 +1,284 @@
+a
+  text-decoration: none !important
+  &:active, &:focus, &:active
+    text-decoration: none !important
+  &:focus
+    outline: 0px solid
+
+img
+  max-width: 100%
+
+.fix:after
+  content: ""
+  display: table
+  clear: both
+
+h1, h2, h3, h4, h5, h6
+  font-weight: normal
+  margin: 0 0 15px
+
+.column
+  width: 960px
+  margin: 0 auto
+  display: block
+  transition: all 0.9s ease 0s
+  -moz-transition: all 0.9s ease 0s
+  -webkit-transition: all 0.9s ease 0s
+  -o-transition: all 0.9s ease 0s
+
+ul
+  margin: 0
+  padding: 0
+  list-style: none
+
+/* font-family: 'Montserrat', sans-serif;
+
+body
+  margin: 0
+  padding: 0
+  font-family: 'Hind', sans-serif
+
+.header-left-area, .left-main-area
+  width: 20%
+  position: relative
+
+.header-right-area, .right-main-area
+  width: 80%
+  position: relative
+  padding: 20px
+
+.header-area
+  display: flex
+
+.header-left-area
+  background-color: #F04F58
+  color: #fff
+  padding: 10px 30px
+
+.left-main-area
+  background-color: #19212D
+  color: #fff
+  padding: 20px
+
+.libraries-links, .collections-links
+  margin-top: 50px
+
+.profile-image
+  margin-right: 15px
+
+.profile-text
+  h4
+    font-size: 17px
+    font-weight: 600
+    margin-bottom: 0px
+  p
+    font-size: 13px
+    color: #1d2734
+    font-weight: 300
+    margin-bottom: 0px
+  margin-top: 10px
+
+.video-upload-button button
+  i
+    margin-right: 10px
+  background-color: #2B3646
+  border: 0px
+  padding: 15px
+  width: 100%
+  border-radius: 10px
+  color: #ffffff
+  font-weight: 600
+  cursor: pointer
+
+.libraries-links h3, .collections-links h3
+  font-size: 17px
+  color: #b6b6b6
+  font-weight: 600
+  text-transform: uppercase
+  margin-bottom: 10px
+
+.libraries-links ul li a, .collections-links ul li a
+  font-size: 15px
+  color: #ffffff
+  display: inline-block
+  width: 100%
+  margin-bottom: 10px
+
+.libraries-links ul li a i, .collections-links ul li a i
+  color: #bdbdbd
+  margin-right: 10px
+
+.website-main-width, .header-main-width
+  max-width: 930px
+  margin: 0 auto
+
+.header-search-area
+  width: 50%
+  position: relative
+
+.header-menu-area
+  width: 50%
+  ul
+    text-align: right
+    li
+      display: inline
+      a
+        display: inline-block
+        color: #8f8f8f
+        margin-right: 15px
+        font-size: 18px
+
+.header-search-area
+  input
+    width: 100%
+    font-size: 15px
+    color: #818181
+    width: 100%
+    padding-left: 30px
+    border: 0px
+    outline: 0px
+  button[type=submit]
+    position: absolute
+    left: 0px
+    top: 0px
+    border: 0px
+    background-color: transparent
+    outline: 0px
+    height: 100%
+    cursor: pointer
+
+.right-main-area
+  background-color: #1D2734
+  color: #fff
+
+.single-video-area
+  margin-top: 30px
+  h3
+    font-size: 18px
+    margin-top: 5px
+    margin-bottom: 0px
+    font-weight: 600
+  p
+    font-size: 14px
+    color: #a7a7a7
+    margin: 0px
+
+.main-top-filder h3
+  font-size: 22px
+  color: #fff
+  font-weight: 600
+  margin-top: 10px
+  margin-bottom: 0px
+
+.right-options button
+  &.filter
+    border: 0px
+    padding: 12px 20px
+    font-size: 16px
+    color: #f04f58
+    background-color: #FFFFFF
+    border-radius: 5px
+    margin-right: 10px
+    cursor: pointer
+  &.download
+    border: 0px
+    padding: 12px 20px
+    font-size: 16px
+    color: #ffffff
+    background-color: #2B3646
+    border-radius: 5px
+    margin-right: 10px
+    cursor: pointer
+
+.left-mid-filder
+  width: 10%
+  float: left
+  color: #f04f58
+  font-size: 13px
+  font-family: 'Montserrat', sans-serif
+  font-weight: 700
+  padding-left: 10px
+  padding-right: 10px
+  border-right: 1px solid #E7E7E7
+  padding-top: 25px
+
+.right-mid-filder
+  width: 90%
+  float: left
+  padding: 15px 0
+  .row
+    margin-left: 0px
+    margin-right: 0px
+
+.main-mid-filder
+  background-color: #fff
+  color: #1d2734
+  display: flex
+  margin-top: 10px
+  label
+    color: #1d2734
+    font-weight: 700
+    margin-bottom: 0px
+
+.single-input
+  position: relative
+  input
+    width: 100%
+    border-left: 0px
+    outline: 0px
+    border-right: 0px
+    border-top: 0px
+    border-bottom: 1px solid #8F8F8F
+  button
+    background-color: transparent
+    border: 0px
+    outline: 0px
+    position: absolute
+    right: 0px
+    bottom: 0px
+    cursor: pointer
+
+.filder-option
+  button
+    background-color: #2B3646
+    font-size: 16px
+    color: #fff
+    font-weight: 600
+    height: 48px
+  .bootstrap-select
+    max-width: 150px
+
+.dropdown-toggle::after
+  color: #f04f58
+
+.dropdown-menu.show ul.dropdown-menu
+  display: block
+  padding: 10px !important
+  li a
+    color: #2B3646
+
+.asRange
+  width: 100%
+  height: 3px
+  .asRange-selected
+    background-color: transparent
+  .asRange-pointer
+    background-color: #F04F58
+    width: 5px
+    height: 5px
+    &::before
+      background: #F04F58
+
+.rating
+  margin-top: 20px
+
+.main-area
+  display: flex
+
+.header-left-area::before
+  content: "\f013"
+  font-family: "fontawesome"
+  position: absolute
+  right: 18px
+  top: 20px
+  font-size: 20px

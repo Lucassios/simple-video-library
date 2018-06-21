@@ -11,7 +11,7 @@ import { VideoLibraryInstance } from '../data/models/video-library-model';
 import { videoLibraryPathService } from './video-library-path-service';
 
 const VIDEO_FILE_FILTER = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|mov|MOV)$/;
-const SCREENSHOT_SIZE = '240x135';
+const SCREENSHOT_SIZE = '280x150';
 
 export class VideoService {
 

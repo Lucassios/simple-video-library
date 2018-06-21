@@ -14,5 +14,6 @@ export class Video {
     libraryId: number
 
     background: string
+    selected: boolean
 
 }

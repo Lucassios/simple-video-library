@@ -185,18 +185,18 @@ body
   overflow: hidden
 
   .video-info 
-    border: 4px solid transparent
     font-size: 12px
-    &.selected 
-      border-color: red
-      border-radius: 5px
     .video-cover
       background-size: cover
+      border: 4px solid transparent
       height: 135px
       position: relative
     .video-name
       padding: 5px
       width: 100%
+
+  &.selected .video-cover
+    border-color: $secondary-color
 
 .single-video-area
   margin-top: 30px

@@ -10,13 +10,14 @@ declare var jQuery: any;
 export class VideoLibraryService {
 
   constructor(public electronService: ElectronService) {
-    
+
     this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
       jQuery('#modal-loading').modal('hide');
     });
 
-    this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:next', (event, video) => {
-      jQuery('#modal-loading').find('.loading-info').html('<img src="' + video.cover + '" alt=""><br/>' + video.name);
+    this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:next', (event, video, percentage) => {
+      jQuery('#modal-loading').find('.loading-info').html('<img src="file://' + video.cover + '" alt=""><br/>' + video.name);
+      jQuery('#modal-loading').find('.progress-bar').css('width', percentage + '%');
     });
 
   }
@@ -42,7 +43,7 @@ export class VideoLibraryService {
   }
 
   refreshLibraries(): any {
-    let libraries = this.findAll();
+    const libraries = this.findAll();
     if (libraries && libraries.length > 0) {
       this.electronService.ipcRenderer.send('videoLibraries:refreshLibrary', libraries[0]);
       jQuery('#modal-loading').modal({

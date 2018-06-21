@@ -24,10 +24,12 @@ export class VideosComponent implements OnInit {
   }
 
   ngAfterContentInit() {
-    let libraries = this.videoLibraryService.findAll();
+    const libraries = this.videoLibraryService.findAll();
     if (libraries && libraries.length > 0) {
       this.videos = this.videoService.findByLibraryId(libraries[0].id);
-      this.videos[0].selected = true;
+      if (this.videos.length > 0) {
+        this.videos[0].selected = true;
+      }
     }
   }
 

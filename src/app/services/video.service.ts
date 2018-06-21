@@ -20,7 +20,7 @@ export class VideoService {
   }
 
   setBackgroundVideo(video: Video) {
-    video.background = video.cover != undefined ? 'url(' + video.cover.split('\\').join('/') + ') center center / cover no-repeat' : 'black';
+    video.background = video.cover !== undefined ? 'url("file://' + video.cover.split('\\').join('/') + '") center center / cover no-repeat' : 'black';
   }
 
 }

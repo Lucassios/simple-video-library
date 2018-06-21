@@ -9,7 +9,6 @@ import * as uuid from "uuid";
 import * as _ from 'lodash';
 import { VideoLibraryInstance } from '../data/models/video-library-model';
 import { videoLibraryPathService } from './video-library-path-service';
-import { VideoLibrary } from '../../src/app/models/video-library';
 
 const VIDEO_FILE_FILTER = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|mov|MOV)$/;
 const SCREENSHOT_SIZE = '240x135';
@@ -28,31 +27,44 @@ export class VideoService {
         return Video.findOne(options);
     }
 
+    private findByLibrary(library: VideoLibraryInstance): Bluebird<VideoInstance[]> {
+      return this.findAll({ where: { libraryId: library.id } });
+    }
+
     async findNewFilesByLibrary(library: VideoLibraryInstance): Promise<VideoAttributes[]> {
-        let videos = new Array<VideoAttributes>();
-        let paths = await videoLibraryPathService.findAll({where: {videolibraryid: library.id}});
-        for (let path of paths) {
-            videos.push(...await this.findNewFilesByPath(path.path));
+        const videos = new Array<VideoAttributes>();
+        const paths = await videoLibraryPathService.findAll({where: {videolibraryid: library.id}});
+        const existingVideos = await this.findByLibrary(library);
+        const existingFiles = _.map(existingVideos, video => video.completePath);
+        for (const path of paths) {
+            videos.push(...await this.findNewFilesByPath(path.path, existingFiles));
         }
         _.each(videos, video => video.libraryId = library.id);
         return videos;
     }
 
-    async findNewFilesByPath(filesPath: string): Promise<VideoAttributes[]> {
+    async findNewFilesByPath(filesPath: string, existingFiles: string[]): Promise<VideoAttributes[]> {
 
-        let videos = new Array<VideoAttributes>();
-        let files = fs.readdirSync(filesPath);
-        for (let fileName of files) {
+        const videos = new Array<VideoAttributes>();
+        const files = fs.readdirSync(filesPath);
+        for (const fileName of files) {
 
-            var completePath = path.join(filesPath, fileName);
-            var stat = fs.lstatSync(completePath);
-            if (stat.isDirectory()) {
-                videos.push(...await this.findNewFilesByPath(completePath));
-            } else if (fileName.charAt(0) != '.' && VIDEO_FILE_FILTER.test(fileName)) {
-                console.log(await this.findOne({ where: { completePath } }));
-                if (await this.findOne({ where: { completePath } }) == undefined) {
-                    videos.push(this.buildVideo(completePath));
-                }
+            try {
+
+              const completePath = path.join(filesPath, fileName);
+              if (existingFiles.indexOf(completePath) >= 0) {
+                continue;
+              }
+
+              const stat = fs.lstatSync(completePath);
+              if (stat.isDirectory()) {
+                videos.push(...await this.findNewFilesByPath(completePath, existingFiles));
+              } else if (fileName.charAt(0) !== '.' && VIDEO_FILE_FILTER.test(fileName)) {
+                videos.push(this.buildVideo(completePath));
+              }
+
+            } catch (ex) {
+              console.log(ex);
             }
 
         }
@@ -62,7 +74,7 @@ export class VideoService {
     }
 
     generateScreenshot(file: string): Promise<string> {
-        var imageName = uuid.v1() + ".png";
+        const imageName = uuid.v1() + '.png';
         return new Promise<string>((resolve, reject) => {
             Ffmpeg(file).outputOptions('-qscale:v 2')
                 .screenshots({
@@ -81,20 +93,21 @@ export class VideoService {
             Ffmpeg.ffprobe(video.completePath, (err: any, metadata: Ffmpeg.FfprobeData) => {
                 if (err) {
                     reject(err);
+                } else {
+                    resolve({
+                        ...video,
+                        duration: metadata['format']['duration'],
+                        size: metadata['format']['size'],
+                        width: metadata['streams'][0]['width'],
+                        height: metadata['streams'][0]['height']
+                    });
                 }
-                resolve({
-                    ...video,
-                    duration: metadata['format']['size'],
-                    size: metadata['format']['size'],
-                    width: metadata['streams'][0]['width'],
-                    height: metadata['streams'][0]['height']
-                });
             });
         });
     }
 
     private buildVideo(completePath: string): VideoAttributes {
-        var parsedPath = path.parse(completePath);
+        const parsedPath = path.parse(completePath);
         return {
             name: parsedPath.name,
             extension: parsedPath.ext,

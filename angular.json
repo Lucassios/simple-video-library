@@ -25,9 +25,9 @@
               "src/favicon.512x512.png"
             ],
             "styles": [
-              "src/styles.sass",
+              "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/font-awesome/css/font-awesome.min.css"
+              "src/styles.sass"
             ],
             "scripts": [
               "node_modules/popper.js/dist/umd/popper.min.js",

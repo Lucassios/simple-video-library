@@ -4,17 +4,17 @@ import VideoLibrary from "./video-library-model";
 
 export interface VideoAttributes {
 
-    name: string
-    extension: string
-    fileName: string
-    path: string
-    completePath: string
-    duration?: number
-    width?: number
-    height?: number
-    size?: number
-    cover?: string
-    libraryId?: number
+    name: string;
+    extension: string;
+    fileName: string;
+    path: string;
+    completePath: string;
+    duration?: number;
+    width?: number;
+    height?: number;
+    size?: number;
+    cover?: string;
+    libraryId?: number;
 
 }
 
@@ -43,16 +43,13 @@ const Video = sequelize.define<VideoInstance, VideoAttributes>('video', {
         unique: true
     },
     duration: {
-        type: INTEGER,
-        allowNull: false
+        type: INTEGER
     },
     width: {
-        type: INTEGER,
-        allowNull: false
+        type: INTEGER
     },
     height: {
-        type: INTEGER,
-        allowNull: false
+        type: INTEGER
     },
     size: {
         type: DECIMAL,

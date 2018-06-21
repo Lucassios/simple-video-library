@@ -59,7 +59,7 @@
             <div class="col-xl-6 col-lg-6 col-sm-12 library-background">
                 <h4><i class="fa fa-archive" aria-hidden="true"></i> Add New Library</h4>
                 <div class="enter-library-name clearfix">
-                    <form #f="ngForm" (ngSubmit)="onSaveLibrary(f)">
+                    <form #f="ngForm" (ngSubmit)="onSaveLibrary()">
                         <input type="text" name="" id="" name="name" placeholder="Enter library name here" [(ngModel)]="videoLibrary.name" />
                         <button type="submit"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
                     </form>

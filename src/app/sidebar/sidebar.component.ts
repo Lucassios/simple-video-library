@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectronService } from '../providers/electron.service';
-
-declare var jQuery: any;
+import { VideoLibraryService } from '../services/video-library.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,23 +8,15 @@ declare var jQuery: any;
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(public electronService: ElectronService) { }
+  constructor(public electronService: ElectronService,
+    public videoLibraryService: VideoLibraryService) { }
 
   ngOnInit() {
 
   }
 
   onRefreshLibrary() {
-    console.log('onRefreshLibrary...');
-    // this.loadingModal.modal({
-    //   backdrop: 'static',
-    //   keyboard: false
-    // });
-    this.electronService.ipcRenderer.send('videoLibraries:refreshLibrary', {id: 1});
-    jQuery('#modal-loading').modal({
-      backdrop: 'static',
-      keyboard: false
-    });
+    this.videoLibraryService.refreshLibraries();
   }
 
 }

@@ -3,6 +3,7 @@ import { Video } from '../models/video';
 import { VideoLibrary } from '../models/video-library';
 import { VideoService } from '../services/video.service';
 import { ElectronService } from '../providers/electron.service';
+import { VideoLibraryService } from '../services/video-library.service';
 
 declare var jQuery: any;
 
@@ -15,7 +16,9 @@ export class VideosComponent implements OnInit {
   videos: Video[] = [];
   library: VideoLibrary;
 
-  constructor(public videoService: VideoService, public electronService: ElectronService) { }
+  constructor(public videoService: VideoService,
+    public electronService: ElectronService,
+    public videoLibraryService: VideoLibraryService) { }
 
   ngOnInit() {
 
@@ -30,8 +33,10 @@ export class VideosComponent implements OnInit {
   }
 
   ngAfterContentInit() {
-    this.library = { id: 1, name: '' };
-    this.videos = this.videoService.findByLibraryId(this.library.id);
+    let libraries = this.videoLibraryService.findAll();
+    if (libraries && libraries.length > 0) {
+      this.videos = this.videoService.findByLibraryId(libraries[0].id);
+    }
   }
 
 }

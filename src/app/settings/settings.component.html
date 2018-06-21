@@ -1,0 +1,71 @@
+<div class="row setting-head clearfix">
+
+    <div class="col-xl-6 col-lg-5 col-sm-12">
+        <h2 class="sttting-heading">Settings</h2>
+    </div>
+    <div class="col-xl-6 col-lg-7 col-sm-12">
+        <ul class="nav setting-tabs nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tab-1">Libraries</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-2">Web</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-3">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-4">Devices</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<div class="tab-content clearfix">
+    <div class="tab-pane active" id="tab-1">
+
+        <div class="row single-setting no-gutters clearfix" *ngFor="let videoLibrary of videoLibraries">
+            <div class="col-xl-4 col-lg-4 col-sm-12 margin-top-15">
+                <div class="setting-icon pull-left">
+                    <i class="fa fa-archive" aria-hidden="true"></i>
+                </div>
+                <div class="setting-text pull-left">
+                    <h5>{{videoLibrary.name}}</h5>
+                    <p><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit name</a></p>
+                </div>
+            </div>
+            <div class="col-xl-8 col-lg-8 col-sm-12 left-border directories">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+                        <h4><i class="fa fa-folder" aria-hidden="true"></i> Directories</h4>
+                        <div class="single-dir clearfix" *ngFor="let path of videoLibrary.paths; let i = index">
+                            {{path.path}}
+                            <a class="cross" (click)="onRemovePath(videoLibrary, path, i)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="add-dir clearfix">
+                            <a (click)="onAddFolder(videoLibrary)"><i class="fa fa-plus" aria-hidden="true"></i> Add new directory</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 text-right no-padding-right">
+                        <button class="library"><i class="fa fa-cog" aria-hidden="true"></i> Library Settings</button>
+                        <button class="remove" (click)="onRemoveLibrary(videoLibrary)"><i class="fa fa-trash" aria-hidden="true"></i> Remove Library</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix">
+            <div class="col-xl-6 col-lg-6 col-sm-12 library-background">
+                <h4><i class="fa fa-archive" aria-hidden="true"></i> Add New Library</h4>
+                <div class="enter-library-name clearfix">
+                    <form #f="ngForm" (ngSubmit)="onSaveLibrary(f)">
+                        <input type="text" name="" id="" name="name" placeholder="Enter library name here" [(ngModel)]="videoLibrary.name" />
+                        <button type="submit"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

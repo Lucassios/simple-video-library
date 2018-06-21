@@ -1,7 +1,7 @@
 <header class="header-area clearfix">
   <div class="header-left-area pull-left">
     <div class="profile-image pull-left">
-      <img src="images/profile-photo.png" alt="" />
+      <!-- <img src="images/profile-photo.png" alt="" /> -->
     </div>
     <div class="profile-text pull-left">
       <h4>Peter Johnes</h4>
@@ -18,8 +18,8 @@
       </div>
       <div class="header-menu-area pull-right">
         <ul>
-          <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-          <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
+          <li><a href="#" [routerLink]="['/']"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+          <li><a href="#" [routerLink]="['/settings']"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
           <li><a href="#"><i class="fa fa-film" aria-hidden="true"></i></a></li>
           <li><a href="#"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
         </ul>

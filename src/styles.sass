@@ -1,4 +1,7 @@
+$secondary-color: #f04f58
+
 a
+  cursor: pointer
   text-decoration: none !important
   &:active, &:focus, &:active
     text-decoration: none !important
@@ -16,6 +19,11 @@ img
 h1, h2, h3, h4, h5, h6
   font-weight: normal
   margin: 0 0 15px
+
+ul
+  margin: 0
+  padding: 0
+  list-style: none
 
 .column
   width: 960px
@@ -127,6 +135,20 @@ body
         color: #8f8f8f
         margin-right: 15px
         font-size: 18px
+        i
+          margin-right: 5px
+  .dropdown.display-inline button
+    background-color: transparent
+    color: #8f8f8f
+    font-size: 18px
+    padding: 0px
+    &:focus
+      box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
+      -webkit-box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
+      -moz-box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
+      -o-box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
+    i
+      margin-right: 5px
 
 .header-search-area
   input
@@ -288,6 +310,10 @@ body
   li a
     color: #2B3646
 
+.dropdown.display-inline
+  display: inline
+  margin-right: 10px
+
 .asRange
   width: 100%
   height: 3px
@@ -313,3 +339,189 @@ body
   right: 18px
   top: 20px
   font-size: 20px
+
+.libraries-links, .collections-links
+  margin-top: 50px
+
+.libraries-links h3, .collections-links h3
+  font-size: 17px
+  color: #b6b6b6
+  font-weight: 600
+  text-transform: uppercase
+  margin-bottom: 10px
+
+.libraries-links ul li a, .collections-links ul li a
+  font-size: 15px
+  color: #ffffff
+  display: inline-block
+  width: 100%
+  margin-bottom: 10px
+
+.libraries-links ul li a i, .collections-links ul li a i
+  color: #bdbdbd
+  margin-right: 10px
+
+.setting-area
+  background-color: #1D2734
+  color: #fff
+  padding-bottom: 90px
+  padding-top: 60px
+
+h2.sttting-heading
+  font-size: 27px
+  margin-bottom: 0px
+  font-weight: 600
+  font-family: 'Montserrat', sans-serif
+
+.setting-head
+  ul
+    text-align: right
+    li
+      display: inline
+      a
+        display: inline-block
+        font-size: 19px
+        color: #a1a1a1
+        padding: 10px 35px
+  
+.setting-text
+  h5
+    font-size: 20px
+    margin-bottom: 0px
+    font-weight: 600
+    margin-top: 20px
+  p
+    margin: 0px
+    font-size: 17px
+    a
+      color: #f04f58
+
+.setting-icon
+  width: 70px
+  height: 70px
+  background-color: #FFFFFF
+  color: #f04f58
+  font-size: 25px
+  text-align: center
+  border-radius: 50%
+  line-height: 3
+  margin-right: 20px
+
+.single-setting
+  margin: 20px
+  background-color: #2B3646
+  padding: 20px
+  h4
+    font-size: 18px
+    font-weight: 600
+    margin-bottom: 10px
+    i
+      color: #f04f58
+  .directories
+    padding-left: 20px !important
+
+.library-background
+  background-color: #2B3646
+  color: #fff
+  padding: 20px !important
+  h4
+    font-size: 18px
+    font-weight: 600
+    margin-bottom: 10px
+    i
+      color: #f04f58
+  input
+    width: 82%
+    background-color: transparent
+    border-top: 0px
+    color: #9b9b9b
+    border-left: 0px
+    border-right: 0px
+    border-bottom: 1px solid #9b9b9b
+    height: 40px
+    outline: 0px
+    float: left
+  button[type=submit]
+    background-color: #F04F58
+    border: 0px
+    height: 40px
+    float: right
+    width: 13%
+    color: #fff
+    border-radius: 5px
+    font-size: 18px
+    cursor: pointer
+    vertical-align: middle
+    padding: 9px 0
+
+ul.setting-tabs li a
+  border-bottom: 3px solid transparent !important
+  border-right: 0px !important
+  border-left: 0px !important
+  font-weight: 600
+  border-top: 0px !important
+  &.active, &:hover
+    background-color: transparent !important
+    border-right: 0px
+    border-left: 0px
+    border-top: 0px
+    color: #fff !important
+    border-bottom: 3px solid #fff !important
+
+button
+  &.library
+    background-color: #1D2734
+    border: 0px
+    font-size: 14px
+    color: #fff
+    font-weight: 600
+    padding: 12px 30px
+    margin-bottom: 15px
+    border-radius: 3px
+    cursor: pointer
+  &.remove
+    background-color: #F04F58
+    border: 0px
+    font-size: 14px
+    color: #fff
+    font-weight: 600
+    padding: 12px 30px
+    margin-bottom: 15px
+    border-radius: 3px
+    cursor: pointer
+    i
+      margin-right: 5px
+      font-size: 18px
+      vertical-align: middle
+  &.library i
+    margin-right: 5px
+    font-size: 18px
+    vertical-align: middle
+
+.left-border
+  border-left: 2px solid #1D2734
+  padding-left: 30px
+
+.single-dir
+  color: #ffffff
+  font-weight: 300
+  position: relative
+  margin-bottom: 5px
+  padding-left: 25px
+  a
+    color: $secondary-color !important
+
+.cross
+  position: absolute
+  right: -20px
+  top: 0px
+
+.add-dir a
+  color: $secondary-color !important
+  padding-left: 25px
+
+.margin-top-15
+  margin-top: 15px
+
+.no-margin
+  margin: 0

@@ -1,11 +1,7 @@
-import * as _ from "lodash";
 import test from 'ava';
-import { initDB } from '../electron';
-import VideoLibrary from "../electron/data/models/video-library-model";
+import { initDB } from '../electron/data';
 import VideoLibraryPath from "../electron/data/models/video-library-path-model";
-import Video from "../electron/data/models/video-model";
 import { videoLibraryService } from "../electron/services/video-library-service";
-import { videoService } from "../electron/services/video-service";
 
 async function findOrCreateLibraryTest() {
 

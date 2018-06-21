@@ -6,7 +6,10 @@ export interface VideoLibraryPathAttributes {
     path: string
 }
 
-export type VideoLibraryPathInstance = Instance<VideoLibraryPathAttributes> & VideoLibraryPathAttributes;
+export type VideoLibraryPathInstance = Instance<VideoLibraryPathAttributes> & VideoLibraryPathAttributes & {
+    id: number
+    videolibraryid: number
+};
 
 const VideoLibraryPath = sequelize.define<VideoLibraryPathInstance, VideoLibraryPathAttributes>('videolibrarypath', {
     path: {

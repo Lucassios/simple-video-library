@@ -1,7 +1,10 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import { initDB } from './electron';
+import { initDB } from './electron/data';
+import videoLibraryController from './electron/controllers/video-library-controller';
+
+videoLibraryController();
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -23,7 +26,10 @@ function createWindow() {
     x: 0,
     y: 0,
     width: size.width,
-    height: size.height
+    height: size.height,
+    webPreferences: {
+      webSecurity: false
+    }
   });
 
   if (serve) {

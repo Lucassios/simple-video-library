@@ -9,10 +9,12 @@ export interface VideoAttributes {
     fileName: string
     path: string
     completePath: string
-    duration: number
-    width: number
-    height: number
-    size: number
+    duration?: number
+    width?: number
+    height?: number
+    size?: number
+    cover?: string
+    libraryId?: number
 
 }
 
@@ -55,6 +57,9 @@ const Video = sequelize.define<VideoInstance, VideoAttributes>('video', {
     size: {
         type: DECIMAL,
         allowNull: false
+    },
+    cover: {
+        type: STRING
     }
 });
 

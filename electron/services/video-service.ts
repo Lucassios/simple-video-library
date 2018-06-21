@@ -1,4 +1,4 @@
-import { app } from 'electron';
+import { IMAGES_PATH } from '../config';
 import Video, { VideoInstance, VideoAttributes } from "../data/models/video-model";
 import * as fs from 'fs';
 import * as path from 'path';
@@ -6,12 +6,11 @@ import { CreateOptions } from "sequelize";
 import * as Bluebird from "bluebird";
 import * as Ffmpeg from "fluent-ffmpeg";
 import * as uuid from "uuid";
+import * as _ from 'lodash';
 import { VideoLibraryInstance } from '../data/models/video-library-model';
+import { videoLibraryPathService } from './video-library-path-service';
 
 const VIDEO_FILE_FILTER = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|mov|MOV)$/;
-const IMAGES_PATH = process.env.NODE_ENV == 'test'
-    ? 'C:/Users/Lucas_Marques/AppData/Roaming/angular-electron/images'
-    : path.join(app.getPath('userData'), 'images');
 const SCREENSHOT_SIZE = '240x135';
 
 export class VideoService {
@@ -20,17 +19,19 @@ export class VideoService {
         return Video.create(video, options);
     }
 
-    findByLibrary(library: VideoLibraryInstance): Promise<VideoAttributes>[] {
-        let videos = new Array<Promise<VideoAttributes>>();
-        for (let path of library.paths) {
+    async findByLibrary(library: VideoLibraryInstance): Promise<VideoAttributes[]> {
+        let videos = new Array<VideoAttributes>();
+        let paths = await videoLibraryPathService.findAll({where: {videolibraryid: library.id}});
+        for (let path of paths) {
             videos.push(...this.findByPath(path.path));
         }
+        _.each(videos, video => video.libraryId = library.id);
         return videos;
     }
 
-    findByPath(filesPath: string): Promise<VideoAttributes>[] {
+    findByPath(filesPath: string): VideoAttributes[] {
 
-        let videos = new Array<Promise<VideoAttributes>>();
+        let videos = new Array<VideoAttributes>();
         let files = fs.readdirSync(filesPath);
         for (let fileName of files) {
 
@@ -49,13 +50,7 @@ export class VideoService {
 
     }
 
-    getMetadata(file: string): Promise<Ffmpeg.FfprobeData> {
-        return new Promise<Ffmpeg.FfprobeData>((resolve, reject) => {
-            Ffmpeg.ffprobe(file, (err: any, metadata: Ffmpeg.FfprobeData) => err? reject(err) : resolve(metadata));
-        });
-    }
-
-    generateScreenshots(file: string): Promise<string> {
+    generateScreenshot(file: string): Promise<string> {
         var imageName = uuid.v1() + ".png";
         return new Promise<string>((resolve, reject) => {
             Ffmpeg(file).outputOptions('-qscale:v 2')
@@ -65,24 +60,36 @@ export class VideoService {
                     folder: IMAGES_PATH,
                     filename: imageName
                 })
-                .on('end', () => resolve(imageName))
+                .on('end', () => resolve(path.join(IMAGES_PATH, imageName)))
                 .on('error', (error) => reject(error));
         });
     }
 
-    private async buildVideo(completePath: string): Promise<VideoAttributes> {
+    getMetadata(video: VideoAttributes): Promise<VideoAttributes> {
+        return new Promise<VideoAttributes>((resolve, reject) => {
+            Ffmpeg.ffprobe(video.completePath, (err: any, metadata: Ffmpeg.FfprobeData) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve({
+                    ...video,
+                    duration: metadata['format']['size'],
+                    size: metadata['format']['size'],
+                    width: metadata['streams'][0]['width'],
+                    height: metadata['streams'][0]['height']
+                });
+            });
+        });
+    }
+
+    private buildVideo(completePath: string): VideoAttributes {
         var parsedPath = path.parse(completePath);
-        var metadata = await this.getMetadata(completePath);
         return {
             name: parsedPath.name,
             extension: parsedPath.ext,
             fileName: parsedPath.base,
             path: parsedPath.dir,
-            completePath,
-            duration: metadata['format']['size'],
-            size: metadata['format']['size'],
-            width: metadata['streams'][0]['width'],
-            height: metadata['streams'][0]['height']
+            completePath
         };
     }
 

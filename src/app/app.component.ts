@@ -8,6 +8,7 @@ import { AppConfig } from '../environments/environment';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
+  
   constructor(public electronService: ElectronService,
     private translate: TranslateService) {
 
@@ -22,4 +23,12 @@ export class AppComponent {
       console.log('Mode web');
     }
   }
+
+  ngAfterContentInit() {
+    console.log('ngAfterContentInit');
+    this.electronService.ipcRenderer.on('videos:refreshLibrary:next', (event, video) => {
+      console.log('end ' + video.name);
+    });
+  }
+
 }

@@ -14,7 +14,7 @@ export async function initDB() {
 }
 
 async function initLibraryTest() {
-
+    
   var videoLibraries = await videoLibraryService.findAll();
 
   if (videoLibraries.length == 0) {

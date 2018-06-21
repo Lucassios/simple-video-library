@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 exports.__esModule = true;
 var ava_1 = require("ava");
-var electron_1 = require("../electron");
+var data_1 = require("../electron/data");
 var video_library_path_model_1 = require("../electron/data/models/video-library-path-model");
 var video_library_service_1 = require("../electron/services/video-library-service");
 function findOrCreateLibraryTest() {
@@ -64,11 +64,11 @@ function findOrCreateLibraryTest() {
         });
     });
 }
-ava_1["default"]('createVideo', function (t) { return __awaiter(_this, void 0, void 0, function () {
+ava_1["default"]('refreshLibrary', function (t) { return __awaiter(_this, void 0, void 0, function () {
     var videoLibrary, videos;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, electron_1.initDB()];
+            case 0: return [4 /*yield*/, data_1.initDB()];
             case 1:
                 _a.sent();
                 return [4 /*yield*/, findOrCreateLibraryTest()];
@@ -78,15 +78,6 @@ ava_1["default"]('createVideo', function (t) { return __awaiter(_this, void 0, v
             case 3:
                 videos = _a.sent();
                 console.log(videos);
-                // // @ts-ignore
-                // var paths = await videoLibrary.getPaths();
-                // var videos = await Promise.all(videoService.findByPath(paths[0].path));
-                // await Promise.all(_.map(videos, async video => {
-                //     // @ts-ignore
-                //     video.libraryId = videoLibrary.id;
-                //     await videoService.generateScreenshots(video.completePath);
-                //     return videoService.create(video);
-                // }));
                 t.pass();
                 return [2 /*return*/];
         }

@@ -9,7 +9,17 @@ declare var jQuery: any;
 })
 export class VideoLibraryService {
 
-  constructor(public electronService: ElectronService) { }
+  constructor(public electronService: ElectronService) {
+    
+    this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
+      jQuery('#modal-loading').modal('hide');
+    });
+
+    this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:next', (event, video) => {
+      jQuery('#modal-loading').find('.loading-info').html('<img src="' + video.cover + '" alt=""><br/>' + video.name);
+    });
+
+  }
 
   create(videoLibrary: VideoLibrary): VideoLibrary {
     return this.electronService.ipcRenderer.sendSync('videoLibraries:insert', videoLibrary);

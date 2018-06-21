@@ -21,15 +21,6 @@ export class VideosComponent implements OnInit {
     public videoLibraryService: VideoLibraryService) { }
 
   ngOnInit() {
-
-    this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
-      jQuery('#modal-loading').modal('hide');
-    });
-
-    this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:next', (event, video) => {
-      jQuery('#modal-loading').find('.loading-info').html('<img src="' + video.cover + '" alt=""><br/>' + video.name);
-    });
-
   }
 
   ngAfterContentInit() {
@@ -37,6 +28,10 @@ export class VideosComponent implements OnInit {
     if (libraries && libraries.length > 0) {
       this.videos = this.videoService.findByLibraryId(libraries[0].id);
     }
+  }
+
+  onDblClickVideo(video) {
+    this.electronService.ipcRenderer.send('videos:open', video);
   }
 
 }

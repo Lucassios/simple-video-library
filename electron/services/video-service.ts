@@ -9,6 +9,7 @@ import * as uuid from "uuid";
 import * as _ from 'lodash';
 import { VideoLibraryInstance } from '../data/models/video-library-model';
 import { videoLibraryPathService } from './video-library-path-service';
+import { VideoLibrary } from '../../src/app/models/video-library';
 
 const VIDEO_FILE_FILTER = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|mov|MOV)$/;
 const SCREENSHOT_SIZE = '240x135';
@@ -23,17 +24,21 @@ export class VideoService {
         return Video.findAll(options);
     }
 
-    async findByLibrary(library: VideoLibraryInstance): Promise<VideoAttributes[]> {
+    findOne(options?: FindOptions<VideoInstance>): Bluebird<VideoInstance> {
+        return Video.findOne(options);
+    }
+
+    async findNewFilesByLibrary(library: VideoLibraryInstance): Promise<VideoAttributes[]> {
         let videos = new Array<VideoAttributes>();
         let paths = await videoLibraryPathService.findAll({where: {videolibraryid: library.id}});
         for (let path of paths) {
-            videos.push(...this.findByPath(path.path));
+            videos.push(...await this.findNewFilesByPath(path.path));
         }
         _.each(videos, video => video.libraryId = library.id);
         return videos;
     }
 
-    findByPath(filesPath: string): VideoAttributes[] {
+    async findNewFilesByPath(filesPath: string): Promise<VideoAttributes[]> {
 
         let videos = new Array<VideoAttributes>();
         let files = fs.readdirSync(filesPath);
@@ -42,10 +47,12 @@ export class VideoService {
             var completePath = path.join(filesPath, fileName);
             var stat = fs.lstatSync(completePath);
             if (stat.isDirectory()) {
-                videos.push(...this.findByPath(completePath));
+                videos.push(...await this.findNewFilesByPath(completePath));
             } else if (fileName.charAt(0) != '.' && VIDEO_FILE_FILTER.test(fileName)) {
-                // TODO: check if video already exists?
-                videos.push(this.buildVideo(completePath));
+                console.log(await this.findOne({ where: { completePath } }));
+                if (await this.findOne({ where: { completePath } }) == undefined) {
+                    videos.push(this.buildVideo(completePath));
+                }
             }
 
         }

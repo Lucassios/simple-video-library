@@ -2,8 +2,8 @@
     <div class="video-box col-md-3" *ngFor="let video of videos" (dblclick)="onDblClickVideo(video)">
         <div class="video-info" (click)="onSelectVideo($event, video, i)">
           <div class="video-cover" [ngStyle]="{'background': video.background }">
-            <div class="video-name">{{video.name}}</div>
           </div>
+          <div class="video-name">{{video.name}}</div>
         </div>
     </div>
 </div>

@@ -8,17 +8,24 @@ export default function() {
 
     ipcMain.on('videoLibraries:refreshLibrary', async (event, videoLibrary: VideoLibraryInstance) => {
 
-        let videos = await videoService.findByLibrary(videoLibrary);
+        try {
+
+            let videos = await videoService.findNewFilesByLibrary(videoLibrary);
         
-        for (let video of videos) {
-            try {
-                video = await videoService.getMetadata(video);
-                video.cover = await videoService.generateScreenshot(video.completePath);
-                await videoService.create(video);
-                event.sender.send('videoLibraries:refreshLibrary:next', video);
-            } catch (ex) {
-                console.log(ex);
+            for (let video of videos) {
+                try {
+                    video = await videoService.getMetadata(video);
+                    video.cover = await videoService.generateScreenshot(video.completePath);
+                    await videoService.create(video);
+                    event.sender.send('videoLibraries:refreshLibrary:next', video);
+                } catch (ex) {
+                    console.log(ex);
+                }
             }
+
+        } catch (ex) {
+            console.log(ex);
+            event.sender.send('videoLibraries:refreshLibrary:end');
         }
 
         event.sender.send('videoLibraries:refreshLibrary:end');

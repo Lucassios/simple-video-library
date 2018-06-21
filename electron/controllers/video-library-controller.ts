@@ -1,4 +1,4 @@
-import { app, ipcMain } from "electron";
+import { ipcMain } from "electron";
 import { videoLibraryService } from "../services/video-library-service";
 import { VideoLibraryInstance } from "../data/models/video-library-model";
 import { videoService } from "../services/video-service";

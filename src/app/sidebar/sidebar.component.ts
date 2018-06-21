@@ -13,14 +13,6 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
 
-    this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
-      jQuery('#modal-loading').modal('hide');
-    });
-
-    this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:next', (event, video) => {
-      jQuery('#modal-loading').find('.loading-info').html('<img src="' + video.cover + '" alt=""><br/>' + video.name);
-    });
-
   }
 
   onRefreshLibrary() {

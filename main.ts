@@ -3,8 +3,10 @@ import * as path from 'path';
 import * as url from 'url';
 import { initDB } from './electron/data';
 import videoLibraryController from './electron/controllers/video-library-controller';
+import videoController from './electron/controllers/video-controller';
 
 videoLibraryController();
+videoController();
 
 let win, serve;
 const args = process.argv.slice(1);

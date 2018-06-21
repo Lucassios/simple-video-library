@@ -2,7 +2,7 @@ import { IMAGES_PATH } from '../config';
 import Video, { VideoInstance, VideoAttributes } from "../data/models/video-model";
 import * as fs from 'fs';
 import * as path from 'path';
-import { CreateOptions } from "sequelize";
+import { CreateOptions, FindOptions } from "sequelize";
 import * as Bluebird from "bluebird";
 import * as Ffmpeg from "fluent-ffmpeg";
 import * as uuid from "uuid";
@@ -17,6 +17,10 @@ export class VideoService {
 
     create(video: VideoAttributes, options?: CreateOptions): Bluebird<VideoInstance> {
         return Video.create(video, options);
+    }
+
+    findAll(options?: FindOptions<VideoInstance>): Bluebird<VideoInstance[]> {
+        return Video.findAll(options);
     }
 
     async findByLibrary(library: VideoLibraryInstance): Promise<VideoAttributes[]> {

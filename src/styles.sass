@@ -1,4 +1,6 @@
 $secondary-color: #f04f58
+$radius: 10px
+$margin: 20px
 
 a
   cursor: pointer
@@ -60,7 +62,7 @@ body
   display: flex
 
 .header-left-area
-  background-color: #F04F58
+  background-color: $secondary-color
   color: #fff
   padding: 10px 30px
 
@@ -92,7 +94,7 @@ body
   border: 0px
   padding: 15px
   width: 100%
-  border-radius: 10px
+  border-radius: $radius
   color: #ffffff
   font-weight: 600
   cursor: pointer
@@ -182,15 +184,15 @@ body
   .video-info
     .video-cover
       background-size: cover
-      border: 4px solid transparent
-      height: 135px
+      border-radius: $radius
+      height: 160px
       position: relative
     .video-name
       padding: 5px
       width: 100%
 
   &.selected .video-cover
-    border-color: $secondary-color
+    border: 4px solid $secondary-color
 
 .single-video-area
   margin-top: 30px
@@ -212,9 +214,9 @@ body
   &.filter
     border: 0px
     padding: 12px 20px
-    color: #f04f58
+    color: $secondary-color
     background-color: #FFFFFF
-    border-radius: 5px
+    border-radius: $radius
     margin-right: 10px
     cursor: pointer
   &.download
@@ -222,14 +224,14 @@ body
     padding: 12px 20px
     color: #ffffff
     background-color: #2B3646
-    border-radius: 5px
+    border-radius: $radius
     margin-right: 10px
     cursor: pointer
 
 .left-mid-filder
   width: 10%
   float: left
-  color: #f04f58
+  color: $secondary-color
   font-family: 'Montserrat', sans-serif
   font-weight: 700
   padding-left: 10px
@@ -283,7 +285,7 @@ body
     max-width: 150px
 
 .dropdown-toggle::after
-  color: #f04f58
+  color: $secondary-color
 
 .dropdown-menu.show ul.dropdown-menu
   display: block
@@ -301,11 +303,11 @@ body
   .asRange-selected
     background-color: transparent
   .asRange-pointer
-    background-color: #F04F58
+    background-color: $secondary-color
     width: 5px
     height: 5px
     &::before
-      background: #F04F58
+      background: $secondary-color
 
 .rating
   margin-top: 20px
@@ -368,13 +370,13 @@ h2.sttting-heading
   p
     margin: 0px
     a
-      color: #f04f58
+      color: $secondary-color
 
 .setting-icon
   width: 70px
   height: 70px
   background-color: #FFFFFF
-  color: #f04f58
+  color: $secondary-color
   font-size: 25px
   text-align: center
   border-radius: 50%
@@ -389,7 +391,7 @@ h2.sttting-heading
     font-weight: 600
     margin-bottom: 10px
     i
-      color: #f04f58
+      color: $secondary-color
   .directories
     padding-left: 20px !important
 
@@ -401,7 +403,7 @@ h2.sttting-heading
     font-weight: 600
     margin-bottom: 10px
     i
-      color: #f04f58
+      color: $secondary-color
   input
     width: 82%
     background-color: transparent
@@ -414,13 +416,13 @@ h2.sttting-heading
     outline: 0px
     float: left
   button[type=submit]
-    background-color: #F04F58
+    background-color: $secondary-color
     border: 0px
     height: 40px
     float: right
     width: 13%
     color: #fff
-    border-radius: 5px
+    border-radius: $radius
     cursor: pointer
     vertical-align: middle
     padding: 9px 0
@@ -447,16 +449,16 @@ button
     font-weight: 600
     padding: 12px 30px
     margin-bottom: 15px
-    border-radius: 3px
+    border-radius: $radius
     cursor: pointer
   &.remove
-    background-color: #F04F58
+    background-color: $secondary-color
     border: 0px
     color: #fff
     font-weight: 600
     padding: 12px 30px
     margin-bottom: 15px
-    border-radius: 3px
+    border-radius: $radius
     cursor: pointer
     i
       margin-right: 5px

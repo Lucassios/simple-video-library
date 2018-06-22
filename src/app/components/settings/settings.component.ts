@@ -1,9 +1,9 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { VideoLibrary } from '../models/video-library';
-import { VideoLibraryService } from '../services/video-library.service';
-import { ElectronService } from '../providers/electron.service';
-import { VideoLibraryPathService } from '../services/video-library-path.service';
-import { VideoLibraryPath } from '../models/video-library-path';
+import { VideoLibrary } from '../../models/video-library';
+import { VideoLibraryService } from '../../services/video-library.service';
+import { ElectronService } from '../../providers/electron.service';
+import { VideoLibraryPathService } from '../../services/video-library-path.service';
+import { VideoLibraryPath } from '../../models/video-library-path';
 
 @Component({
   selector: 'app-settings',

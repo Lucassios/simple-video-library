@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ElectronService } from '../providers/electron.service';
-import { VideoLibraryService } from '../services/video-library.service';
+import { ElectronService } from '../../providers/electron.service';
+import { VideoLibraryService } from '../../services/video-library.service';
 
 @Component({
   selector: 'app-sidebar',

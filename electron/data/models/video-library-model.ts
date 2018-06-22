@@ -11,7 +11,7 @@ export type VideoLibraryInstance = Instance<VideoLibraryAttributes> & VideoLibra
     id?: number
 };
 
-const VideoLibrary = sequelize.define<VideoLibraryInstance, VideoLibraryAttributes>('videolibrary', {
+const VideoLibrary = sequelize.define<VideoLibraryInstance, VideoLibraryAttributes>('video_library', {
     name: {
         type: STRING,
         allowNull: false,

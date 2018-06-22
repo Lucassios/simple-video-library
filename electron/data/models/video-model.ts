@@ -15,6 +15,7 @@ export interface VideoAttributes {
     size?: number;
     cover?: string;
     libraryId?: number;
+    rating?: number;
 
 }
 
@@ -57,6 +58,10 @@ const Video = sequelize.define<VideoInstance, VideoAttributes>('video', {
     },
     cover: {
         type: STRING
+    },
+    rating: {
+        type: INTEGER,
+        defaultValue: 0
     }
 });
 

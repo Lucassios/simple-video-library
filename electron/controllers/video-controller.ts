@@ -9,6 +9,15 @@ export default function() {
         event.returnValue = await videoService.findAll(options);
     });
 
+    ipcMain.on('videos:update', async (event, video: VideoInstance) => {
+        try {
+            event.returnValue = await videoService.update(video);
+        } catch (ex) {
+            console.log(ex);
+            event.returnValue = null;
+        }
+    });
+
     ipcMain.on('videos:open', (event, video: VideoInstance) => {
         shell.openItem(video.completePath);
     });

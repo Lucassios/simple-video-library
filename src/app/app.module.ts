@@ -22,6 +22,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { VideosComponent } from './components/videos/videos.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { VideoEditionComponent } from './components/sidebar/video-edition/video-edition.component';
+import { SecondsToDateTimePipe } from './pipes/seconds-to-date-time.pipe';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -35,7 +37,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     HeaderComponent,
     SidebarComponent,
     VideosComponent,
-    SettingsComponent
+    SettingsComponent,
+    VideoEditionComponent,
+    SecondsToDateTimePipe
   ],
   imports: [
     BrowserModule,

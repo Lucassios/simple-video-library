@@ -1,0 +1,28 @@
+<div class="video-edition">
+    <form action="" class="form-horizontal">
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-3 col-form-label">Name:</label>
+            <div class="col-sm-9">
+                <input id="name" class="form-control" type="text" name="name" (blur)="onVideoEditionNameBlur($event)" value="{{video.name}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-3 col-form-label">Duration:</label>
+            <div class="col-sm-9">
+                <input id="name" class="form-control" type="text" name="duration" disabled value="{{ video.duration | secondsToDateTime | date:'HH:mm:ss' }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-3 col-form-label">Size:</label>
+            <div class="col-sm-9">
+                <input id="name" class="form-control" type="text" name="duration" disabled value="{{video.width}} x {{video.height}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-3 col-form-label">Bytes:</label>
+            <div class="col-sm-9">
+                <input id="name" class="form-control" type="text" name="duration" disabled value="{{video.size}}">
+            </div>
+        </div>
+    </form>
+</div>

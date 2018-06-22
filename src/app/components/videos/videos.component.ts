@@ -40,13 +40,19 @@ export class VideosComponent implements OnInit {
 	}
 
 	onSelectVideo(event, video: Video) {
-		this.clearSelectedVideos();
 		video.selected = !video.selected;
-		this.videosSelected.push(video);
+		this.clearSelectedVideos();
+		if (video.selected) {
+			this.videosSelected.push(video);
+			this.videoService.setVideoEdition(video);
+		} else {
+			this.videoService.setVideoEdition(null);
+		}
 	}
 
 	clearSelectedVideos() {
 		this.videosSelected.forEach(video => video.selected = false);
+		this.videosSelected = [];
 	}
 
 }

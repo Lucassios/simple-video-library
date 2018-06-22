@@ -19,6 +19,10 @@ export class VideoService {
         return Video.create(video, options);
     }
 
+    update(video: VideoInstance) {
+        return Video.build(video).update(video);
+    }
+
     findAll(options?: FindOptions<VideoInstance>): Bluebird<VideoInstance[]> {
         return Video.findAll(options);
     }

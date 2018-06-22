@@ -11,7 +11,7 @@ export type VideoLibraryPathInstance = Instance<VideoLibraryPathAttributes> & Vi
     videolibraryid: number
 };
 
-const VideoLibraryPath = sequelize.define<VideoLibraryPathInstance, VideoLibraryPathAttributes>('videolibrarypath', {
+const VideoLibraryPath = sequelize.define<VideoLibraryPathInstance, VideoLibraryPathAttributes>('video_library_path', {
     path: {
         type: STRING,
         allowNull: false,

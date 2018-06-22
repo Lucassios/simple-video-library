@@ -1,6 +1,11 @@
-$secondary-color: #f04f58
+$primary: #f04f58
+$secondary: #9b9b9b
+$enable-rounded: false
+$enable-shadows: false
 $radius: 10px
 $margin: 20px
+
+@import "node_modules/bootstrap/scss/bootstrap"
 
 a
   cursor: pointer
@@ -62,7 +67,7 @@ body
   display: flex
 
 .header-left-area
-  background-color: $secondary-color
+  background-color: $primary
   color: #fff
   padding: 10px 30px
 
@@ -192,7 +197,7 @@ body
       width: 100%
 
   &.selected .video-cover
-    border: 4px solid $secondary-color
+    border: 4px solid $primary
 
 .single-video-area
   margin-top: 30px
@@ -214,7 +219,7 @@ body
   &.filter
     border: 0px
     padding: 12px 20px
-    color: $secondary-color
+    color: $primary
     background-color: #FFFFFF
     border-radius: $radius
     margin-right: 10px
@@ -231,7 +236,7 @@ body
 .left-mid-filder
   width: 10%
   float: left
-  color: $secondary-color
+  color: $primary
   font-family: 'Montserrat', sans-serif
   font-weight: 700
   padding-left: 10px
@@ -285,7 +290,7 @@ body
     max-width: 150px
 
 .dropdown-toggle::after
-  color: $secondary-color
+  color: $primary
 
 .dropdown-menu.show ul.dropdown-menu
   display: block
@@ -303,11 +308,11 @@ body
   .asRange-selected
     background-color: transparent
   .asRange-pointer
-    background-color: $secondary-color
+    background-color: $primary
     width: 5px
     height: 5px
     &::before
-      background: $secondary-color
+      background: $primary
 
 .rating
   margin-top: 20px
@@ -370,13 +375,13 @@ h2.sttting-heading
   p
     margin: 0px
     a
-      color: $secondary-color
+      color: $primary
 
 .setting-icon
   width: 70px
   height: 70px
   background-color: #FFFFFF
-  color: $secondary-color
+  color: $primary
   font-size: 25px
   text-align: center
   border-radius: 50%
@@ -391,9 +396,16 @@ h2.sttting-heading
     font-weight: 600
     margin-bottom: 10px
     i
-      color: $secondary-color
+      color: $primary
   .directories
     padding-left: 20px !important
+
+input, input.form-control, input.form-control:focus, input.form-control:disabled
+  background-color: transparent
+  color: $secondary
+  border: none
+  border-bottom: 1px solid $secondary
+  font-size: inherit
 
 .library-background
   background-color: #2B3646
@@ -403,20 +415,20 @@ h2.sttting-heading
     font-weight: 600
     margin-bottom: 10px
     i
-      color: $secondary-color
+      color: $primary
   input
     width: 82%
     background-color: transparent
     border-top: 0px
-    color: #9b9b9b
+    color: $secondary
     border-left: 0px
     border-right: 0px
-    border-bottom: 1px solid #9b9b9b
+    border-bottom: 1px solid $secondary
     height: 40px
     outline: 0px
     float: left
   button[type=submit]
-    background-color: $secondary-color
+    background-color: $primary
     border: 0px
     height: 40px
     float: right
@@ -452,7 +464,7 @@ button
     border-radius: $radius
     cursor: pointer
   &.remove
-    background-color: $secondary-color
+    background-color: $primary
     border: 0px
     color: #fff
     font-weight: 600
@@ -478,7 +490,7 @@ button
   margin-bottom: 5px
   padding-left: 25px
   a
-    color: $secondary-color !important
+    color: $primary !important
 
 .cross
   position: absolute
@@ -486,7 +498,7 @@ button
   top: 0px
 
 .add-dir a
-  color: $secondary-color !important
+  color: $primary !important
   padding-left: 25px
 
 .margin-top-15
@@ -497,3 +509,11 @@ button
 
 .no-margin
   margin: 0
+
+.video-edition
+  label
+    color: $secondary
+  input
+    color: white
+  .form-group
+    margin-bottom: 0.5em

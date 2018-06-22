@@ -24,5 +24,8 @@
                 <input id="name" class="form-control" type="text" name="duration" disabled value="{{video.size}}">
             </div>
         </div>
+        <tag-input id="actors" [ngModel]="video.actors" theme='minimal' placeholder="+ Actor" secondaryPlaceholder="Actors"
+            [ngModelOptions]="{standalone: true}" displayBy="name" (onAdd)="addActor($event)" (onRemove)="removeActor($event)">
+        </tag-input>
     </form>
 </div>

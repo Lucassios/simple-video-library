@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import '../polyfills';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -25,6 +25,8 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { VideoEditionComponent } from './components/sidebar/video-edition/video-edition.component';
 import { SecondsToDateTimePipe } from './pipes/seconds-to-date-time.pipe';
 import { BarRatingModule } from "ngx-bar-rating";
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -43,8 +45,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     SecondsToDateTimePipe
   ],
   imports: [
+    TagInputModule,
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     BarRatingModule,

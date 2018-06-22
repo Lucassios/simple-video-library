@@ -1,3 +1,5 @@
+import { Actor } from "./actor";
+
 export class Video {
 
     id: number;
@@ -13,6 +15,7 @@ export class Video {
     cover: string;
     rating: number;
     libraryId: number;
+    actors: Actor[];
 
     background: string;
     selected: boolean;

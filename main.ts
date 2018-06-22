@@ -5,10 +5,12 @@ import { initDB } from './electron/data';
 import videoLibraryController from './electron/controllers/video-library-controller';
 import videoController from './electron/controllers/video-controller';
 import videoLibraryPathController from './electron/controllers/video-library-path-controller';
+import actorController from './electron/controllers/actor-controller';
 
 videoLibraryController();
 videoController();
 videoLibraryPathController();
+actorController();
 
 let win, serve;
 const args = process.argv.slice(1);

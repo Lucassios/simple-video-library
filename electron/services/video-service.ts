@@ -19,8 +19,9 @@ export class VideoService {
         return Video.create(video, options);
     }
 
-    update(video: VideoInstance) {
-        return Video.build(video).update(video);
+    async update(videoAttributes: VideoAttributes) {
+        let video = await Video.findOne({ where: { id: videoAttributes.id } });
+        return video.update(videoAttributes);
     }
 
     findAll(options?: FindOptions<VideoInstance>): Bluebird<VideoInstance[]> {

@@ -4,6 +4,7 @@ import VideoLibrary from "./video-library-model";
 
 export interface VideoAttributes {
 
+    id?: number;
     name: string;
     extension: string;
     fileName: string;

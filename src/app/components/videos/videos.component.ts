@@ -55,4 +55,8 @@ export class VideosComponent implements OnInit {
 		this.videosSelected = [];
 	}
 
+	onRateVideo(video: Video) {
+		this.videoService.update(video);
+	}
+
 }

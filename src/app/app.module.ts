@@ -24,6 +24,7 @@ import { VideosComponent } from './components/videos/videos.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { VideoEditionComponent } from './components/sidebar/video-edition/video-edition.component';
 import { SecondsToDateTimePipe } from './pipes/seconds-to-date-time.pipe';
+import { BarRatingModule } from "ngx-bar-rating";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -46,6 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    BarRatingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

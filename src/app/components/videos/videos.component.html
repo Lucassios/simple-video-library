@@ -1,4 +1,12 @@
-<div class="main-video-area clearfix">
+<div class="main-top-filder clearfix">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            <h3>{{videos.length}}</h3>
+        </div>
+    </div>
+</div>
+
+<div class="main-video-area margin-top clearfix">
     <div class="video-box col-md-3" *ngFor="let video of videos" [ngClass]="{'selected': video.selected}" (dblclick)="onDblClickVideo(video)">
         <div class="video-cover" [ngStyle]="{'background': video.background }" (click)="onSelectVideo($event, video, i)"></div>
         <div class="video-info">

@@ -34,7 +34,11 @@ export class VideoService {
     }
 
     setVideoEdition(video: Video) {
-        this.videoEditionSource.next(this.findByIdFetch(video.id));
+        let videoFetch = null;
+        if (video) {
+            videoFetch = this.findByIdFetch(video.id);
+        }
+        this.videoEditionSource.next(videoFetch);
     }
 
     update(video: Video): Video {

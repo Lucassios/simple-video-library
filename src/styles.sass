@@ -5,8 +5,8 @@ $enable-shadows: false
 $radius: 10px
 $margin: 20px
 
-@import "node_modules/bootstrap/scss/bootstrap"
-@import '~ngx-bar-rating/themes/br-fontawesome-theme';
+@import '~bootstrap/scss/bootstrap'
+@import '~ngx-bar-rating/themes/br-fontawesome-theme'
 
 .br-fontawesome .br-unit
   font-size: 12px
@@ -68,7 +68,12 @@ body
   padding: 20px
 
 .header-area
+  background: white
   display: flex
+  position: fixed
+  top: 0
+  width: 100%
+  z-index: 999
 
 .header-left-area
   background-color: $primary
@@ -78,7 +83,10 @@ body
 .left-main-area
   background-color: #19212D
   color: #fff
+  height: 100%
   padding: 20px
+  position: fixed
+  overflow-y: auto
 
 .libraries-links, .collections-links
   margin-top: 50px
@@ -124,10 +132,6 @@ body
 .libraries-links ul li a i, .collections-links ul li a i
   color: #bdbdbd
   margin-right: 10px
-
-.website-main-width, .header-main-width
-  max-width: 930px
-  margin: 0 auto
 
 .header-search-area
   width: 50%
@@ -178,6 +182,7 @@ body
 .right-main-area
   background-color: #1D2734
   color: #fff
+  left: 20%
 
 .main-video-area
   margin: -10px
@@ -326,13 +331,7 @@ body
 
 .main-area
   display: flex
-
-.header-left-area::before
-  content: "\f013"
-  font-family: "fontawesome"
-  position: absolute
-  right: 18px
-  top: 20px
+  margin-top: 60px
 
 .libraries-links, .collections-links
   margin-top: 50px
@@ -524,3 +523,11 @@ button
     color: white
   .form-group
     margin-bottom: 0.5em
+
+.video-edition
+  border-top: 2px solid #2B3646
+  margin-top: $margin
+  padding-top: $margin
+
+.ng2-tag-input__text-input
+  padding: 0 !important

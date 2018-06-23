@@ -1,6 +1,6 @@
-import { Instance, STRING, INTEGER, DECIMAL } from "sequelize";
-import sequelize from "../database-connection";
-import VideoLibrary from "./video-library-model";
+import { Instance, STRING, INTEGER, DECIMAL } from 'sequelize';
+import sequelize from '../database-connection';
+import VideoLibrary from './video-library-model';
 
 export interface VideoAttributes {
 

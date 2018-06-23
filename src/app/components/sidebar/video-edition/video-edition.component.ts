@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Video } from '../../../models/video';
 import { VideoService } from '../../../services/video.service';
 import { ActorService } from '../../../services/actor.service';
+import {Actor} from '../../../models/actor';
 
 @Component({
     selector: 'app-video-edition',
@@ -30,9 +31,9 @@ export class VideoEditionComponent implements OnInit {
         }
         this.video.actors.push(actor);
     }
-    
-    removeActor(event) {
 
+    removeActor(actor: Actor) {
+        this.actorService.remove(actor, this.video);
     }
 
 }

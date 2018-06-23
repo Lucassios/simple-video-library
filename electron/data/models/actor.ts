@@ -1,9 +1,10 @@
-import { Instance, STRING } from "sequelize";
-import sequelize from "../database-connection";
-import Video from "./video-model";
+import { Instance, STRING } from 'sequelize';
+import sequelize from '../database-connection';
+import Video from './video-model';
 
 export interface ActorAttributes {
-    name: string
+    id?: number;
+    name: string;
 }
 
 export type ActorInstance = Instance<ActorAttributes> & ActorAttributes;
@@ -16,7 +17,7 @@ const Actor = sequelize.define<ActorInstance, ActorAttributes>('actor', {
     }
 });
 
-export const VideoActors = sequelize.define('video_actors', {});
+export const VideoActors = sequelize.define('videoActors', {});
 
 Actor.belongsToMany(Video, { through: VideoActors });
 Video.belongsToMany(Actor, { through: VideoActors });

@@ -8,10 +8,10 @@ if (process.env.NODE_ENV == 'test') {
 }
 
 const sequelize = new SequelizeStatic('videoLibraryDB', null, null, {
-  dialect: 'sqlite',
-  operatorsAliases: false,
-  // storage: ':memory:'
-  storage
+    dialect: 'sqlite',
+    operatorsAliases: false,
+    // storage: ':memory:'
+    storage
 });
 
 export default sequelize;

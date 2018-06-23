@@ -1,14 +1,15 @@
 import { IMAGES_PATH } from '../config';
-import Video, { VideoInstance, VideoAttributes } from "../data/models/video-model";
+import Video, { VideoInstance, VideoAttributes } from '../data/models/video-model';
 import * as fs from 'fs';
 import * as path from 'path';
-import { CreateOptions, FindOptions } from "sequelize";
-import * as Bluebird from "bluebird";
-import * as Ffmpeg from "fluent-ffmpeg";
-import * as uuid from "uuid";
+import { CreateOptions, FindOptions } from 'sequelize';
+import * as Bluebird from 'bluebird';
+import * as Ffmpeg from 'fluent-ffmpeg';
+import * as uuid from 'uuid';
 import * as _ from 'lodash';
 import { VideoLibraryInstance } from '../data/models/video-library-model';
 import { videoLibraryPathService } from './video-library-path-service';
+import Actor from '../data/models/actor';
 
 const VIDEO_FILE_FILTER = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|mov|MOV)$/;
 const SCREENSHOT_SIZE = '280x180';
@@ -20,7 +21,7 @@ export class VideoService {
     }
 
     async update(videoAttributes: VideoAttributes) {
-        let video = await Video.findOne({ where: { id: videoAttributes.id } });
+        const video = await Video.findOne({ where: { id: videoAttributes.id } });
         return video.update(videoAttributes);
     }
 
@@ -32,17 +33,22 @@ export class VideoService {
         return Video.findOne(options);
     }
 
+    findByIdFetch(id: number): Bluebird<VideoInstance> {
+        const options = { include: [{ model: Actor }] };
+        return Video.findById(id, options);
+    }
+
     private findByLibrary(library: VideoLibraryInstance): Bluebird<VideoInstance[]> {
-      return this.findAll({ where: { libraryId: library.id } });
+        return this.findAll({ where: { libraryId: library.id } });
     }
 
     async findNewFilesByLibrary(library: VideoLibraryInstance): Promise<VideoAttributes[]> {
         const videos = new Array<VideoAttributes>();
-        const paths = await videoLibraryPathService.findAll({where: {videolibraryid: library.id}});
+        const paths = await videoLibraryPathService.findAll({ where: { videoLibraryId: library.id } });
         const existingVideos = await this.findByLibrary(library);
         const existingFiles = _.map(existingVideos, video => video.completePath);
-        for (const path of paths) {
-            videos.push(...await this.findNewFilesByPath(path.path, existingFiles));
+        for (const _path of paths) {
+            videos.push(...await this.findNewFilesByPath(_path.path, existingFiles));
         }
         _.each(videos, video => video.libraryId = library.id);
         return videos;

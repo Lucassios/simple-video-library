@@ -23,12 +23,18 @@ export class VideoService {
         return this.videos;
     }
 
+    findByIdFetch(id: number) {
+        return this.electronService.ipcRenderer.sendSync('videos:findByIdFetch', id);
+    }
+
     setBackgroundVideo(video: Video) {
-        video.background = video.cover !== undefined ? 'url("file://' + video.cover.split('\\').join('/') + '") center center / cover no-repeat' : 'black';
+        video.background = video.cover !== undefined
+          ? 'url("file://' + video.cover.split('\\').join('/') + '") center center / cover no-repeat'
+          : 'black';
     }
 
     setVideoEdition(video: Video) {
-        this.videoEditionSource.next(video);
+        this.videoEditionSource.next(this.findByIdFetch(video.id));
     }
 
     update(video: Video): Video {

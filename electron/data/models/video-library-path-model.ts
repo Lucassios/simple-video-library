@@ -1,6 +1,6 @@
-import { Instance, STRING } from "sequelize";
-import sequelize from "../database-connection";
-import VideoLibrary from "./video-library-model";
+import { Instance, STRING } from 'sequelize';
+import sequelize from '../database-connection';
+import VideoLibrary from './video-library-model';
 
 export interface VideoLibraryPathAttributes {
     path: string
@@ -8,10 +8,10 @@ export interface VideoLibraryPathAttributes {
 
 export type VideoLibraryPathInstance = Instance<VideoLibraryPathAttributes> & VideoLibraryPathAttributes & {
     id: number
-    videolibraryid: number
+    videoLibraryId: number
 };
 
-const VideoLibraryPath = sequelize.define<VideoLibraryPathInstance, VideoLibraryPathAttributes>('video_library_path', {
+const VideoLibraryPath = sequelize.define<VideoLibraryPathInstance, VideoLibraryPathAttributes>('videoLibraryPath', {
     path: {
         type: STRING,
         allowNull: false,

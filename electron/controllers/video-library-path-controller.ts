@@ -8,6 +8,7 @@ export default function() {
         try {
             event.returnValue = await videoLibraryPathService.create(videoLibraryPath);
         } catch (ex) {
+            console.log(ex);
             event.returnValue = null;
         }
     });

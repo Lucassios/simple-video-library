@@ -13,5 +13,9 @@ export class ActorService {
     createOrUpdate(actor: Actor, video: Video): Actor {
         return this.electronService.ipcRenderer.sendSync('actors:createOrUpdate', actor, video);
     }
-    
+
+    remove(actor: Actor, video: Video): number {
+        return this.electronService.ipcRenderer.sendSync('actors:remove', actor, video);
+    }
+
 }

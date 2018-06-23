@@ -11,11 +11,13 @@ import {Actor} from '../../../models/actor';
 export class VideoEditionComponent implements OnInit {
 
     @Input() video: Video;
+    actorsSuggestion: string[];
 
     constructor(public videoService: VideoService,
         public actorService: ActorService) { }
 
     ngOnInit() {
+        this.findActorsSuggestion();
     }
 
     onVideoEditionNameBlur(event) {
@@ -30,10 +32,16 @@ export class VideoEditionComponent implements OnInit {
             this.video.actors = [];
         }
         this.video.actors.push(actor);
+        this.findActorsSuggestion();
     }
 
     removeActor(actor: Actor) {
         this.actorService.remove(actor, this.video);
+        this.findActorsSuggestion();
+    }
+
+    private findActorsSuggestion() {
+        this.actorsSuggestion = this.actorService.findAll().map(actor => actor.name);
     }
 
 }

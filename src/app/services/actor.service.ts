@@ -18,4 +18,12 @@ export class ActorService {
         return this.electronService.ipcRenderer.sendSync('actors:remove', actor, video);
     }
 
+    findAll(options?): Actor[] {
+        if (options === undefined) {
+            return this.electronService.ipcRenderer.sendSync('actors:findAll');
+        } else {
+            return this.electronService.ipcRenderer.sendSync('actors:findAll', options);
+        }
+    }
+
 }

@@ -1,31 +1,32 @@
 <div class="video-edition">
     <form action="" class="form-horizontal">
         <div class="form-group row">
-            <label for="staticEmail" class="col-sm-3 col-form-label">Name:</label>
+            <label for="name" class="col-sm-3 col-form-label">Name:</label>
             <div class="col-sm-9">
                 <input id="name" class="form-control" type="text" name="name" (blur)="onVideoEditionNameBlur($event)" value="{{video.name}}">
             </div>
         </div>
         <div class="form-group row">
-            <label for="staticEmail" class="col-sm-3 col-form-label">Duration:</label>
+            <label for="duration" class="col-sm-3 col-form-label">Duration:</label>
             <div class="col-sm-9">
-                <input id="name" class="form-control" type="text" name="duration" disabled value="{{ video.duration | secondsToDateTime | date:'HH:mm:ss' }}">
+                <input id="duration" class="form-control" type="text" name="duration" disabled value="{{ video.duration | secondsToDateTime | date:'HH:mm:ss' }}">
             </div>
         </div>
         <div class="form-group row">
-            <label for="staticEmail" class="col-sm-3 col-form-label">Size:</label>
+            <label for="size" class="col-sm-3 col-form-label">Size:</label>
             <div class="col-sm-9">
-                <input id="name" class="form-control" type="text" name="duration" disabled value="{{video.width}} x {{video.height}}">
+                <input id="size" class="form-control" type="text" name="duration" disabled value="{{video.width}} x {{video.height}}">
             </div>
         </div>
         <div class="form-group row">
-            <label for="staticEmail" class="col-sm-3 col-form-label">Bytes:</label>
+            <label for="bytes" class="col-sm-3 col-form-label">Bytes:</label>
             <div class="col-sm-9">
-                <input id="name" class="form-control" type="text" name="duration" disabled value="{{video.size}}">
+                <input id="bytes" class="form-control" type="text" name="duration" disabled value="{{video.size}}">
             </div>
         </div>
         <tag-input id="actors" [ngModel]="video.actors" theme='minimal' placeholder="+ Actor" secondaryPlaceholder="Actors"
             [ngModelOptions]="{standalone: true}" displayBy="name" (onAdd)="addActor($event)" (onRemove)="removeActor($event)">
+            <tag-input-dropdown [autocompleteItems]="actorsSuggestion"></tag-input-dropdown>
         </tag-input>
     </form>
 </div>

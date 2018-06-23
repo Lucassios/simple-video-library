@@ -2,8 +2,13 @@ import { ipcMain } from 'electron';
 import { VideoInstance } from '../data/models/video-model';
 import {ActorAttributes, ActorInstance} from '../data/models/actor';
 import { actorService } from '../services/actor-service';
+import {FindOptions} from 'sequelize';
 
 export default function() {
+
+    ipcMain.on('actors:findAll', async (event, options: FindOptions<ActorInstance>) => {
+        event.returnValue = await actorService.findAll(options);
+    });
 
     ipcMain.on('actors:createOrUpdate', async (event, actor: ActorAttributes, video: VideoInstance) => {
         try {

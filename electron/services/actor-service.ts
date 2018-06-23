@@ -1,6 +1,8 @@
 import Actor, {ActorAttributes, ActorInstance, VideoActors} from '../data/models/actor';
 import {VideoAttributes, VideoInstance} from '../data/models/video-model';
 import Bluebird = require('bluebird');
+import {FindOptions} from 'sequelize';
+import Video from '../data/models/video-model';
 
 export class ActorService {
 
@@ -25,6 +27,10 @@ export class ActorService {
             return Actor.destroy({ where: { id: actor.id } });
         }
         return result;
+    }
+
+    findAll(options?: FindOptions<ActorInstance>): Bluebird<ActorInstance[]> {
+        return Actor.findAll(options);
     }
 
 }

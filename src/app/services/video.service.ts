@@ -28,6 +28,7 @@ export class VideoService {
     }
 
     setBackgroundVideo(video: Video) {
+        // video.cover = undefined;
         video.background = video.cover !== undefined
           ? 'url("file://' + video.cover.split('\\').join('/') + '") center center / cover no-repeat'
           : 'black';

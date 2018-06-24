@@ -26,7 +26,8 @@ import { VideoEditionComponent } from './components/sidebar/video-edition/video-
 import { SecondsToDateTimePipe } from './pipes/seconds-to-date-time.pipe';
 import { BarRatingModule } from "ngx-bar-rating";
 import { TagInputModule } from 'ngx-chips';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FilterComponent } from './components/videos/filter/filter.component'; // this is needed!
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -42,7 +43,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     VideosComponent,
     SettingsComponent,
     VideoEditionComponent,
-    SecondsToDateTimePipe
+    SecondsToDateTimePipe,
+    FilterComponent
   ],
   imports: [
     TagInputModule,

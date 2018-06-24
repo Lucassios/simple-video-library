@@ -2,7 +2,7 @@ import { IMAGES_PATH } from '../config';
 import Video, { VideoInstance, VideoAttributes } from '../data/models/video-model';
 import * as fs from 'fs';
 import * as path from 'path';
-import { CreateOptions, FindOptions } from 'sequelize';
+import { CreateOptions, FindOptions, literal } from 'sequelize';
 import * as Bluebird from 'bluebird';
 import * as Ffmpeg from 'fluent-ffmpeg';
 import * as uuid from 'uuid';
@@ -10,9 +10,13 @@ import * as _ from 'lodash';
 import { VideoLibraryInstance } from '../data/models/video-library-model';
 import { videoLibraryPathService } from './video-library-path-service';
 import Actor from '../data/models/actor';
+import * as log from 'electron-log';
 
 const VIDEO_FILE_FILTER = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|mov|MOV)$/;
 const SCREENSHOT_SIZE = '280x180';
+
+Ffmpeg().setFfmpegPath(require('ffmpeg-static').path);
+Ffmpeg().setFfprobePath(require('ffprobe-static').path);
 
 export class VideoService {
 
@@ -26,6 +30,13 @@ export class VideoService {
     }
 
     findAll(options?: FindOptions<VideoInstance>): Bluebird<VideoInstance[]> {
+        if (!options) {
+            options = { };
+        }
+        if (!options.order) {
+            options.order = literal('random()');
+        }
+        log.info(options);
         return Video.findAll(options);
     }
 

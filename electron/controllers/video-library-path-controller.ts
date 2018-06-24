@@ -1,6 +1,6 @@
-import { ipcMain } from "electron";
-import { VideoLibraryPathAttributes, VideoLibraryPathInstance } from "../data/models/video-library-path-model";
-import { videoLibraryPathService } from "../services/video-library-path-service";
+import { ipcMain } from 'electron';
+import { VideoLibraryPathAttributes, VideoLibraryPathInstance } from '../data/models/video-library-path-model';
+import { videoLibraryPathService } from '../services/video-library-path-service';
 
 export default function() {
 

@@ -1,12 +1,16 @@
-import { ipcMain } from "electron";
-import { videoLibraryService } from "../services/video-library-service";
-import { VideoLibraryInstance, VideoLibraryAttributes } from "../data/models/video-library-model";
-import { videoService } from "../services/video-service";
-import { FindOptions } from "sequelize";
+import { ipcMain } from 'electron';
+import { videoLibraryService } from '../services/video-library-service';
+import { VideoLibraryInstance, VideoLibraryAttributes } from '../data/models/video-library-model';
+import { videoService } from '../services/video-service';
+import { FindOptions } from 'sequelize';
+import * as log from 'electron-log';
 
 export default function() {
 
     ipcMain.on('videoLibraries:refreshLibrary', async (event, videoLibrary: VideoLibraryInstance) => {
+
+        log.error(require('ffmpeg-static').path);
+      log.error(require('ffprobe-static').path);
 
         try {
 
@@ -21,12 +25,12 @@ export default function() {
                     const percentage = (i + 1) * 100 / videos.length;
                     event.sender.send('videoLibraries:refreshLibrary:next', video, percentage);
                 } catch (ex) {
-                    console.log(ex);
+                    log.error(ex);
                 }
             }
 
         } catch (ex) {
-            console.log(ex);
+            log.error(ex);
             event.sender.send('videoLibraries:refreshLibrary:end');
         }
 

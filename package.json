@@ -36,12 +36,15 @@
     "e2e": "ng e2e"
   },
   "dependencies": {
+    "electron-log": "^2.2.15",
     "fluent-ffmpeg": "^2.1.2",
-    "lodash": "^4.17.10",
     "jquery": "^3.3.1",
+    "lodash": "^4.17.10",
     "sequelize": "^4.37.10",
     "sqlite3": "^4.0.0",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "ffmpeg-static": "https://github.com/pietrop/ffmpeg-static.git",
+    "ffprobe-static": "https://github.com/pietrop/ffprobe-static.git"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.6.3",
@@ -76,7 +79,7 @@
     "font-awesome": "^4.7.0",
     "jasmine-core": "3.1.0",
     "jasmine-spec-reporter": "4.2.1",
-    "karma": "2.0.2",
+    "karma": "^2.0.4",
     "karma-chrome-launcher": "2.2.0",
     "karma-coverage-istanbul-reporter": "2.0.0",
     "karma-jasmine": "1.1.2",

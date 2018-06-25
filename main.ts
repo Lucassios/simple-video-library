@@ -2,15 +2,10 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { initDB } from './electron/data';
-import videoLibraryController from './electron/controllers/video-library-controller';
-import videoController from './electron/controllers/video-controller';
-import videoLibraryPathController from './electron/controllers/video-library-path-controller';
-import actorController from './electron/controllers/actor-controller';
+import initControllers from './electron/controllers';
+import * as unhandled from 'electron-unhandled';
 
-videoLibraryController();
-videoController();
-videoLibraryPathController();
-actorController();
+unhandled();
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -20,6 +15,15 @@ try {
   require('dotenv').config();
 } catch {
   console.log('asar');
+}
+
+function beforeInitElectron(): Promise<void> {
+    return initDB();
+}
+
+function initElectron() {
+    createWindow();
+    initControllers();
 }
 
 function createWindow() {
@@ -37,6 +41,11 @@ function createWindow() {
       webSecurity: false
     }
   });
+
+  win.onerror = function(error, url, line) {
+    console.log(error);
+    //ipc.send('errorInWindow', error);
+  };
 
   if (serve) {
     require('electron-reload')(__dirname, {
@@ -67,7 +76,7 @@ try {
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   app.on('ready', function() {
-    initDB().then(() => createWindow());
+    beforeInitElectron().then(() => initElectron());
   });
 
   // Quit when all windows are closed.

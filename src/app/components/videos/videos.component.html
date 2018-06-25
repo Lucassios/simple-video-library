@@ -1,4 +1,8 @@
-<app-filter [videos]="videos"></app-filter>
+<app-filter></app-filter>
+
+<div class="videos-quantity">
+    Total videos: {{videos.length}}
+</div>
 
 <div class="main-video-area margin-top clearfix">
     <div class="video-box animated fadeInUp col-md-3" *ngFor="let video of videos" [ngClass]="{'selected': video.selected}" (dblclick)="onDblClickVideo(video)">

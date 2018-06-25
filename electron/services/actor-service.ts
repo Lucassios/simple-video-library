@@ -1,8 +1,7 @@
-import Actor, {ActorAttributes, ActorInstance, VideoActors} from '../data/models/actor';
-import {VideoAttributes, VideoInstance} from '../data/models/video-model';
+import Actor, { ActorAttributes, ActorInstance, VideoActors } from '../data/models/actor-model';
+import { VideoAttributes, VideoInstance } from '../data/models/video-model';
 import Bluebird = require('bluebird');
-import {FindOptions} from 'sequelize';
-import Video from '../data/models/video-model';
+import { FindOptions } from 'sequelize';
 
 export class ActorService {
 

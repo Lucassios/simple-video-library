@@ -9,8 +9,9 @@ import * as uuid from 'uuid';
 import * as _ from 'lodash';
 import { VideoLibraryInstance } from '../data/models/video-library-model';
 import { videoLibraryPathService } from './video-library-path-service';
-import Actor from '../data/models/actor';
+import Actor from '../data/models/actor-model';
 import * as log from 'electron-log';
+import Filter from '../data/models/filter-model';
 
 const VIDEO_FILE_FILTER = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|mov|MOV)$/;
 const SCREENSHOT_SIZE = '280x180';
@@ -38,6 +39,20 @@ export class VideoService {
         }
         log.info(options);
         return Video.findAll(options);
+    }
+
+    findByFilter(filter: Filter): Bluebird<VideoInstance[]> {
+
+        let options: FindOptions<VideoInstance> = {};
+
+        if (filter.order == 'random') {
+            options.order = literal('random()');
+        } else if (filter.order == 'most-recent') {
+            options.order = [[ 'createdAt', 'DESC' ]];
+        }
+
+        return Video.findAll(options);
+        
     }
 
     findOne(options?: FindOptions<VideoInstance>): Bluebird<VideoInstance> {

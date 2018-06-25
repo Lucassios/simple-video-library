@@ -3,27 +3,32 @@ import { Video } from '../models/video';
 import { ElectronService } from '../providers/electron.service';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
+import { Filter } from '../models/filter';
 
 @Injectable({
     providedIn: 'root'
 })
 export class VideoService {
 
-    videos: Video[] = [];
-
     private videoEditionSource = new Subject<Video>();
     videoEdition$ = this.videoEditionSource.asObservable();
 
     private videosSource = new Subject<Video[]>();
-    videosSource$ = this.videosSource.asObservable();
+    videos$ = this.videosSource.asObservable();
 
     constructor(public electronService: ElectronService) { }
 
     findByLibraryId(libraryId: number) {
-        this.videos = <Video[]> this.electronService.ipcRenderer.sendSync('videos:find', { libraryId });
-        _.each(this.videos, video => this.setBackgroundVideo(video));
-        // this.videos = this.shuffleArray(this.videos);
-        return this.videos;
+        let videos = <Video[]> this.electronService.ipcRenderer.sendSync('videos:find', { libraryId });
+        _.each(videos, video => this.setBackgroundVideo(video));
+        return videos;
+    }
+
+    findByFilter(filter: Filter) {
+        let videos = <Video[]> this.electronService.ipcRenderer.sendSync('videos:findByFilter', filter);
+        console.log(filter);
+        _.each(videos, video => this.setBackgroundVideo(video));
+        return videos;
     }
 
     findByIdFetch(id: number) {

@@ -21,7 +21,6 @@ export class VideoEditionComponent implements OnInit {
     }
 
     onVideoEditionNameBlur(event) {
-        console.log('updating video...');
         this.video.name = event.target.value;
         this.videoService.update(this.video);
     }

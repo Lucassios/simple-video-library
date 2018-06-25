@@ -18,30 +18,15 @@ export class VideosComponent implements OnInit {
     library: VideoLibrary;
 
     constructor(private videoService: VideoService,
-        private electronService: ElectronService,
-        private videoLibraryService: VideoLibraryService,
-        private ngZone: NgZone) {
-        this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
-            this.ngZone.run(() => {
-                this.findVideos();
-            });
-        });
+        private electronService: ElectronService) {
+        videoService.videos$.subscribe(videos => this.videos = videos);
     }
 
     ngOnInit() {
     }
 
     ngAfterContentInit() {
-        this.findVideos();
-    }
 
-    findVideos() {
-        console.log('finding videos...');
-        const libraries = this.videoLibraryService.findAll();
-        if (libraries && libraries.length > 0) {
-            this.videos = this.videoService.findByLibraryId(libraries[0].id);
-            console.log(this.videos);
-        }
     }
 
     onDblClickVideo(video) {

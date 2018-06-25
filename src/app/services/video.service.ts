@@ -14,6 +14,9 @@ export class VideoService {
     private videoEditionSource = new Subject<Video>();
     videoEdition$ = this.videoEditionSource.asObservable();
 
+    private videosSource = new Subject<Video[]>();
+    videosSource$ = this.videosSource.asObservable();
+
     constructor(public electronService: ElectronService) { }
 
     findByLibraryId(libraryId: number) {
@@ -40,6 +43,10 @@ export class VideoService {
             videoFetch = this.findByIdFetch(video.id);
         }
         this.videoEditionSource.next(videoFetch);
+    }
+
+    setVideos(videos: Video[]) {
+        this.videosSource.next(videos);
     }
 
     update(video: Video): Video {

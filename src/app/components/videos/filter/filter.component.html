@@ -1,17 +1,21 @@
 <div class="filter clearfix">
-    <div class="row">
+    <div class="row align-bottom">
         <div class="col-lg-6 col-sm-12">
             <h3>{{videos.length}}</h3>
         </div>
-        <div class="col-lg-6 col-sm-12">
-            <div class="dropdown animated fadeInRight">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown button
+        <div class="col-lg-6 col-sm-12 text-right">
+            <div class="btn-group">
+                <button class="btn btn-blue dropdown-toggle" type="button">
+                    <i class="fa fa-filter"></i>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+            <div class="btn-group ml-2">
+                <button class="btn btn-blue dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Arrange
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Most recent</a>
+                    <a class="dropdown-item" href="#">Random</a>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Video } from '../../models/video';
 import { VideoLibrary } from '../../models/video-library';
 import { VideoService } from '../../services/video.service';
@@ -17,9 +17,16 @@ export class VideosComponent implements OnInit {
     videosSelected: Video[] = [];
     library: VideoLibrary;
 
-    constructor(public videoService: VideoService,
-        public electronService: ElectronService,
-        public videoLibraryService: VideoLibraryService) { }
+    constructor(private videoService: VideoService,
+        private electronService: ElectronService,
+        private videoLibraryService: VideoLibraryService,
+        private ngZone: NgZone) {
+        this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
+            this.ngZone.run(() => {
+                this.findVideos();
+            });
+        });
+    }
 
     ngOnInit() {
     }
@@ -29,9 +36,11 @@ export class VideosComponent implements OnInit {
     }
 
     findVideos() {
+        console.log('finding videos...');
         const libraries = this.videoLibraryService.findAll();
         if (libraries && libraries.length > 0) {
             this.videos = this.videoService.findByLibraryId(libraries[0].id);
+            console.log(this.videos);
         }
     }
 

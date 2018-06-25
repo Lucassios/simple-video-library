@@ -5,6 +5,8 @@ import { Filter } from '../../../models/filter';
 import { VideoService } from '../../../services/video.service';
 import { OptionService } from '../../../services/option.service';
 
+declare var jQuery: any;
+
 @Component({
     selector: 'app-filter',
     templateUrl: './filter.component.html'
@@ -30,6 +32,22 @@ export class FilterComponent implements OnInit {
             this.filter = {};
         }
         this.findVideos();
+    }
+    
+    ngAfterContentInit() {
+
+        var filterInput = jQuery('.filter .input-range');
+        filterInput.asRange({
+            range: true,      
+            tip: {
+                active: 'onMove'
+            }
+        });
+
+        jQuery('.filter .rating .asRange-pointer').on('asRange::moveEnd', function(event, element, i) {
+            console.log(filterInput.val());
+        });
+        
     }
 
     findVideos() {

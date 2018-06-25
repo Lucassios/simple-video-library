@@ -2,7 +2,7 @@ import { IMAGES_PATH } from '../config';
 import Video, { VideoInstance, VideoAttributes } from '../data/models/video-model';
 import * as fs from 'fs';
 import * as path from 'path';
-import { CreateOptions, FindOptions, literal } from 'sequelize';
+import {and, col, CreateOptions, FindOptions, fn, literal, Op, or, where, WhereOptions} from 'sequelize';
 import * as Bluebird from 'bluebird';
 import * as Ffmpeg from 'fluent-ffmpeg';
 import * as uuid from 'uuid';
@@ -43,16 +43,34 @@ export class VideoService {
 
     findByFilter(filter: Filter): Bluebird<VideoInstance[]> {
 
-        let options: FindOptions<VideoInstance> = {};
+        const options: FindOptions<VideoInstance> = {};
+        // noinspection TsLint
+        const where: WhereOptions<VideoInstance> | where | fn | Array<col | and | or | string> = {};
 
-        if (filter.order == 'random') {
+        if (filter.order === 'random') {
             options.order = literal('random()');
-        } else if (filter.order == 'most-recent') {
+        } else if (filter.order === 'most-recent') {
             options.order = [[ 'createdAt', 'DESC' ]];
         }
 
+        if (filter.ratingRange) {
+            where.rating = { [Op.between]: filter.ratingRange };
+        }
+
+        if (filter.actors && filter.actors.length > 0) {
+            options.include = [{
+                model: Actor,
+                required: true,
+                where: {
+                    name: { [Op.in]: filter.actors }
+                }
+            }];
+        }
+
+        options.where = where;
+
         return Video.findAll(options);
-        
+
     }
 
     findOne(options?: FindOptions<VideoInstance>): Bluebird<VideoInstance> {

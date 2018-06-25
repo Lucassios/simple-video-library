@@ -19,13 +19,13 @@ export class VideoService {
     constructor(public electronService: ElectronService) { }
 
     findByLibraryId(libraryId: number) {
-        let videos = <Video[]> this.electronService.ipcRenderer.sendSync('videos:find', { libraryId });
+        const videos = <Video[]> this.electronService.ipcRenderer.sendSync('videos:find', { libraryId });
         _.each(videos, video => this.setBackgroundVideo(video));
         return videos;
     }
 
     findByFilter(filter: Filter) {
-        let videos = <Video[]> this.electronService.ipcRenderer.sendSync('videos:findByFilter', filter);
+        const videos = <Video[]> this.electronService.ipcRenderer.sendSync('videos:findByFilter', filter);
         console.log(filter);
         _.each(videos, video => this.setBackgroundVideo(video));
         return videos;

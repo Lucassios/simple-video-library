@@ -34,8 +34,10 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-input">
                         <label for="">ACTOR</label>
-                        <input type="text" name="" id="" placeholder="Filter by actor name" />
-                        <button><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <tag-input id="actors" [ngModel]="filter.actors" theme='minimal' placeholder="+ Actor" secondaryPlaceholder="Filter by actor"
+                                   displayBy="name" (onAdd)="addActor($event)" (onRemove)="removeActor($event)">
+                            <tag-input-dropdown [autocompleteItems]="actorsSuggestion"></tag-input-dropdown>
+                        </tag-input>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">

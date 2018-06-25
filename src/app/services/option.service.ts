@@ -7,11 +7,11 @@ import { ElectronService } from '../providers/electron.service';
 export class OptionService {
 
     constructor(private electronService: ElectronService) {
-        
+
     }
 
     findByName(name: string) {
-        let option = this.electronService.ipcRenderer.sendSync('options:findByName', name);
+        const option = this.electronService.ipcRenderer.sendSync('options:findByName', name);
         if (option) {
             return option.value;
         } else {

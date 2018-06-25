@@ -1,10 +1,8 @@
-import { Actor } from "./actor";
-
 export class Filter {
 
     name?: string[];
-    actors?: Actor[];
-    rating?: string;
+    actors?: string[];
+    ratingRange?: number[];
     order?: string;
 
 }

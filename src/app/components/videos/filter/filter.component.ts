@@ -29,7 +29,6 @@ export class FilterComponent implements OnInit {
         if (!this.filter) {
             this.filter = {};
         }
-        console.log(this.filter);
         this.findVideos();
     }
 

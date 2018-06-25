@@ -74,11 +74,11 @@ export class FilterComponent implements OnInit, AfterContentInit {
     findVideos() {
         const videos = this.videoService.findByFilter(this.filter);
         this.videoService.setVideos(videos);
+        this.saveFilter();
     }
 
     onArrange(order: string) {
         this.filter.order = order;
-        this.optionService.createOrUpdate('filter', this.filter);
         this.findVideos();
     }
 
@@ -91,6 +91,10 @@ export class FilterComponent implements OnInit, AfterContentInit {
         const index = this.filter.actors.indexOf(event.value);
         this.filter.actors.splice(index, 1);
         this.findVideos();
+    }
+
+    saveFilter() {
+        this.optionService.createOrUpdate('filter', this.filter);
     }
 
 }

@@ -54,7 +54,7 @@ export class FilterComponent implements OnInit, AfterContentInit {
 
     initRatingRange() {
 
-        const _this = this;
+        const __this = this;
 
         const filterInput = jQuery('.filter .input-range');
         filterInput.asRange({
@@ -65,8 +65,8 @@ export class FilterComponent implements OnInit, AfterContentInit {
         });
 
         jQuery('.filter .rating .asRange-pointer').on('asRange::moveEnd', function(event, element, i) {
-            _this.filter.ratingRange = filterInput.val().split(',');
-            _this.findVideos();
+            __this.filter.ratingRange = filterInput.val().split(',');
+            __this.findVideos();
         });
 
     }

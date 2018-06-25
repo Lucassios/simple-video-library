@@ -1,13 +1,17 @@
 {
-  "name": "angular-electron",
-  "version": "4.0.0",
-  "description": "Angular 6 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "name": "simple-video-library",
+  "version": "0.0.1",
+  "description": "Simple Video Library",
+  "homepage": "",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Lucas Marques",
+    "email": "cmarques.lucas@gmail.com"
   },
   "keywords": [
+    "videos library",
+    "video library",
+    "videos",
+    "video",
     "angular",
     "angular 6",
     "electron",

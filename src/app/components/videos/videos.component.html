@@ -5,7 +5,8 @@
 </div>
 
 <div class="main-video-area margin-top clearfix">
-    <div class="video-box animated fadeInUp col-md-3" *ngFor="let video of videos" [ngClass]="{'selected': video.selected}" (dblclick)="onDblClickVideo(video)">
+    <div class="video-box animated fadeInUp col-md-3" *ngFor="let video of videos" [ngClass]="{'selected': video.selected, 'new': video.new}"
+        (dblclick)="onDblClickVideo(video)">
         <div class="video-cover" [ngStyle]="{'background': video.background }" (click)="onSelectVideo($event, video, i)"></div>
         <div class="video-info">
             <div class="video-name">{{video.name}}</div>

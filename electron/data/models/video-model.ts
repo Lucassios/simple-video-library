@@ -1,4 +1,4 @@
-import { Instance, STRING, INTEGER, DECIMAL } from 'sequelize';
+import { Instance, STRING, INTEGER, DECIMAL, BOOLEAN } from 'sequelize';
 import sequelize from '../database-connection';
 import VideoLibrary from './video-library-model';
 
@@ -17,6 +17,7 @@ export interface VideoAttributes {
     cover?: string;
     libraryId?: number;
     rating?: number;
+    new?: boolean;
 
 }
 
@@ -63,6 +64,10 @@ const Video = sequelize.define<VideoInstance, VideoAttributes>('video', {
     rating: {
         type: INTEGER,
         defaultValue: 0
+    },
+    new: {
+        type: BOOLEAN,
+        defaultValue: true
     }
 });
 

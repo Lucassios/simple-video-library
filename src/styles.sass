@@ -197,6 +197,14 @@ body
   white-space: nowrap
   overflow: hidden
 
+  &.new
+    .video-name::before
+      content: '\f111'
+      color: $primary
+      font-family: 'FontAwesome'
+      font-size: 10px
+      padding-right: 5px
+
   .video-cover
     background-size: cover
     border-radius: $radius

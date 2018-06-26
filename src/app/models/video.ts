@@ -16,6 +16,7 @@ export class Video {
     rating: number;
     libraryId: number;
     actors: Actor[];
+    new: boolean;
 
     background: string;
     selected: boolean;

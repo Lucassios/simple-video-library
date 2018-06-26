@@ -30,7 +30,10 @@ export class VideosComponent implements OnInit {
     }
 
     onDblClickVideo(video) {
+        this.onSelectVideo(null, video);
         this.electronService.ipcRenderer.send('videos:open', video);
+        video.new = false;
+        this.videoService.update(video);
     }
 
     onSelectVideo(event, video: Video) {

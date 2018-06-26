@@ -254,7 +254,9 @@ body
   font-weight: 700
   border-right: 1px solid $secondary
   padding: $margin
-//  font-family: 'Montserrat', sans-serif
+  font-size: 18px
+  line-height: 37px
+  // font-family: 'Montserrat', sans-serif
 
 //  padding-left: 10px
 //  padding-right: 10px
@@ -272,7 +274,9 @@ body
   background-color: white
   color: $color-blue-light-2
   display: flex
-  margin: $margin 0
+  margin-top: $margin
+  label
+    font-weight: 700
 //  label
 //    color: $color-blue-light-2
 //    font-weight: 700
@@ -535,6 +539,9 @@ button
 .ng2-tag-input__text-input
   padding: 0 !important
 
+.ng2-tag-input[_ngcontent-c1]
+  padding: 0 !important
+
 .br-fontawesome .br-selected:after, .br-fontawesome .br-active:after
   color: $yellow
 
@@ -553,7 +560,14 @@ button
 .btn-blue
   background: $color-blue-light-1
   color: white
+  &[aria-expanded="true"]
+    background: white
+    color: $primary
 
 .filter
+  margin-bottom: $margin
   position: relative
   z-index: 9
+
+tag-input
+  border-bottom: 1px solid $secondary

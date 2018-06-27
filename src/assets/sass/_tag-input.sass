@@ -9,5 +9,13 @@ tag-input
       padding: 0.375rem 0.75rem !important
       height: auto !important
 
-    tag .tag__text
-      font-size: $font-size-base
+    tag
+      background: transparent !important
+      padding: 0 !important
+      margin-left: 0.75rem !important
+      letter-spacing: inherit !important
+      &:hover
+        box-shadow: none !important
+      .tag__text
+        font-size: $font-size-base
+        font-family: $font-family

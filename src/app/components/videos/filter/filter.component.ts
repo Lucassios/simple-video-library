@@ -5,6 +5,7 @@ import { VideoService } from '../../../services/video.service';
 import { OptionService } from '../../../services/option.service';
 import { ActorService } from '../../../services/actor.service';
 import { TagService } from '../../../services/tag.service';
+import { ProducerService } from '../../../services/producer.service';
 
 declare var jQuery: any;
 
@@ -17,15 +18,18 @@ export class FilterComponent implements OnInit, AfterContentInit {
     filter: Filter;
     actorsSuggestion: string[];
     tagsSuggestion: string[];
+    producersSuggestion: string[];
 
     constructor(private electronService: ElectronService,
         private videoService: VideoService,
         private optionService: OptionService,
         private actorService: ActorService,
         private tagService: TagService,
+        private producerService: ProducerService,
         private ngZone: NgZone) {
         actorService.actors$.subscribe(actors => this.actorsSuggestion = actors.map(actor => actor.name));
         tagService.tags$.subscribe(tags => this.tagsSuggestion = tags.map(tag => tag.name));
+        producerService.producers$.subscribe(producers => this.producersSuggestion = producers.map(producer => producer.name));
         electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
             this.ngZone.run(() => {
                 this.findVideos();
@@ -38,14 +42,7 @@ export class FilterComponent implements OnInit, AfterContentInit {
         this.findVideos();
         this.refreshActorsSuggestion();
         this.refreshTagsSuggestion();
-    }
-
-    private refreshActorsSuggestion() {
-        this.actorService.refreshActors();
-    }
-
-    private refreshTagsSuggestion() {
-        this.tagService.refreshTags();
+        this.refreshProducersSuggestion();
     }
 
     private initFilter() {
@@ -59,6 +56,21 @@ export class FilterComponent implements OnInit, AfterContentInit {
         if (!this.filter.tags) {
             this.filter.tags = [];
         }
+        if (!this.filter.producers) {
+            this.filter.producers = [];
+        }
+    }
+
+    private refreshActorsSuggestion() {
+        this.actorService.refreshActors();
+    }
+
+    private refreshTagsSuggestion() {
+        this.tagService.refreshTags();
+    }
+
+    private refreshProducersSuggestion() {
+        this.producerService.refreshProducers();
     }
 
     ngAfterContentInit() {
@@ -114,6 +126,17 @@ export class FilterComponent implements OnInit, AfterContentInit {
     removeTag(event) {
         const index = this.filter.tags.indexOf(event.value);
         this.filter.tags.splice(index, 1);
+        this.findVideos();
+    }
+
+    addProducer(event) {
+        this.filter.producers.push(event.value);
+        this.findVideos();
+    }
+
+    removeProducer(event) {
+        const index = this.filter.producers.indexOf(event.value);
+        this.filter.producers.splice(index, 1);
         this.findVideos();
     }
 

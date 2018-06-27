@@ -4,6 +4,7 @@ import videoLibraryPathController from "./video-library-path-controller";
 import actorController from "./actor-controller";
 import optionController from "./option-controller";
 import tagController from "./tag-controller";
+import producerController from "./producer-controller";
 
 export default function initControllers() {
 
@@ -13,5 +14,6 @@ export default function initControllers() {
     actorController();
     optionController();
     tagController();
+    producerController();
 
 }

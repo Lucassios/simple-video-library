@@ -26,8 +26,11 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-input">
-                        <label for="">NAME</label>
-                        <tag-input id="names" theme='minimal' placeholder="+ Name" secondaryPlaceholder="Filter by name"></tag-input>
+                        <label for="">PRODUCER</label>
+                        <tag-input id="producers" [ngModel]="filter.producers" theme='minimal' placeholder="+ Producer" secondaryPlaceholder="Filter by producer"
+                                   displayBy="name" (onAdd)="addProducer($event)" (onRemove)="removeProducer($event)">
+                            <tag-input-dropdown [autocompleteItems]="producersSuggestion"></tag-input-dropdown>
+                        </tag-input>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">

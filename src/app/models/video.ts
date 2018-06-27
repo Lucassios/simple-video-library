@@ -1,5 +1,6 @@
 import { Actor } from './actor';
 import { Tag } from './tag';
+import { Producer } from './producer';
 
 export class Video {
 
@@ -18,6 +19,7 @@ export class Video {
     libraryId: number;
     actors: Actor[];
     tags: Tag[];
+    producers: Producer[];
     new: boolean;
 
     background: string;

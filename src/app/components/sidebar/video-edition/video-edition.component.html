@@ -7,24 +7,6 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="duration" class="col-sm-3 col-form-label">Duration:</label>
-            <div class="col-sm-9">
-                <input id="duration" class="form-control" type="text" name="duration" disabled value="{{ video.duration | secondsToDateTime | date:'HH:mm:ss' }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="size" class="col-sm-3 col-form-label">Size:</label>
-            <div class="col-sm-9">
-                <input id="size" class="form-control" type="text" name="duration" disabled value="{{video.width}} x {{video.height}}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="bytes" class="col-sm-3 col-form-label">Bytes:</label>
-            <div class="col-sm-9">
-                <input id="bytes" class="form-control" type="text" name="duration" disabled value="{{video.size}}">
-            </div>
-        </div>
-        <div class="form-group row">
             <label for="bytes" class="col-sm-3 col-form-label">Actors:</label>
             <div class="col-sm-9">
                 <tag-input id="actors" [ngModel]="video.actors" theme='minimal' placeholder="+ Actor" secondaryPlaceholder=""
@@ -40,6 +22,33 @@
                     [ngModelOptions]="{standalone: true}" displayBy="name" (onAdd)="addTag($event)" (onRemove)="removeTag($event)">
                     <tag-input-dropdown [autocompleteItems]="tagsSuggestion"></tag-input-dropdown>
                 </tag-input>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="bytes" class="col-sm-3 col-form-label">Producers:</label>
+            <div class="col-sm-9">
+                <tag-input id="producers" [ngModel]="video.producers" theme='minimal' placeholder="+ Producer" secondaryPlaceholder=""
+                    [ngModelOptions]="{standalone: true}" displayBy="name" (onAdd)="addProducer($event)" (onRemove)="removeProducer($event)">
+                    <tag-input-dropdown [autocompleteItems]="producersSuggestion"></tag-input-dropdown>
+                </tag-input>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="duration" class="col-sm-3 col-form-label">Duration:</label>
+            <div class="col-sm-9">
+                <input id="duration" class="form-control" type="text" name="duration" disabled value="{{ video.duration | secondsToDateTime | date:'HH:mm:ss' }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="size" class="col-sm-3 col-form-label">Size:</label>
+            <div class="col-sm-9">
+                <input id="size" class="form-control" type="text" name="duration" disabled value="{{video.width}} x {{video.height}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="bytes" class="col-sm-3 col-form-label">Bytes:</label>
+            <div class="col-sm-9">
+                <input id="bytes" class="form-control" type="text" name="duration" disabled value="{{video.size}}">
             </div>
         </div>
     </form>

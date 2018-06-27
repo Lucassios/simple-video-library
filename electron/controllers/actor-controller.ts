@@ -1,8 +1,8 @@
 import { ipcMain } from 'electron';
 import { VideoInstance } from '../data/models/video-model';
-import {ActorAttributes, ActorInstance} from '../data/models/actor-model';
+import { ActorAttributes, ActorInstance } from '../data/models/actor-model';
 import { actorService } from '../services/actor-service';
-import {FindOptions} from 'sequelize';
+import { FindOptions } from 'sequelize';
 
 export default function() {
 

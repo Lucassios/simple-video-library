@@ -5,6 +5,8 @@ import { ActorService } from '../../../services/actor.service';
 import { Actor } from '../../../models/actor';
 import { TagService } from '../../../services/tag.service';
 import { Tag } from '../../../models/tag';
+import { ProducerService } from '../../../services/producer.service';
+import { Producer } from '../../../models/producer';
 
 @Component({
     selector: 'app-video-edition',
@@ -15,17 +17,21 @@ export class VideoEditionComponent implements OnInit {
     @Input() video: Video;
     actorsSuggestion: string[];
     tagsSuggestion: string[];
+    producersSuggestion: string[];
 
     constructor(private videoService: VideoService,
         private actorService: ActorService,
-        private tagService: TagService) {
+        private tagService: TagService,
+        private producerService: ProducerService) {
         actorService.actors$.subscribe(actors => this.actorsSuggestion = actors.map(actor => actor.name));
         tagService.tags$.subscribe(tags => this.tagsSuggestion = tags.map(tag => tag.name));
+        producerService.producers$.subscribe(producers => this.producersSuggestion = producers.map(producer => producer.name));
     }
 
     ngOnInit() {
         this.refreshActorsSuggestion();
         this.refreshTagsSuggestion();
+        this.refreshProducersSuggestion();
     }
 
     onVideoEditionNameBlur(event) {
@@ -61,12 +67,30 @@ export class VideoEditionComponent implements OnInit {
         this.refreshTagsSuggestion();
     }
 
+    addProducer(event) {
+        const producer = this.producerService.createOrUpdate({ name: <string> event.value }, this.video);
+        if (!this.video.producers) {
+            this.video.producers = [];
+        }
+        this.video.producers.push(producer);
+        this.refreshProducersSuggestion();
+    }
+
+    removeProducer(producer: Producer) {
+        this.producerService.remove(producer, this.video);
+        this.refreshProducersSuggestion();
+    }
+
     private refreshActorsSuggestion() {
         this.actorService.refreshActors();
     }
 
     private refreshTagsSuggestion() {
         this.tagService.refreshTags();
+    }
+
+    private refreshProducersSuggestion() {
+        this.producerService.refreshProducers();
     }
 
 }

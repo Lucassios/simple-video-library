@@ -1,4 +1,5 @@
 import { Actor } from './actor';
+import { Tag } from './tag';
 
 export class Video {
 
@@ -16,6 +17,7 @@ export class Video {
     rating: number;
     libraryId: number;
     actors: Actor[];
+    tags: Tag[];
     new: boolean;
 
     background: string;

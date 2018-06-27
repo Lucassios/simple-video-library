@@ -12,6 +12,8 @@ import { videoLibraryPathService } from './video-library-path-service';
 import Actor from '../data/models/actor-model';
 import * as log from 'electron-log';
 import Filter from '../data/models/filter-model';
+import Tag from '../data/models/tag-model';
+import Producer from '../data/models/producer-model';
 
 const VIDEO_FILE_FILTER = /^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4|mkv|MKV|mov|MOV)$/;
 const SCREENSHOT_SIZE = '280x180';
@@ -79,7 +81,7 @@ export class VideoService {
     }
 
     findByIdFetch(id: number): Bluebird<VideoInstance> {
-        const options = { include: [{ model: Actor }] };
+        const options = { include: [ Actor, Tag, Producer ] };
         return Video.findById(id, options);
     }
 

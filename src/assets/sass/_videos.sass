@@ -1,0 +1,43 @@
+.video-box
+  cursor: default
+  float: left
+  text-overflow: ellipsis
+  padding: 10px 10px 10px 10px !important
+  white-space: nowrap
+  overflow: hidden
+
+  &.new
+    .video-name::before
+      content: '\f111'
+      color: $primary
+      font-family: 'FontAwesome'
+      font-size: 10px
+      padding-right: 5px
+
+  .video-cover
+    background-size: cover
+    border-radius: $radius
+    height: 160px
+    position: relative
+
+  .video-info
+    padding: 5px
+    .video-name
+      margin: 5px 0
+    .br
+      margin: 0 !important
+
+  &.selected .video-cover
+    border: 4px solid $primary
+
+.video-edition
+  border-top: 2px solid $color-blue-light-1
+  margin-top: $margin
+  padding-top: $margin
+  padding-bottom: 40px
+  label
+    color: $secondary
+  input
+    color: white
+  .form-group
+    margin-bottom: 0.5em

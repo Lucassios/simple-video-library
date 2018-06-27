@@ -24,9 +24,23 @@
                 <input id="bytes" class="form-control" type="text" name="duration" disabled value="{{video.size}}">
             </div>
         </div>
-        <tag-input id="actors" [ngModel]="video.actors" theme='minimal' placeholder="+ Actor" secondaryPlaceholder="Actors"
-            [ngModelOptions]="{standalone: true}" displayBy="name" (onAdd)="addActor($event)" (onRemove)="removeActor($event)">
-            <tag-input-dropdown [autocompleteItems]="actorsSuggestion"></tag-input-dropdown>
-        </tag-input>
+        <div class="form-group row">
+            <label for="bytes" class="col-sm-3 col-form-label">Actors:</label>
+            <div class="col-sm-9">
+                <tag-input id="actors" [ngModel]="video.actors" theme='minimal' placeholder="+ Actor" secondaryPlaceholder=""
+                    [ngModelOptions]="{standalone: true}" displayBy="name" (onAdd)="addActor($event)" (onRemove)="removeActor($event)">
+                    <tag-input-dropdown [autocompleteItems]="actorsSuggestion"></tag-input-dropdown>
+                </tag-input>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="bytes" class="col-sm-3 col-form-label">Tags:</label>
+            <div class="col-sm-9">
+                <tag-input id="tags" [ngModel]="video.tags" theme='minimal' placeholder="+ Tag" secondaryPlaceholder=""
+                    [ngModelOptions]="{standalone: true}" displayBy="name" (onAdd)="addTag($event)" (onRemove)="removeTag($event)">
+                    <tag-input-dropdown [autocompleteItems]="tagsSuggestion"></tag-input-dropdown>
+                </tag-input>
+            </div>
+        </div>
     </form>
 </div>

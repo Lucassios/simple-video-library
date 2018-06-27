@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { ElectronService } from '../providers/electron.service';
 import { Video } from '../models/video';
 import { Tag } from '../models/tag';
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TagService {
+
+    private tagsSource = new Subject<Tag[]>();
+    tags$ = this.tagsSource.asObservable();
 
     constructor(public electronService: ElectronService) { }
 
@@ -24,6 +28,10 @@ export class TagService {
         } else {
             return this.electronService.ipcRenderer.sendSync('tags:findAll', options);
         }
+    }
+
+    refreshTags() {
+        this.tagsSource.next(this.findAll());
     }
 
 }

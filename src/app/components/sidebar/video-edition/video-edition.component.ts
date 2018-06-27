@@ -18,11 +18,14 @@ export class VideoEditionComponent implements OnInit {
 
     constructor(private videoService: VideoService,
         private actorService: ActorService,
-        private tagService: TagService) { }
+        private tagService: TagService) {
+        actorService.actors$.subscribe(actors => this.actorsSuggestion = actors.map(actor => actor.name));
+        tagService.tags$.subscribe(tags => this.tagsSuggestion = tags.map(tag => tag.name));
+    }
 
     ngOnInit() {
-        this.findActorsSuggestion();
-        this.findTagsSuggestion();
+        this.refreshActorsSuggestion();
+        this.refreshTagsSuggestion();
     }
 
     onVideoEditionNameBlur(event) {
@@ -36,12 +39,12 @@ export class VideoEditionComponent implements OnInit {
             this.video.actors = [];
         }
         this.video.actors.push(actor);
-        this.findActorsSuggestion();
+        this.refreshActorsSuggestion();
     }
 
     removeActor(actor: Actor) {
         this.actorService.remove(actor, this.video);
-        this.findActorsSuggestion();
+        this.refreshActorsSuggestion();
     }
 
     addTag(event) {
@@ -50,20 +53,20 @@ export class VideoEditionComponent implements OnInit {
             this.video.tags = [];
         }
         this.video.tags.push(tag);
-        this.findActorsSuggestion();
+        this.refreshTagsSuggestion();
     }
 
     removeTag(tag: Tag) {
         this.tagService.remove(tag, this.video);
-        this.findTagsSuggestion();
+        this.refreshTagsSuggestion();
     }
 
-    private findActorsSuggestion() {
-        this.actorsSuggestion = this.actorService.findAll().map(actor => actor.name);
+    private refreshActorsSuggestion() {
+        this.actorService.refreshActors();
     }
 
-    private findTagsSuggestion() {
-        this.tagsSuggestion = this.tagService.findAll().map(tag => tag.name);
+    private refreshTagsSuggestion() {
+        this.tagService.refreshTags();
     }
 
 }

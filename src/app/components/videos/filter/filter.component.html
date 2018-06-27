@@ -42,7 +42,10 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-input">
                         <label for="">TAG</label>
-                        <tag-input id="tags" theme='minimal' placeholder="+ Tag" secondaryPlaceholder="Filter by tag"></tag-input>
+                        <tag-input id="tags" [ngModel]="filter.tags" theme='minimal' placeholder="+ Tag" secondaryPlaceholder="Filter by tag"
+                                   displayBy="name" (onAdd)="addTag($event)" (onRemove)="removeTag($event)">
+                            <tag-input-dropdown [autocompleteItems]="tagsSuggestion"></tag-input-dropdown>
+                        </tag-input>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">

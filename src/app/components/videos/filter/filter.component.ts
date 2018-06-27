@@ -4,6 +4,7 @@ import { Filter } from '../../../models/filter';
 import { VideoService } from '../../../services/video.service';
 import { OptionService } from '../../../services/option.service';
 import { ActorService } from '../../../services/actor.service';
+import { TagService } from '../../../services/tag.service';
 
 declare var jQuery: any;
 
@@ -15,13 +16,17 @@ export class FilterComponent implements OnInit, AfterContentInit {
 
     filter: Filter;
     actorsSuggestion: string[];
+    tagsSuggestion: string[];
 
     constructor(private electronService: ElectronService,
         private videoService: VideoService,
         private optionService: OptionService,
         private actorService: ActorService,
+        private tagService: TagService,
         private ngZone: NgZone) {
-        this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
+        actorService.actors$.subscribe(actors => this.actorsSuggestion = actors.map(actor => actor.name));
+        tagService.tags$.subscribe(tags => this.tagsSuggestion = tags.map(tag => tag.name));
+        electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
             this.ngZone.run(() => {
                 this.findVideos();
             });
@@ -31,11 +36,16 @@ export class FilterComponent implements OnInit, AfterContentInit {
     ngOnInit() {
         this.initFilter();
         this.findVideos();
-        this.findActorsSuggestion();
+        this.refreshActorsSuggestion();
+        this.refreshTagsSuggestion();
     }
 
-    private findActorsSuggestion() {
-        this.actorsSuggestion = this.actorService.findAll().map(actor => actor.name);
+    private refreshActorsSuggestion() {
+        this.actorService.refreshActors();
+    }
+
+    private refreshTagsSuggestion() {
+        this.tagService.refreshTags();
     }
 
     private initFilter() {
@@ -45,6 +55,9 @@ export class FilterComponent implements OnInit, AfterContentInit {
         }
         if (!this.filter.actors) {
             this.filter.actors = [];
+        }
+        if (!this.filter.tags) {
+            this.filter.tags = [];
         }
     }
 
@@ -90,6 +103,17 @@ export class FilterComponent implements OnInit, AfterContentInit {
     removeActor(event) {
         const index = this.filter.actors.indexOf(event.value);
         this.filter.actors.splice(index, 1);
+        this.findVideos();
+    }
+
+    addTag(event) {
+        this.filter.tags.push(event.value);
+        this.findVideos();
+    }
+
+    removeTag(event) {
+        const index = this.filter.tags.indexOf(event.value);
+        this.filter.tags.splice(index, 1);
         this.findVideos();
     }
 

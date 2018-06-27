@@ -2,7 +2,7 @@ import { IMAGES_PATH } from '../config';
 import Video, { VideoInstance, VideoAttributes } from '../data/models/video-model';
 import * as fs from 'fs';
 import * as path from 'path';
-import {and, col, CreateOptions, FindOptions, fn, literal, Op, or, where, WhereOptions} from 'sequelize';
+import {and, col, CreateOptions, FindOptions, fn, literal, Op, or, where, WhereOptions, IncludeOptions, Model} from 'sequelize';
 import * as Bluebird from 'bluebird';
 import * as Ffmpeg from 'fluent-ffmpeg';
 import * as uuid from 'uuid';
@@ -48,6 +48,7 @@ export class VideoService {
         const options: FindOptions<VideoInstance> = {};
         // noinspection TsLint
         const where: WhereOptions<VideoInstance> | where | fn | Array<col | and | or | string> = {};
+        const include: Array<Model<any, any> | IncludeOptions> = [];
 
         if (filter.order === 'random') {
             options.order = literal('random()');
@@ -60,16 +61,27 @@ export class VideoService {
         }
 
         if (filter.actors && filter.actors.length > 0) {
-            options.include = [{
+            include.push({
                 model: Actor,
                 required: true,
                 where: {
                     name: { [Op.in]: filter.actors }
                 }
-            }];
+            });
+        }
+
+        if (filter.tags && filter.tags.length > 0) {
+            include.push({
+                model: Tag,
+                required: true,
+                where: {
+                    name: { [Op.in]: filter.tags }
+                }
+            });
         }
 
         options.where = where;
+        options.include = include;
         // options.limit = 52;
 
         return Video.findAll(options);

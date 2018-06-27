@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { ElectronService } from '../providers/electron.service';
 import { Video } from '../models/video';
 import { Actor } from '../models/actor';
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ActorService {
+
+    private actorsSource = new Subject<Actor[]>();
+    actors$ = this.actorsSource.asObservable();
 
     constructor(public electronService: ElectronService) { }
 
@@ -24,6 +28,10 @@ export class ActorService {
         } else {
             return this.electronService.ipcRenderer.sendSync('actors:findAll', options);
         }
+    }
+
+    refreshActors() {
+        this.actorsSource.next(this.findAll());
     }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener } from '@angular/core';
 import { Video } from '../../models/video';
 import { VideoLibrary } from '../../models/video-library';
 import { VideoService } from '../../services/video.service';
@@ -54,6 +54,15 @@ export class VideosComponent implements OnInit {
 
     onRateVideo(video: Video) {
         this.videoService.update(video);
+    }
+
+    @HostListener('document:keyup', ['$event'])
+    handleDeleteKeyboardEvent(event: KeyboardEvent) {
+        console.log(event.key);
+        if(event.key === 'Delete')
+        {
+            console.log('delete pressed...');
+        }
     }
 
 }

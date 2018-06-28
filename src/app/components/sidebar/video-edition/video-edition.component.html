@@ -16,15 +16,6 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="bytes" class="col-sm-3 col-form-label">Tags:</label>
-            <div class="col-sm-9">
-                <tag-input id="tags" [ngModel]="video.tags" theme='minimal' placeholder="+ Tag" secondaryPlaceholder=""
-                    [ngModelOptions]="{standalone: true}" displayBy="name" (onAdd)="addTag($event)" (onRemove)="removeTag($event)">
-                    <tag-input-dropdown [autocompleteItems]="tagsSuggestion"></tag-input-dropdown>
-                </tag-input>
-            </div>
-        </div>
-        <div class="form-group row">
             <label for="bytes" class="col-sm-3 col-form-label">Producers:</label>
             <div class="col-sm-9">
                 <tag-input id="producers" [ngModel]="video.producers" theme='minimal' placeholder="+ Producer" secondaryPlaceholder=""
@@ -49,6 +40,15 @@
             <label for="bytes" class="col-sm-3 col-form-label">Bytes:</label>
             <div class="col-sm-9">
                 <input id="bytes" class="form-control" type="text" name="duration" disabled value="{{video.size}}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="bytes" class="col-sm-3 col-form-label">Tags:</label>
+            <div class="col-sm-9">
+                <tag-input id="tags" [ngModel]="video.tags" theme='minimal' placeholder="+ Tag" secondaryPlaceholder=""
+                    [ngModelOptions]="{standalone: true}" displayBy="name" (onAdd)="addTag($event)" (onRemove)="removeTag($event)">
+                    <tag-input-dropdown [autocompleteItems]="tagsSuggestion"></tag-input-dropdown>
+                </tag-input>
             </div>
         </div>
     </form>

@@ -2,15 +2,13 @@
   <div class="modal-dialog">
       <div class="modal-content text-center">
           <div class="modal-header">
-              <h5 class="modal-title"></h5>
+              <h5 class="modal-title">{{state.title}}</h5>
           </div>
           <div class="modal-body">
-              <div class="progress margin-bottom">
-                  <div class="progress-bar" role="progressbar" style="" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress margin-bottom" *ngIf="state.progressPercentage">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{'width': state.progressPercentage + '%'}" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
-              <div class="content">
-                  <div class="loading-info margin-top"></div>
-              </div>
+              <div class="content" [innerHTML]="state.body"></div>
           </div>
       </div>
   </div>

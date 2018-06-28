@@ -1,4 +1,6 @@
-import { Injectable, AfterViewInit } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { ModalState } from '../models/modal-state';
 
 declare var jQuery: any;
 
@@ -7,48 +9,39 @@ declare var jQuery: any;
 })
 export class ModalService {
 
-    private modal;
-    private progressBar;
+    private modalStateSource = new Subject<ModalState>();
+    modalState$ = this.modalStateSource.asObservable();
 
-    constructor() { }
+    private modalState: ModalState;
 
-    init() {
-        this.modal = jQuery('#modal');
-        this.progressBar = jQuery('#modal .progress');
+    constructor() {
+        this.modalState = { show: false };
     }
 
     setTitle(title: string) {
-        this.modal.find('.modal-title').html(title);
+        this.modalState.title = title;
+        this.modalStateSource.next(this.modalState);
     }
 
     setBody(body: string) {
-        this.modal.find('.modal-body .content').html(body);
+        this.modalState.body = body;
+        this.modalStateSource.next(this.modalState);
     }
 
-    setProgressBar(percentage: number) {
-        this.progressBar.show()
-            .html('<div class="progress-bar" role="progressbar" style="width: ' + percentage + '%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>');
-    }
-
-    clean() {
-        this.setTitle('');
-        this.setBody('');
-        this.progressBar.hide();
+    setProgressBar(progressPercentage: number) {
+        this.modalState.progressPercentage = progressPercentage;
+        this.modalStateSource.next(this.modalState);
     }
 
     show(title: string) {
-        this.setTitle(title);
-        this.modal.modal({
-            backdrop: 'static',
-            keyboard: false
-        });
+        this.modalState.show = true;
+        this.modalState.title = title;
+        this.modalStateSource.next(this.modalState);
     }
 
     close() {
-        this.clean();
-        let _this = this;
-        this.modal.on('shown.bs.modal', () => _this.modal.modal('hide'));
-        this.modal.modal('hide');
+        this.modalState = { show: false };
+        this.modalStateSource.next(this.modalState);
     }
     
 }

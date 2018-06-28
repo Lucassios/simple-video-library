@@ -42,8 +42,7 @@ const Video = sequelize.define<VideoInstance, VideoAttributes>('video', {
     },
     completePath: {
         type: STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     duration: {
         type: INTEGER
@@ -69,6 +68,11 @@ const Video = sequelize.define<VideoInstance, VideoAttributes>('video', {
         type: BOOLEAN,
         defaultValue: true
     }
+}, {
+    indexes: [{
+        unique: true,
+        fields: ['completePath', 'libraryId']
+    }]
 });
 
 Video.belongsTo(VideoLibrary, { as: 'library', foreignKey: { allowNull: false }, onDelete: 'CASCADE' });

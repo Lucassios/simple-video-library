@@ -58,19 +58,6 @@ body
   position: relative
   padding: 20px
 
-.header-area
-  background: white
-  display: flex
-  position: fixed
-  top: 0
-  width: 100%
-  z-index: 999
-
-.header-left-area
-  background-color: $primary
-  color: #fff
-  padding: 10px 30px
-
 .left-main-area
   background-color: #19212D
   color: #fff
@@ -123,52 +110,6 @@ body
 .libraries-links ul li a i, .collections-links ul li a i
   color: #bdbdbd
   margin-right: 10px
-
-.header-search-area
-  width: 50%
-  position: relative
-
-.header-menu-area
-  width: 50%
-  ul
-    text-align: right
-    li
-      display: inline
-      a
-        display: inline-block
-        color: #8f8f8f
-        margin-right: 15px
-        i
-          margin-right: 5px
-  .dropdown.display-inline button
-    background-color: transparent
-    color: #8f8f8f
-    padding: 0px
-    &:focus
-      box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
-      -webkit-box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
-      -moz-box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
-      -o-box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
-    i
-      margin-right: 5px
-
-.header-search-area
-  input
-    width: 100%
-    color: #818181
-    width: 100%
-    padding-left: 30px
-    border: 0px
-    outline: 0px
-  button[type=submit]
-    position: absolute
-    left: 0px
-    top: 0px
-    border: 0px
-    background-color: transparent
-    outline: 0px
-    height: 100%
-    cursor: pointer
 
 .right-main-area
   color: #fff
@@ -348,16 +289,16 @@ input, input.form-control, input.form-control:focus, input.form-control:disabled
   margin-top: 15px
 
 .margin-top
-  margin-top: 20px
+  margin-top: $margin
+
+.margin-bottom
+  margin-bottom: $margin
 
 .no-margin
   margin: 0
 
 .br-fontawesome .br-selected:after, .br-fontawesome .br-active:after
   color: $yellow
-
-.tab-content
-  padding-top: $margin
 
 .dropdown-menu
   font-size: inherit

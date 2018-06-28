@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { VideoLibrary } from '../models/video-library';
 import { ElectronService } from '../providers/electron.service';
+import { ModalService } from './modal.service';
 
 declare var jQuery: any;
 
@@ -9,16 +10,17 @@ declare var jQuery: any;
 })
 export class VideoLibraryService {
 
-    constructor(public electronService: ElectronService) {
+    constructor(public electronService: ElectronService,
+        private modalService: ModalService) {
 
+        let _this = this;
         this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
-            console.log('VideoLibraryService:end');
-            jQuery('#modal-loading').modal('hide');
+            _this.modalService.close();
         });
 
         this.electronService.ipcRenderer.on('videoLibraries:refreshLibrary:next', (event, video, percentage) => {
-            jQuery('#modal-loading').find('.loading-info').html('<img src="file://' + video.cover + '" alt=""><br/>' + video.name);
-            jQuery('#modal-loading').find('.progress-bar').css('width', percentage + '%');
+            _this.modalService.setProgressBar(percentage);
+            _this.modalService.setBody('<img src="file://' + video.cover + '" alt=""><br/>' + video.name);
         });
 
     }
@@ -47,10 +49,7 @@ export class VideoLibraryService {
         const libraries = this.findAll();
         if (libraries && libraries.length > 0) {
             this.electronService.ipcRenderer.send('videoLibraries:refreshLibrary', libraries[0]);
-            jQuery('#modal-loading').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
+            this.modalService.show('Searching videos...');
         }
     }
 

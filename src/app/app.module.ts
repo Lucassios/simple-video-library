@@ -27,7 +27,8 @@ import { SecondsToDateTimePipe } from './pipes/seconds-to-date-time.pipe';
 import { BarRatingModule } from "ngx-bar-rating";
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FilterComponent } from './components/videos/filter/filter.component'; // this is needed!
+import { FilterComponent } from './components/videos/filter/filter.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -44,7 +45,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SettingsComponent,
     VideoEditionComponent,
     SecondsToDateTimePipe,
-    FilterComponent
+    FilterComponent,
+    ModalComponent
   ],
   imports: [
     TagInputModule,

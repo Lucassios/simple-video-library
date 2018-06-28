@@ -1,0 +1,60 @@
+.header-area
+  background: $primary
+  display: flex
+  position: fixed
+  top: 0
+  width: 100%
+  z-index: 999
+
+.header-left-area
+  background: rgba(0,0,0,0.2)
+  color: #fff
+  padding: 10px 30px
+
+.header-search-area
+  width: 50%
+  position: relative
+
+.header-menu-area
+  width: 50%
+  ul
+    text-align: right
+    li
+      display: inline
+      a
+        display: inline-block
+        color: white
+        margin-right: 15px
+        i
+          margin-right: 5px
+  .dropdown.display-inline button
+    background-color: transparent
+    color: white
+    padding: 0px
+    &:focus
+      box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
+      -webkit-box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
+      -moz-box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
+      -o-box-shadow: 0 0 0 0rem rgba(0, 0, 0, 0)
+    i
+      margin-right: 5px
+
+.header-search-area
+  input
+    width: 100%
+    color: white
+    width: 100%
+    padding-left: 30px
+    border: 0px
+    outline: 0px
+    &::placeholder
+        color: white
+  button[type=submit]
+    position: absolute
+    left: 0px
+    top: 0px
+    border: 0px
+    background-color: transparent
+    outline: 0px
+    height: 100%
+    cursor: pointer

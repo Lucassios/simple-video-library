@@ -26,7 +26,6 @@ export class VideoService {
 
     findByFilter(filter: Filter) {
         const videos = <Video[]> this.electronService.ipcRenderer.sendSync('videos:findByFilter', filter);
-        console.log(filter);
         _.each(videos, video => this.setBackgroundVideo(video));
         return videos;
     }

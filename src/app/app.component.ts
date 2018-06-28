@@ -25,7 +25,6 @@ export class AppComponent {
   }
 
   ngAfterContentInit() {
-    console.log('ngAfterContentInit');
     this.electronService.ipcRenderer.on('videos:refreshLibrary:next', (event, video) => {
       console.log('end ' + video.name);
     });

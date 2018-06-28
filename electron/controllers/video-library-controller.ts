@@ -8,7 +8,6 @@ export default function() {
 
     ipcMain.on('videoLibraries:refreshLibraries', async (event, videoLibrary: VideoLibraryInstance) => {
 
-        console.log('videoLibraries:refreshLibraries...');
         videoLibraryService.refreshLibraries((error, video, percentage) => {
             if (error) {
                 log.error(error);

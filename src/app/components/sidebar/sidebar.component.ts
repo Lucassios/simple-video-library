@@ -3,6 +3,7 @@ import { ElectronService } from '../../providers/electron.service';
 import { VideoLibraryService } from '../../services/video-library.service';
 import { Video } from '../../models/video';
 import { VideoService } from '../../services/video.service';
+import { VideoLibrary } from '../../models/video-library';
 
 @Component({
     selector: 'app-sidebar',
@@ -11,6 +12,7 @@ import { VideoService } from '../../services/video.service';
 export class SidebarComponent implements OnInit {
 
     videoEdition: Video;
+    libraries: VideoLibrary[];
 
     constructor(public electronService: ElectronService,
         public videoLibraryService: VideoLibraryService,
@@ -19,7 +21,7 @@ export class SidebarComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.libraries = this.videoLibraryService.findAll();
     }
 
     onRefreshLibrary() {

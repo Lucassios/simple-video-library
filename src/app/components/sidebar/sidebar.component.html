@@ -1,13 +1,10 @@
 <div class="video-upload-button animated fadeInDown clearfix">
   <button (click)="onRefreshLibrary()"><i class="fa fa-refresh" aria-hidden="true"></i>Sync Libraries</button>
 </div>
-<div class="libraries-links animated fadeInLeft clearfix">
+<div class="menu animated fadeInLeft clearfix">
   <h3>Libraries</h3>
-  <ul>
-    <li><a href="#"><i class="fa fa-list" aria-hidden="true"></i> Playlists</a></li>
-    <li><a href="#"><i class="fa fa-video-camera" aria-hidden="true"></i> Videos</a></li>
-    <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i> Favourites</a></li>
-    <li><a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> WatchLater</a></li>
+  <ul *ngFor="let library of libraries">
+    <li><a href="#"><i class="fa fa-list" aria-hidden="true"></i> {{library.name}}</a></li>
   </ul>
 </div>
 

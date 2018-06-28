@@ -1,40 +1,22 @@
 import { ipcMain } from 'electron';
 import { videoLibraryService } from '../services/video-library-service';
 import { VideoLibraryInstance, VideoLibraryAttributes } from '../data/models/video-library-model';
-import { videoService } from '../services/video-service';
 import { FindOptions } from 'sequelize';
 import * as log from 'electron-log';
 
 export default function() {
 
-    ipcMain.on('videoLibraries:refreshLibrary', async (event, videoLibrary: VideoLibraryInstance) => {
+    ipcMain.on('videoLibraries:refreshLibraries', async (event, videoLibrary: VideoLibraryInstance) => {
 
-        log.error(require('ffmpeg-static').path);
-      log.error(require('ffprobe-static').path);
-
-        try {
-
-            const videos = await videoService.findNewFilesByLibrary(videoLibrary);
-
-            for (let i = 0; i < videos.length; i++) {
-                try {
-                    let video = videos[i];
-                    video = await videoService.getMetadata(video);
-                    video.cover = await videoService.generateScreenshot(video.completePath);
-                    await videoService.create(video);
-                    const percentage = (i + 1) * 100 / videos.length;
-                    event.sender.send('videoLibraries:refreshLibrary:next', video, percentage);
-                } catch (ex) {
-                    log.error(ex);
-                }
+        console.log('videoLibraries:refreshLibraries...');
+        videoLibraryService.refreshLibraries((error, video, percentage) => {
+            if (error) {
+                log.error(error);
+            } else {
+                event.sender.send('videoLibraries:refreshLibrary:next', video, percentage);
             }
-
-        } catch (ex) {
-            log.error(ex);
-            event.sender.send('videoLibraries:refreshLibrary:end');
-        }
-
-        event.sender.send('videoLibraries:refreshLibrary:end');
+        })
+        .then(() => event.sender.send('videoLibraries:refreshLibrary:end'));
 
     });
 

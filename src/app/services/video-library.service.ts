@@ -46,11 +46,8 @@ export class VideoLibraryService {
     }
 
     refreshLibraries(): any {
-        const libraries = this.findAll();
-        if (libraries && libraries.length > 0) {
-            this.electronService.ipcRenderer.send('videoLibraries:refreshLibrary', libraries[0]);
-            this.modalService.show('Searching videos...');
-        }
+        this.electronService.ipcRenderer.send('videoLibraries:refreshLibraries');
+        this.modalService.show('Searching videos...');
     }
 
 }

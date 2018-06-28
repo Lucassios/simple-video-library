@@ -6,5 +6,6 @@ export default class Filter {
     tags: string[];
     ratingRange: string;
     order: string;
+    libraryId: number;
 
 }

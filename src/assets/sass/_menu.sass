@@ -16,9 +16,11 @@
       display: block
       width: 100%
       padding: 10px $margin
-      &:hover
+      &:hover, &.active
         color: white
         background: rgba(0,0,0,0.2)
+      &.active
+        border-left: 3px solid $primary
 
     i
       margin-right: 10px

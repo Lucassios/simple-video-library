@@ -56,6 +56,10 @@ export class VideoService {
             options.order = [[ 'createdAt', 'DESC' ]];
         }
 
+        if (filter.libraryId) {
+            where.libraryId = filter.libraryId;
+        }
+
         if (filter.ratingRange) {
             where.rating = { [Op.between]: filter.ratingRange };
         }

@@ -5,6 +5,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 
 const routes: Routes = [
     { path: '', component: VideosComponent },
+    { path: 'videos/library/:libraryId', component: VideosComponent },
     { path: 'settings', component: SettingsComponent }
 ];
 

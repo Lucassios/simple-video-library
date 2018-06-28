@@ -41,6 +41,13 @@ export class VideoLibraryService {
         }
     }
 
+    findFirst() {
+        const libraries = this.findAll();
+        if (libraries && libraries.length > 0) {
+            return libraries[0];
+        }
+    }
+
     remove(videoLibrary: VideoLibrary): number {
         return this.electronService.ipcRenderer.sendSync('videoLibraries:remove', videoLibrary);
     }

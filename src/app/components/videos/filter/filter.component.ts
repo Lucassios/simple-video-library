@@ -6,6 +6,8 @@ import { OptionService } from '../../../services/option.service';
 import { ActorService } from '../../../services/actor.service';
 import { TagService } from '../../../services/tag.service';
 import { ProducerService } from '../../../services/producer.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { VideoLibraryService } from '../../../services/video-library.service';
 
 declare var jQuery: any;
 
@@ -22,24 +24,43 @@ export class FilterComponent implements OnInit, AfterContentInit {
 
     constructor(private electronService: ElectronService,
         private videoService: VideoService,
+        private videoLibraryService: VideoLibraryService,
         private optionService: OptionService,
         private actorService: ActorService,
         private tagService: TagService,
         private producerService: ProducerService,
+        private route: ActivatedRoute,
+        private router: Router,
         private ngZone: NgZone) {
+
         actorService.actors$.subscribe(actors => this.actorsSuggestion = actors.map(actor => actor.name));
         tagService.tags$.subscribe(tags => this.tagsSuggestion = tags.map(tag => tag.name));
         producerService.producers$.subscribe(producers => this.producersSuggestion = producers.map(producer => producer.name));
+
+        this.initFilter();
+
+        this.route.paramMap.subscribe(map => {
+            var libraryId = map.get('libraryId');
+            if (libraryId) {
+                this.filter.libraryId = parseInt(libraryId);
+                this.findVideos();
+            } else {
+                const library = this.videoLibraryService.findFirst();
+                if (library) {
+                    this.router.navigate(['/videos/library/', 1]);
+                }
+            }
+        });
+
         electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
             this.ngZone.run(() => {
                 this.findVideos();
             });
         });
+
     }
 
     ngOnInit() {
-        this.initFilter();
-        this.findVideos();
         this.refreshActorsSuggestion();
         this.refreshTagsSuggestion();
         this.refreshProducersSuggestion();
@@ -97,6 +118,7 @@ export class FilterComponent implements OnInit, AfterContentInit {
     }
 
     findVideos() {
+        console.log(this.filter);
         const videos = this.videoService.findByFilter(this.filter);
         this.videoService.setVideos(videos);
         this.saveFilter();

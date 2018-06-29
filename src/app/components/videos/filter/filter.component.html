@@ -28,7 +28,7 @@
                     <div class="single-input">
                         <label for="">PRODUCER</label>
                         <tag-input id="producers" [ngModel]="filter.producers" theme='minimal' placeholder="+ Producer" secondaryPlaceholder="Filter by producer"
-                                   displayBy="name" (onAdd)="addProducer($event)" (onRemove)="removeProducer($event)">
+                                   displayBy="name" (onAdd)="addProducer($event)" (onRemove)="removeProducer($event)" onlyFromAutocomplete="true">
                             <tag-input-dropdown [autocompleteItems]="producersSuggestion"></tag-input-dropdown>
                         </tag-input>
                     </div>
@@ -37,7 +37,7 @@
                     <div class="single-input">
                         <label for="">ACTOR</label>
                         <tag-input id="actors" [ngModel]="filter.actors" theme='minimal' placeholder="+ Actor" secondaryPlaceholder="Filter by actor"
-                                   displayBy="name" (onAdd)="addActor($event)" (onRemove)="removeActor($event)">
+                                   displayBy="name" (onAdd)="addActor($event)" (onRemove)="removeActor($event)" onlyFromAutocomplete="true">
                             <tag-input-dropdown [autocompleteItems]="actorsSuggestion"></tag-input-dropdown>
                         </tag-input>
                     </div>
@@ -46,7 +46,7 @@
                     <div class="single-input">
                         <label for="">TAG</label>
                         <tag-input id="tags" [ngModel]="filter.tags" theme='minimal' placeholder="+ Tag" secondaryPlaceholder="Filter by tag"
-                                   displayBy="name" (onAdd)="addTag($event)" (onRemove)="removeTag($event)">
+                                   displayBy="name" (onAdd)="addTag($event)" (onRemove)="removeTag($event)" onlyFromAutocomplete="true">
                             <tag-input-dropdown [autocompleteItems]="tagsSuggestion"></tag-input-dropdown>
                         </tag-input>
                     </div>

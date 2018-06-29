@@ -33,31 +33,42 @@ export class FilterComponent implements OnInit, AfterContentInit {
         private router: Router,
         private ngZone: NgZone) {
 
-        actorService.actors$.subscribe(actors => this.actorsSuggestion = actors.map(actor => actor.name));
-        tagService.tags$.subscribe(tags => this.tagsSuggestion = tags.map(tag => tag.name));
-        producerService.producers$.subscribe(producers => this.producersSuggestion = producers.map(producer => producer.name));
-
+        this.subscribeToInternalEvents();
         this.initFilter();
+        this.subscribeToRouteParameters();
+        this.subscribeToBackendEvents(electronService);
 
+    }
+
+    private subscribeToInternalEvents() {
+        this.actorService.actors$.subscribe(actors => this.actorsSuggestion = actors.map(actor => actor.name));
+        this.tagService.tags$.subscribe(tags => this.tagsSuggestion = tags.map(tag => tag.name));
+        this.producerService.producers$.subscribe(producers => this.producersSuggestion = producers.map(producer => producer.name));
+        this.videoService.search$.subscribe(search => { this.filter.search = search; this.findVideos(); });
+    }
+
+    private subscribeToBackendEvents(electronService: ElectronService) {
+        electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
+            this.ngZone.run(() => {
+                this.findVideos();
+            });
+        });
+    }
+
+    private subscribeToRouteParameters() {
         this.route.paramMap.subscribe(map => {
             var libraryId = map.get('libraryId');
             if (libraryId) {
                 this.filter.libraryId = parseInt(libraryId);
                 this.findVideos();
-            } else {
+            }
+            else {
                 const library = this.videoLibraryService.findFirst();
                 if (library) {
                     this.router.navigate(['/videos/library/', 1]);
                 }
             }
         });
-
-        electronService.ipcRenderer.on('videoLibraries:refreshLibrary:end', (event, videos) => {
-            this.ngZone.run(() => {
-                this.findVideos();
-            });
-        });
-
     }
 
     ngOnInit() {
@@ -118,7 +129,6 @@ export class FilterComponent implements OnInit, AfterContentInit {
     }
 
     findVideos() {
-        console.log(this.filter);
         const videos = this.videoService.findByFilter(this.filter);
         this.videoService.setVideos(videos);
         this.saveFilter();

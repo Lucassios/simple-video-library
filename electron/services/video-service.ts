@@ -84,6 +84,10 @@ export class VideoService {
             });
         }
 
+        if (filter.search) {
+            where.name = { [Op.like]: '%' + filter.search + '%' };
+        }
+
         options.where = where;
         options.include = include;
         // options.limit = 52;

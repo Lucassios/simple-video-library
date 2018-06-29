@@ -16,6 +16,9 @@ export class VideoService {
     private videosSource = new Subject<Video[]>();
     videos$ = this.videosSource.asObservable();
 
+    private searchSource = new Subject<string>();
+    search$ = this.searchSource.asObservable();
+
     constructor(public electronService: ElectronService) { }
 
     findByLibraryId(libraryId: number) {
@@ -51,6 +54,10 @@ export class VideoService {
 
     setVideos(videos: Video[]) {
         this.videosSource.next(videos);
+    }
+
+    setSearch(search: string) {
+        this.searchSource.next(search);
     }
 
     update(video: Video): Video {

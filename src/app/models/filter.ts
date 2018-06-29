@@ -1,6 +1,6 @@
 export class Filter {
 
-    name?: string[];
+    search?: string;
     actors?: string[];
     producers?: string[];
     tags?: string[];

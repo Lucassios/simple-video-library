@@ -162,7 +162,7 @@ export class VideoService {
     }
 
     generateScreenshot(file: string): Promise<string> {
-        const imageName = uuid.v1() + '.png';
+        const imageName = uuid.v1() + '.jpeg';
         return new Promise<string>((resolve, reject) => {
             Ffmpeg(file).outputOptions('-qscale:v 2')
                 .screenshots({

@@ -1,28 +1,68 @@
 <div class="video-upload-button animated fadeInDown clearfix">
     <button (click)="onRefreshLibrary()"><i class="fa fa-refresh" aria-hidden="true"></i>Sync Libraries</button>
 </div>
-<div class="menu animated fadeInLeft clearfix">
+
+<ul class="menu animated fadeInLeft" data-widget="tree">
+    <li class="treeview" routerLinkActive="active menu-open">
+        <a href="#">
+            <i class="fa fa-video-camera"></i> <span>Libraries</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li *ngFor="let library of libraries" routerLinkActive="active">
+                <a href="#" routerLink="/videos/library/{{library.id}}">{{library.name}}</a>
+            </li>
+        </ul>
+    </li>
+    <li class="treeview" routerLinkActive="active menu-open">
+        <a href="#">
+            <i class="fa fa-users"></i> <span>Actors</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li *ngFor="let actor of actors" routerLinkActive="active">
+                <a href="#" routerLink="/videos/actor/{{actor.name}}">{{actor.name}}</a>
+            </li>
+        </ul>
+    </li>
+    <li class="treeview" routerLinkActive="active menu-open">
+        <a href="#">
+            <i class="fa fa-tags"></i> <span>Tags</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li *ngFor="let tag of tags" routerLinkActive="active">
+                <a href="#" routerLink="/videos/tag/{{tag.name}}">{{tag.name}}</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<!-- <div class="menu animated fadeInLeft clearfix">
     <h3>Libraries</h3>
-    <ul *ngFor="let library of libraries">
-        <li>
+    <ul>
+        <li *ngFor="let library of libraries">
             <a href="#" routerLink="/videos/library/{{library.id}}" routerLinkActive="active">
                 <i class="fa fa-list" aria-hidden="true"></i> {{library.name}}
             </a>
         </li>
+        <li>
+            Actors
+            <ul>
+                <li *ngFor="let actor of actors">
+                    <a href="#" routerLink="/videos/actor/{{actor.id}}" routerLinkActive="active">
+                        <i class="fa fa-list" aria-hidden="true"></i> {{actor.name}}
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
-</div>
-
-<!--
-<div class="collections-links clearfix">
-  <h3>collections</h3>
-  <ul>
-    <li><a href="#"><i class="fa fa-folder" aria-hidden="true"></i> Summer 2k18</a></li>
-    <li><a href="#"><i class="fa fa-folder" aria-hidden="true"></i> Friends</a></li>
-    <li><a href="#"><i class="fa fa-folder" aria-hidden="true"></i> Parties</a></li>
-    <li><a href="#"><i class="fa fa-folder" aria-hidden="true"></i> Summer 2k17</a></li>
-    <li><a href="#"><i class="fa fa-folder" aria-hidden="true"></i> Car</a></li>
-  </ul>
-</div>
--->
+</div> -->
 
 <app-video-edition *ngIf="videoEdition" [video]="videoEdition"></app-video-edition>

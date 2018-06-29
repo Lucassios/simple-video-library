@@ -1,4 +1,5 @@
 .menu
+  margin: 0 (-$margin)
   margin-top: 50px
 
   h3
@@ -8,19 +9,32 @@
     margin-bottom: 10px
     font-size: inherit
 
-  ul
-    margin: 0 (-$margin)
+  & > li.active > a
+    border-left: 3px solid $primary
+    background: darken(#19212D, 2)
+    color: white
 
-    li a
+  li
+    a
       color: $secondary
       display: block
       width: 100%
       padding: 10px $margin
-      &:hover, &.active
+    .active a, a:hover, &.menu-open > a
         color: white
-        background: rgba(0,0,0,0.2)
-      &.active
-        border-left: 3px solid $primary
 
     i
       margin-right: 10px
+
+  .menu-open .pull-right-container i
+      -webkit-transform: rotate(-90deg)
+      -ms-transform: rotate(-90deg)
+      -o-transform: rotate(-90deg)
+      transform: rotate(-90deg)
+      
+  .active .treeview-menu
+      display: block
+
+  .treeview-menu
+    background: lighten(#19212D, 2)
+    display: none

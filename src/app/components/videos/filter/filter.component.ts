@@ -6,8 +6,9 @@ import { OptionService } from '../../../services/option.service';
 import { ActorService } from '../../../services/actor.service';
 import { TagService } from '../../../services/tag.service';
 import { ProducerService } from '../../../services/producer.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { VideoLibraryService } from '../../../services/video-library.service';
+import * as _ from 'lodash';
 
 declare var jQuery: any;
 
@@ -21,6 +22,8 @@ export class FilterComponent implements OnInit, AfterContentInit {
     actorsSuggestion: string[];
     tagsSuggestion: string[];
     producersSuggestion: string[];
+
+    paramMap: ParamMap;
 
     constructor(private electronService: ElectronService,
         private videoService: VideoService,
@@ -57,17 +60,17 @@ export class FilterComponent implements OnInit, AfterContentInit {
 
     private subscribeToRouteParameters() {
         this.route.paramMap.subscribe(map => {
-            var libraryId = map.get('libraryId');
-            if (libraryId) {
-                this.filter.libraryId = parseInt(libraryId);
-                this.findVideos();
-            }
-            else {
+
+            if (!map.has('libraryId') && !map.has('actorName') && !map.has('tagName')) {
                 const library = this.videoLibraryService.findFirst();
                 if (library) {
-                    this.router.navigate(['/videos/library/', 1]);
+                    return this.router.navigate(['/videos/library/', 1]);
                 }
             }
+
+            this.paramMap = map;
+            this.findVideos();
+
         });
     }
 
@@ -91,6 +94,13 @@ export class FilterComponent implements OnInit, AfterContentInit {
         if (!this.filter.producers) {
             this.filter.producers = [];
         }
+    }
+
+    private cleanFilter() {
+        this.filter = {};
+        this.filter.actors = [];
+        this.filter.tags = [];
+        this.filter.producers = [];
     }
 
     private refreshActorsSuggestion() {
@@ -129,9 +139,29 @@ export class FilterComponent implements OnInit, AfterContentInit {
     }
 
     findVideos() {
-        const videos = this.videoService.findByFilter(this.filter);
+
+        // create temporary filter to insert routes params (shall not be persisted)
+        const tempFilter = _.cloneDeep(this.filter);
+
+        const libraryId = this.paramMap.get('libraryId');
+        if (libraryId) {
+            tempFilter.libraryId = parseInt(libraryId);
+        }
+
+        const actorName = this.paramMap.get('actorName');
+        if (actorName) {
+            tempFilter.actors.push(actorName);
+        }
+
+        const tagName = this.paramMap.get('tagName');
+        if (tagName) {
+            tempFilter.tags.push(tagName);
+        }
+        
+        const videos = this.videoService.findByFilter(tempFilter);
         this.videoService.setVideos(videos);
         this.saveFilter();
+
     }
 
     onArrange(order: string) {

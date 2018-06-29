@@ -1,8 +1,9 @@
-import { Component, OnInit, NgZone, HostListener } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener, ViewChild } from '@angular/core';
 import { Video } from '../../models/video';
 import { VideoLibrary } from '../../models/video-library';
 import { VideoService } from '../../services/video.service';
 import { ElectronService } from '../../providers/electron.service';
+import { FilterComponent } from './filter/filter.component';
 
 declare var jQuery: any;
 
@@ -17,6 +18,9 @@ export class VideosComponent implements OnInit {
     library: VideoLibrary;
 
     keyCtrlPressed: boolean = false;
+
+    @ViewChild(FilterComponent)
+    private filterComponent: FilterComponent;
 
     constructor(private videoService: VideoService,
         private electronService: ElectronService) {
@@ -80,7 +84,12 @@ export class VideosComponent implements OnInit {
     @HostListener('document:keyup', ['$event'])
     handleKeydownEvent(event: KeyboardEvent) {
         if(event.key === 'Delete') {
-            console.log('delete pressed...');
+            if (this.videosSelected.length > 0) {
+                if (confirm('Are you sure you want to delete those files from your disk?')) {
+                    this.videosSelected.forEach(video => this.videoService.delete(video));
+                    this.filterComponent.findVideos();
+                }
+            }
         } else if (event.key === 'Control') {
             this.keyCtrlPressed = false;
         }

@@ -31,4 +31,8 @@ export default function() {
         shell.openItem(video.completePath);
     });
 
+    ipcMain.on('videos:delete', async (event, video: VideoInstance) => {
+        event.returnValue = await videoService.delete(video);
+    });
+
 }

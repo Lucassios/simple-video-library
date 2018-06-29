@@ -64,4 +64,8 @@ export class VideoService {
         return this.electronService.ipcRenderer.sendSync('videos:update', video);
     }
 
+    delete(video: Video): void {
+        return this.electronService.ipcRenderer.sendSync('videos:delete', video);
+    }
+
 }

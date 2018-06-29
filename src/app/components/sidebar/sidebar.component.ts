@@ -8,6 +8,8 @@ import { Actor } from '../../models/actor';
 import { ActorService } from '../../services/actor.service';
 import { Tag } from '../../models/tag';
 import { TagService } from '../../services/tag.service';
+import { Producer } from '../../models/producer';
+import { ProducerService } from '../../services/producer.service';
 
 declare var jQuery: any;
 
@@ -21,12 +23,14 @@ export class SidebarComponent implements OnInit {
     libraries: VideoLibrary[];
     actors: Actor[];
     tags: Tag[];
+    producers: Producer[];
 
     constructor(private electronService: ElectronService,
         private videoLibraryService: VideoLibraryService,
         private videoService: VideoService,
         private tagService: TagService,
-        private actorService: ActorService) {
+        private actorService: ActorService,
+        private producerService: ProducerService) {
         videoService.videoEdition$.subscribe(video => this.videoEdition = video);
     }
 
@@ -34,6 +38,7 @@ export class SidebarComponent implements OnInit {
         this.libraries = this.videoLibraryService.findAll();
         this.actors = this.actorService.findAll();
         this.tags = this.tagService.findAll();
+        this.producers = this.producerService.findAll();
     }
 
     ngAfterViewChecked() {

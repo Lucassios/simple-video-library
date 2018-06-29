@@ -61,7 +61,7 @@ export class FilterComponent implements OnInit, AfterContentInit {
     private subscribeToRouteParameters() {
         this.route.paramMap.subscribe(map => {
 
-            if (!map.has('libraryId') && !map.has('actorName') && !map.has('tagName')) {
+            if (!map.has('libraryId') && !map.has('actorName') && !map.has('tagName') && !map.has('producerName')) {
                 const library = this.videoLibraryService.findFirst();
                 if (library) {
                     return this.router.navigate(['/videos/library/', 1]);
@@ -138,24 +138,27 @@ export class FilterComponent implements OnInit, AfterContentInit {
 
     }
 
+    addRouterParameterToFilter(filter: Filter, keyArray: string, keyParam: string) {
+        const param = this.paramMap.get(keyParam);
+        if (param) {
+            this.filter[keyArray] = [];
+            filter[keyArray] = [param];
+        }
+    }
+
     findVideos() {
+
+        this.videoService.setVideoEdition(null);
 
         // create temporary filter to insert routes params (shall not be persisted)
         const tempFilter = _.cloneDeep(this.filter);
+        this.addRouterParameterToFilter(tempFilter, 'actors', 'actorName');
+        this.addRouterParameterToFilter(tempFilter, 'tags', 'tagName');
+        this.addRouterParameterToFilter(tempFilter, 'producers', 'producerName');
 
         const libraryId = this.paramMap.get('libraryId');
         if (libraryId) {
             tempFilter.libraryId = parseInt(libraryId);
-        }
-
-        const actorName = this.paramMap.get('actorName');
-        if (actorName) {
-            tempFilter.actors.push(actorName);
-        }
-
-        const tagName = this.paramMap.get('tagName');
-        if (tagName) {
-            tempFilter.tags.push(tagName);
         }
         
         const videos = this.videoService.findByFilter(tempFilter);

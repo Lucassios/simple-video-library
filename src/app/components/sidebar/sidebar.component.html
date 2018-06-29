@@ -42,6 +42,19 @@
             </li>
         </ul>
     </li>
+    <li class="treeview" routerLinkActive="active menu-open">
+        <a href="#">
+            <i class="fa fa-tags"></i> <span>Producers</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li *ngFor="let producer of producers" routerLinkActive="active">
+                <a href="#" routerLink="/videos/producer/{{producer.name}}">{{producer.name}}</a>
+            </li>
+        </ul>
+    </li>
 </ul>
 
 <!-- <div class="menu animated fadeInLeft clearfix">

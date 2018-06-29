@@ -84,6 +84,16 @@ export class VideoService {
             });
         }
 
+        if (filter.producers && filter.producers.length > 0) {
+            include.push({
+                model: Producer,
+                required: true,
+                where: {
+                    name: { [Op.in]: filter.producers }
+                }
+            });
+        }
+
         if (filter.search) {
             where.name = { [Op.like]: '%' + filter.search + '%' };
         }

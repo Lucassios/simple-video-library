@@ -8,6 +8,7 @@ const routes: Routes = [
     { path: 'videos/library/:libraryId', component: VideosComponent },
     { path: 'videos/actor/:actorName', component: VideosComponent },
     { path: 'videos/tag/:tagName', component: VideosComponent },
+    { path: 'videos/producer/:producerName', component: VideosComponent },
     { path: 'settings', component: SettingsComponent }
 ];
 

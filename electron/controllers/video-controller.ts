@@ -3,7 +3,6 @@ import { videoService } from '../services/video-service';
 import { FindOptions } from 'sequelize';
 import { VideoInstance } from '../data/models/video-model';
 import Filter from '../data/models/filter-model';
-import * as path from 'path';
 
 export default function() {
 
@@ -32,8 +31,8 @@ export default function() {
         shell.openItem(video.completePath);
     });
 
-    ipcMain.on('videos:openDirectory', (event, video: VideoInstance) => {
-        shell.openItem(path.dirname(video.completePath));
+    ipcMain.on('videos:showInFolder', (event, video: VideoInstance) => {
+        shell.showItemInFolder(video.completePath);
     });
 
     ipcMain.on('videos:delete', async (event, video: VideoInstance) => {

@@ -72,8 +72,8 @@ export class VideoService {
         this.electronService.ipcRenderer.send('videos:open', video);
     }
 
-    openDirectory(video: Video) {
-        this.electronService.ipcRenderer.send('videos:openDirectory', video);
+    showInFolder(video: Video) {
+        this.electronService.ipcRenderer.send('videos:showInFolder', video);
     }
 
 }

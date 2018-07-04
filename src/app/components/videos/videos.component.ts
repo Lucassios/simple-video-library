@@ -106,8 +106,8 @@ export class VideosComponent implements OnInit {
         this.selectVideo(video);
     }
 
-    openDirectory(video: Video) {
-        this.videoService.openDirectory(video);
+    showInFolder(video: Video) {
+        this.videoService.showInFolder(video);
     }
 
 }

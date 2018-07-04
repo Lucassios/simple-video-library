@@ -30,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterComponent } from './components/videos/filter/filter.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ContextMenuModule } from 'ngx-contextmenu';
+import { BytesPipe } from './pipes/bytes.pipe';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -46,6 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SettingsComponent,
     VideoEditionComponent,
     SecondsToDateTimePipe,
+    BytesPipe,
     FilterComponent,
     ModalComponent
   ],

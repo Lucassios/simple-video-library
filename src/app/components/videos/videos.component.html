@@ -5,12 +5,23 @@
 </div>
 
 <div class="main-video-area margin-top clearfix">
-    <div class="video-box animated fadeInUp col-md-3" *ngFor="let video of videos" [ngClass]="{'selected': video.selected, 'new': video.new}"
-        (dblclick)="onDblClickVideo(video)">
-        <div class="video-cover" [ngStyle]="{'background': video.background }" (click)="onClickVideo($event, video, i)"></div>
-        <div class="video-info">
-            <div class="video-name">{{video.name}}</div>
-            <bar-rating [(rate)]="video.rating" [max]="5" [theme]="'fontawesome'" (rateChange)="onRateVideo(video)"></bar-rating>
+    <div class="row">
+        <div class="col-md-3" *ngFor="let video of videos">
+
+            <div class="video-box animated fadeInUp" [ngClass]="{'selected': video.selected, 'new': video.new}"
+                (dblclick)="onDblClickVideo(video)" (click)="onClickVideo($event, video, i)"
+                (contextmenu)="onContextMenu($event, video)" [contextMenu]="basicMenu" [contextMenuSubject]="video">
+                <div class="video-cover" [ngStyle]="{'background': video.background }"></div>
+                <div class="video-info">
+                    <div class="video-name">{{video.name}}</div>
+                    <bar-rating [(rate)]="video.rating" [max]="5" [theme]="'fontawesome'" (rateChange)="onRateVideo(video)"></bar-rating>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+
+<context-menu>
+    <ng-template contextMenuItem (execute)="openDirectory($event.item)">Show on directory</ng-template>
+</context-menu>

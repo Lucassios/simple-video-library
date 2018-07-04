@@ -29,6 +29,7 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterComponent } from './components/videos/filter/filter.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { ContextMenuModule } from 'ngx-contextmenu';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -57,6 +58,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     BarRatingModule,
+    ContextMenuModule.forRoot({
+      useBootstrap4: true,
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

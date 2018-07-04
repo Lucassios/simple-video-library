@@ -37,7 +37,7 @@ export class VideosComponent implements OnInit {
     onDblClickVideo(video) {
         this.clearSelectedVideos();
         this.selectVideo(video);
-        this.electronService.ipcRenderer.send('videos:open', video);
+        this.videoService.openFile(video);
         video.new = false;
         this.videoService.update(video);
     }
@@ -58,11 +58,7 @@ export class VideosComponent implements OnInit {
         if (!this.keyCtrlPressed) {
             this.clearSelectedVideos();
         }
-        if (selected) {
-            this.unSelectVideo(video);
-        } else {
-            this.selectVideo(video);
-        }
+        this.selectVideo(video);
     }
 
     clearSelectedVideos() {
@@ -93,6 +89,25 @@ export class VideosComponent implements OnInit {
         } else if (event.key === 'Control') {
             this.keyCtrlPressed = false;
         }
+    }
+
+    @HostListener('document:click', ['$event'])
+    clickedOutside(event: MouseEvent) {
+        const targetElement = event.target as HTMLElement;
+        const elementClass = targetElement.getAttribute('class');
+        if (!elementClass || elementClass.indexOf('video') < 0) {
+            this.clearSelectedVideos();
+            this.videoService.setVideoEdition(null);
+        }
+    }
+
+    onContextMenu(event: MouseEvent, video: Video): void {
+        this.clearSelectedVideos();
+        this.selectVideo(video);
+    }
+
+    openDirectory(video: Video) {
+        this.videoService.openDirectory(video);
     }
 
 }

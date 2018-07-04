@@ -68,4 +68,12 @@ export class VideoService {
         return this.electronService.ipcRenderer.sendSync('videos:delete', video);
     }
 
+    openFile(video: Video) {
+        this.electronService.ipcRenderer.send('videos:open', video);
+    }
+
+    openDirectory(video: Video) {
+        this.electronService.ipcRenderer.send('videos:openDirectory', video);
+    }
+
 }

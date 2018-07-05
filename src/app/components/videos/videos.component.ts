@@ -93,12 +93,16 @@ export class VideosComponent implements OnInit {
 
     @HostListener('document:click', ['$event'])
     clickedOutside(event: MouseEvent) {
+
+        const videoEditionElement = <HTMLInputElement> document.getElementsByClassName('video-edition')[0];
         const targetElement = event.target as HTMLElement;
         const elementClass = targetElement.getAttribute('class');
-        if (!elementClass || elementClass.indexOf('video') < 0) {
+
+        if ((!elementClass || elementClass.indexOf('video') < 0) && !videoEditionElement.contains(targetElement)) {
             this.clearSelectedVideos();
             this.videoService.setVideoEdition(null);
         }
+
     }
 
     onContextMenu(event: MouseEvent, video: Video): void {

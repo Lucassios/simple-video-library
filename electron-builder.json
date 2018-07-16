@@ -23,12 +23,28 @@
     "icon": "dist",
     "target": [
       "portable"
+    ],
+    "files": [
+      "node_modules/ffmpeg-static/bin/win/${arch}/ffmpeg",
+      "!node_modules/ffmpeg-static/bin/win/ia32${/*}",
+      "!node_modules/ffmpeg-static/bin/linux${/*}",
+      "!node_modules/ffmpeg-static/bin/mac${/*}",
+      "node_modules/ffprobe-static/bin/win/${arch}/ffprobe",
+      "!node_modules/ffprobe-static/bin/win/ia32${/*}",
+      "!node_modules/ffprobe-static/bin/linux${/*}",
+      "!node_modules/ffprobe-static/bin/mac${/*}"
     ]
   },
   "mac": {
     "icon": "dist",
     "target": [
       "dmg"
+    ],
+    "files": [
+      "!node_modules/ffmpeg-static/bin/win${/*}",
+      "!node_modules/ffmpeg-static/bin/linux${/*}",
+      "!node_modules/ffprobe-static/bin/win${/*}",
+      "!node_modules/ffprobe-static/bin/linux${/*}"
     ]
   },
   "linux": {

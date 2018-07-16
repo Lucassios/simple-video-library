@@ -1,9 +1,10 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, Menu } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import { initDB } from './electron/data';
 import initControllers from './electron/controllers';
 import * as unhandled from 'electron-unhandled';
+import template from './electron/menu-template';
 
 unhandled();
 
@@ -23,6 +24,7 @@ function beforeInitElectron(): Promise<void> {
 
 function initElectron() {
     createWindow();
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
     initControllers();
 }
 
@@ -59,7 +61,7 @@ function createWindow() {
     }));
   }
 
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 
   // Emitted when the window is closed.
   win.on('closed', () => {

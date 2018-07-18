@@ -31,6 +31,7 @@ import { FilterComponent } from './components/videos/filter/filter.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { BytesPipe } from './pipes/bytes.pipe';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -60,6 +61,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     BarRatingModule,
+    InfiniteScrollModule,
     ContextMenuModule.forRoot({
       useBootstrap4: true,
     }),

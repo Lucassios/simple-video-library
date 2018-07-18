@@ -118,4 +118,8 @@ export class VideosComponent implements OnInit {
         this.videoService.showInFolder(video);
     }
 
+    onScroll() {
+        this.videos.push(...this.filterComponent.findNextPage());
+    }
+
 }

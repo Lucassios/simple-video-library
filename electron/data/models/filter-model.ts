@@ -7,5 +7,7 @@ export default class Filter {
     ratingRange: string;
     order: string;
     libraryId: number;
+    offset: number;
+    limit: number;
 
 }

@@ -100,6 +100,8 @@ export class VideoService {
 
         options.where = where;
         options.include = include;
+        options.offset = filter.offset;
+        options.limit = filter.limit;
         // options.limit = 52;
 
         return Video.findAll(options);

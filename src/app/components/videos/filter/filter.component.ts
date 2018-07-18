@@ -25,6 +25,9 @@ export class FilterComponent implements OnInit, AfterContentInit {
 
     paramMap: ParamMap;
 
+    page = 1;
+    limit = 48;
+
     constructor(private electronService: ElectronService,
         private videoService: VideoService,
         private videoLibraryService: VideoLibraryService,
@@ -83,7 +86,7 @@ export class FilterComponent implements OnInit, AfterContentInit {
     private initFilter() {
         this.filter = this.optionService.findByName('filter');
         if (!this.filter) {
-            this.filter = {};
+            this.filter = { limit: this.limit, offset: (this.page - 1) * this.limit };
         }
         if (!this.filter.actors) {
             this.filter.actors = [];
@@ -97,7 +100,7 @@ export class FilterComponent implements OnInit, AfterContentInit {
     }
 
     private cleanFilter() {
-        this.filter = {};
+        this.filter = { limit: this.limit, offset: (this.page - 1) * this.limit };
         this.filter.actors = [];
         this.filter.tags = [];
         this.filter.producers = [];
@@ -165,6 +168,13 @@ export class FilterComponent implements OnInit, AfterContentInit {
         this.videoService.setVideos(videos);
         this.saveFilter();
 
+    }
+
+    findNextPage() {
+        this.page++;
+        this.filter.limit = this.limit;
+        this.filter.offset = (this.page - 1) * this.limit;
+        return this.videoService.findByFilter(this.filter);
     }
 
     onArrange(order: string) {

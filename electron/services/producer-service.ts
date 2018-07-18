@@ -29,6 +29,12 @@ export class ProducerService {
     }
 
     findAll(options?: FindOptions<ProducerInstance>): Bluebird<ProducerInstance[]> {
+        if (!options) {
+            options = { };
+        }
+        if (!options.order) {
+            options.order = [[ 'name', 'ASC' ]];
+        }
         return Producer.findAll(options);
     }
 

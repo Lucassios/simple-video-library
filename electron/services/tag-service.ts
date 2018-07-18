@@ -29,6 +29,12 @@ export class TagService {
     }
 
     findAll(options?: FindOptions<TagInstance>): Bluebird<TagInstance[]> {
+        if (!options) {
+            options = { };
+        }
+        if (!options.order) {
+            options.order = [[ 'name', 'ASC' ]];
+        }
         return Tag.findAll(options);
     }
 

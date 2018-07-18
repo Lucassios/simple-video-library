@@ -29,6 +29,12 @@ export class ActorService {
     }
 
     findAll(options?: FindOptions<ActorInstance>): Bluebird<ActorInstance[]> {
+        if (!options) {
+            options = { };
+        }
+        if (!options.order) {
+            options.order = [[ 'name', 'ASC' ]];
+        }
         return Actor.findAll(options);
     }
 

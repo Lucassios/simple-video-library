@@ -15,11 +15,15 @@ export class TagService {
     constructor(public electronService: ElectronService) { }
 
     createOrUpdate(tag: Tag, video: Video): Tag {
-        return this.electronService.ipcRenderer.sendSync('tags:createOrUpdate', tag, video);
+        const result = this.electronService.ipcRenderer.sendSync('tags:createOrUpdate', tag, video);
+        this.refreshTags();
+        return result;
     }
 
     remove(tag: Tag, video: Video): number {
-        return this.electronService.ipcRenderer.sendSync('tags:remove', tag, video);
+        const result = this.electronService.ipcRenderer.sendSync('tags:remove', tag, video);
+        this.refreshTags;
+        return result;
     }
 
     findAll(options?): Tag[] {
@@ -35,7 +39,7 @@ export class TagService {
     }
 
     refreshTags() {
-        this.tagsSource.next(this.findAll());
+        this.tagsSource.next(this.findAllAndCountVideos());
     }
 
 }

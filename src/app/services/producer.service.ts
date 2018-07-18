@@ -15,11 +15,15 @@ export class ProducerService {
     constructor(public electronService: ElectronService) { }
 
     createOrUpdate(producer: Producer, video: Video): Producer {
-        return this.electronService.ipcRenderer.sendSync('producers:createOrUpdate', producer, video);
+        const result = this.electronService.ipcRenderer.sendSync('producers:createOrUpdate', producer, video);
+        this.refreshProducers();
+        return result;
     }
 
     remove(producer: Producer, video: Video): number {
-        return this.electronService.ipcRenderer.sendSync('producers:remove', producer, video);
+        const result = this.electronService.ipcRenderer.sendSync('producers:remove', producer, video);
+        this.refreshProducers();
+        return result;
     }
 
     findAll(options?): Producer[] {
@@ -35,7 +39,7 @@ export class ProducerService {
     }
 
     refreshProducers() {
-        this.producersSource.next(this.findAll());
+        this.producersSource.next(this.findAllAndCountVideos());
     }
 
 }

@@ -15,11 +15,15 @@ export class ActorService {
     constructor(public electronService: ElectronService) { }
 
     createOrUpdate(actor: Actor, video: Video): Actor {
-        return this.electronService.ipcRenderer.sendSync('actors:createOrUpdate', actor, video);
+        const result = this.electronService.ipcRenderer.sendSync('actors:createOrUpdate', actor, video);
+        this.refreshActors();
+        return result;
     }
 
     remove(actor: Actor, video: Video): number {
-        return this.electronService.ipcRenderer.sendSync('actors:remove', actor, video);
+        const result = this.electronService.ipcRenderer.sendSync('actors:remove', actor, video);
+        this.refreshActors();
+        return result;
     }
 
     findAll(options?): Actor[] {
@@ -35,7 +39,7 @@ export class ActorService {
     }
 
     refreshActors() {
-        this.actorsSource.next(this.findAll());
+        this.actorsSource.next(this.findAllAndCountVideos());
     }
 
 }

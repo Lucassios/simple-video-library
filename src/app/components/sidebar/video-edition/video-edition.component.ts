@@ -29,9 +29,9 @@ export class VideoEditionComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.refreshActorsSuggestion();
-        this.refreshTagsSuggestion();
-        this.refreshProducersSuggestion();
+        this.actorsSuggestion = this.actorService.findAll().map(actor => actor.name);
+        this.tagsSuggestion = this.tagService.findAll().map(tag => tag.name);
+        this.producersSuggestion = this.producerService.findAll().map(producer => producer.name);
     }
 
     onVideoEditionNameBlur(event) {
@@ -45,12 +45,10 @@ export class VideoEditionComponent implements OnInit {
             this.video.actors = [];
         }
         this.video.actors.push(actor);
-        this.refreshActorsSuggestion();
     }
 
     removeActor(actor: Actor) {
         this.actorService.remove(actor, this.video);
-        this.refreshActorsSuggestion();
     }
 
     addTag(event) {
@@ -59,12 +57,10 @@ export class VideoEditionComponent implements OnInit {
             this.video.tags = [];
         }
         this.video.tags.push(tag);
-        this.refreshTagsSuggestion();
     }
 
     removeTag(tag: Tag) {
         this.tagService.remove(tag, this.video);
-        this.refreshTagsSuggestion();
     }
 
     addProducer(event) {
@@ -73,24 +69,10 @@ export class VideoEditionComponent implements OnInit {
             this.video.producers = [];
         }
         this.video.producers.push(producer);
-        this.refreshProducersSuggestion();
     }
 
     removeProducer(producer: Producer) {
         this.producerService.remove(producer, this.video);
-        this.refreshProducersSuggestion();
-    }
-
-    private refreshActorsSuggestion() {
-        this.actorService.refreshActors();
-    }
-
-    private refreshTagsSuggestion() {
-        this.tagService.refreshTags();
-    }
-
-    private refreshProducersSuggestion() {
-        this.producerService.refreshProducers();
     }
 
 }

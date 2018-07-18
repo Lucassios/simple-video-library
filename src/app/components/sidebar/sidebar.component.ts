@@ -32,6 +32,7 @@ export class SidebarComponent implements OnInit {
         private actorService: ActorService,
         private producerService: ProducerService) {
         videoService.videoEdition$.subscribe(video => this.videoEdition = video);
+        this.actorService.actors$.subscribe(actors => this.actors = actors);
     }
 
     ngOnInit() {

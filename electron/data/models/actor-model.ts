@@ -17,7 +17,7 @@ const Actor = sequelize.define<ActorInstance, ActorAttributes>('actor', {
     }
 });
 
-export const VideoActors = sequelize.define('videoActors', {});
+export const VideoActors = sequelize.define('videoActors', {}, { timestamps: false });
 
 Actor.belongsToMany(Video, { through: VideoActors });
 Video.belongsToMany(Actor, { through: VideoActors });

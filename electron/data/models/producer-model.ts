@@ -17,7 +17,7 @@ const Producer = sequelize.define<ProducerInstance, ProducerAttributes>('produce
     }
 });
 
-export const VideoProducers = sequelize.define('videoProducers', {});
+export const VideoProducers = sequelize.define('videoProducers', {}, { timestamps: false });
 
 Producer.belongsToMany(Video, { through: VideoProducers });
 Video.belongsToMany(Producer, { through: VideoProducers });

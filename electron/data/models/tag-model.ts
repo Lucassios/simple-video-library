@@ -17,7 +17,7 @@ const Tag = sequelize.define<TagInstance, TagAttributes>('tag', {
     }
 });
 
-export const VideoTags = sequelize.define('videoTags', {});
+export const VideoTags = sequelize.define('videoTags', {}, { timestamps: false });
 
 Tag.belongsToMany(Video, { through: VideoTags });
 Video.belongsToMany(Tag, { through: VideoTags });

@@ -119,6 +119,7 @@ export class VideosComponent implements OnInit {
     }
 
     onScroll() {
+        console.log('scrolled...');
         this.videos.push(...this.filterComponent.findNextPage());
     }
 

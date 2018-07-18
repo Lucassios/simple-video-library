@@ -26,7 +26,7 @@ export class FilterComponent implements OnInit, AfterContentInit {
     paramMap: ParamMap;
 
     page = 1;
-    limit = 48;
+    limit = 96;
 
     constructor(private electronService: ElectronService,
         private videoService: VideoService,
@@ -86,7 +86,7 @@ export class FilterComponent implements OnInit, AfterContentInit {
     private initFilter() {
         this.filter = this.optionService.findByName('filter');
         if (!this.filter) {
-            this.filter = { limit: this.limit, offset: (this.page - 1) * this.limit };
+            this.filter = { };
         }
         if (!this.filter.actors) {
             this.filter.actors = [];
@@ -100,7 +100,7 @@ export class FilterComponent implements OnInit, AfterContentInit {
     }
 
     private cleanFilter() {
-        this.filter = { limit: this.limit, offset: (this.page - 1) * this.limit };
+        this.filter = { };
         this.filter.actors = [];
         this.filter.tags = [];
         this.filter.producers = [];
@@ -151,7 +151,20 @@ export class FilterComponent implements OnInit, AfterContentInit {
 
     findVideos() {
 
+        this.page = 1;
+        this.filter.limit = this.limit;
+        this.filter.offset = (this.page - 1) * this.limit;
+
         this.videoService.setVideoEdition(null);
+        const tempFilter = this.processRouterParametersFilter();
+
+        const videos = this.videoService.findByFilter(tempFilter);
+        this.videoService.setVideos(videos);
+        this.saveFilter();
+
+    }
+
+    private processRouterParametersFilter() {
 
         // create temporary filter to insert routes params (shall not be persisted)
         const tempFilter = _.cloneDeep(this.filter);
@@ -161,12 +174,10 @@ export class FilterComponent implements OnInit, AfterContentInit {
 
         const libraryId = this.paramMap.get('libraryId');
         if (libraryId) {
-            tempFilter.libraryId = parseInt(libraryId);
+          tempFilter.libraryId = parseInt(libraryId);
         }
-        
-        const videos = this.videoService.findByFilter(tempFilter);
-        this.videoService.setVideos(videos);
-        this.saveFilter();
+
+        return tempFilter;
 
     }
 
@@ -174,7 +185,8 @@ export class FilterComponent implements OnInit, AfterContentInit {
         this.page++;
         this.filter.limit = this.limit;
         this.filter.offset = (this.page - 1) * this.limit;
-        return this.videoService.findByFilter(this.filter);
+        const tempFilter = this.processRouterParametersFilter();
+        return this.videoService.findByFilter(tempFilter);
     }
 
     onArrange(order: string) {
@@ -216,7 +228,10 @@ export class FilterComponent implements OnInit, AfterContentInit {
     }
 
     saveFilter() {
-        this.optionService.createOrUpdate('filter', this.filter);
+        const tempFilter = _.cloneDeep(this.filter);
+        tempFilter.offset = null;
+        tempFilter.limit = null;
+        this.optionService.createOrUpdate('filter', tempFilter);
     }
 
 }

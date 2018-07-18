@@ -5,5 +5,6 @@ export class VideoLibrary {
     id: number;
     name: string;
     paths: VideoLibraryPath[];
+    videosCount?: number;
 
 }

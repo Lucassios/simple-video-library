@@ -30,6 +30,10 @@ export class ActorService {
         }
     }
 
+    findAllAndCountVideos(): Actor[] {
+        return this.electronService.ipcRenderer.sendSync('actors:findAllAndCountVideos');
+    }
+
     refreshActors() {
         this.actorsSource.next(this.findAll());
     }

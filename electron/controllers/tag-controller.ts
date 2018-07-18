@@ -10,6 +10,10 @@ export default function() {
         event.returnValue = await tagService.findAll(options);
     });
 
+    ipcMain.on('tags:findAllAndCountVideos', async (event) => {
+        event.returnValue = await tagService.findAllAndCountVideos();
+    });
+
     ipcMain.on('tags:createOrUpdate', async (event, tag: TagAttributes, video: VideoInstance) => {
         try {
             event.returnValue = await tagService.createOrUpdate(tag, video);

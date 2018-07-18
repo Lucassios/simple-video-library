@@ -30,6 +30,10 @@ export class TagService {
         }
     }
 
+    findAllAndCountVideos(): Tag[] {
+        return this.electronService.ipcRenderer.sendSync('tags:findAllAndCountVideos');
+    }
+
     refreshTags() {
         this.tagsSource.next(this.findAll());
     }

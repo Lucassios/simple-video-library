@@ -12,7 +12,7 @@
         </a>
         <ul class="treeview-menu">
             <li *ngFor="let library of libraries" routerLinkActive="active">
-                <a href="#" routerLink="/videos/library/{{library.id}}">{{library.name}}</a>
+                <a href="#" routerLink="/videos/library/{{library.id}}">{{library.name}} <span class="badge badge-pill badge-dark">{{library.videosCount}}</span></a>
             </li>
         </ul>
     </li>
@@ -25,7 +25,7 @@
         </a>
         <ul class="treeview-menu">
             <li *ngFor="let actor of actors" routerLinkActive="active">
-                <a href="#" routerLink="/videos/actor/{{actor.name}}">{{actor.name}}</a>
+                <a href="#" routerLink="/videos/actor/{{actor.name}}">{{actor.name}} <span class="badge badge-pill badge-dark">{{actor.videosCount}}</span></a>
             </li>
         </ul>
     </li>
@@ -38,7 +38,7 @@
         </a>
         <ul class="treeview-menu">
             <li *ngFor="let tag of tags" routerLinkActive="active">
-                <a href="#" routerLink="/videos/tag/{{tag.name}}">{{tag.name}}</a>
+                <a href="#" routerLink="/videos/tag/{{tag.name}}">{{tag.name}} <span class="badge badge-pill badge-dark">{{tag.videosCount}}</span></a>
             </li>
         </ul>
     </li>
@@ -51,7 +51,7 @@
         </a>
         <ul class="treeview-menu">
             <li *ngFor="let producer of producers" routerLinkActive="active">
-                <a href="#" routerLink="/videos/producer/{{producer.name}}">{{producer.name}}</a>
+                <a href="#" routerLink="/videos/producer/{{producer.name}}">{{producer.name}}  <span class="badge badge-pill badge-dark">{{producer.videosCount}}</span></a>
             </li>
         </ul>
     </li>

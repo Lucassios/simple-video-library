@@ -10,6 +10,10 @@ export default function() {
         event.returnValue = await actorService.findAll(options);
     });
 
+    ipcMain.on('actors:findAllAndCountVideos', async (event) => {
+        event.returnValue = await actorService.findAllAndCountVideos();
+    });
+
     ipcMain.on('actors:createOrUpdate', async (event, actor: ActorAttributes, video: VideoInstance) => {
         try {
             event.returnValue = await actorService.createOrUpdate(actor, video);

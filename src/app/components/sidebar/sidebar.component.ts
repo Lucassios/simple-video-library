@@ -35,10 +35,10 @@ export class SidebarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.libraries = this.videoLibraryService.findAll();
-        this.actors = this.actorService.findAll();
-        this.tags = this.tagService.findAll();
-        this.producers = this.producerService.findAll();
+        this.libraries = this.videoLibraryService.findAllAndCountVideos();
+        this.actors = this.actorService.findAllAndCountVideos();
+        this.tags = this.tagService.findAllAndCountVideos();
+        this.producers = this.producerService.findAllAndCountVideos();
     }
 
     ngAfterViewChecked() {

@@ -1,7 +1,7 @@
 import Tag, { TagAttributes, TagInstance, VideoTags } from '../data/models/tag-model';
-import { VideoAttributes, VideoInstance } from '../data/models/video-model';
+import Video, { VideoAttributes, VideoInstance } from '../data/models/video-model';
 import Bluebird = require('bluebird');
-import { FindOptions } from 'sequelize';
+import { FindOptions, fn } from 'sequelize';
 
 export class TagService {
 
@@ -35,6 +35,15 @@ export class TagService {
         if (!options.order) {
             options.order = [[ 'name', 'ASC' ]];
         }
+        return Tag.findAll(options);
+    }
+
+    findAllAndCountVideos(): Bluebird<TagInstance[]> {
+        const options: FindOptions<TagInstance> = {};
+        options.order = [[ 'name', 'ASC' ]];
+        options.group = ['tag.id'];
+        options.include = [Video];
+        options.attributes = ['name', [fn('COUNT', 'videos.id'), 'videosCount']];
         return Tag.findAll(options);
     }
 

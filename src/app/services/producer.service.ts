@@ -30,6 +30,10 @@ export class ProducerService {
         }
     }
 
+    findAllAndCountVideos(): Producer[] {
+        return this.electronService.ipcRenderer.sendSync('producers:findAllAndCountVideos');
+    }
+
     refreshProducers() {
         this.producersSource.next(this.findAll());
     }

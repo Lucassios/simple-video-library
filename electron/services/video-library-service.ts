@@ -1,8 +1,9 @@
 import VideoLibrary, { VideoLibraryInstance, VideoLibraryAttributes } from '../data/models/video-library-model';
 import * as Bluebird from 'bluebird';
-import { CreateOptions, FindOptions } from 'sequelize';
+import { CreateOptions, FindOptions, fn } from 'sequelize';
 import VideoLibraryPath from '../data/models/video-library-path-model';
 import { videoService } from './video-service';
+import Video from '../data/models/video-model';
 
 export class VideoLibraryService {
 
@@ -24,6 +25,15 @@ export class VideoLibraryService {
         }
         options.include = [{ model: VideoLibraryPath, as: 'paths'}];
         return VideoLibrary.findAll(options && { include: [{ model: VideoLibraryPath, as: 'paths'}] });
+    }
+
+    findAllAndCountVideos(): Bluebird<VideoLibraryInstance[]> {
+        const options: FindOptions<VideoLibraryInstance> = {};
+        options.order = [[ 'name', 'ASC' ]];
+        options.group = ['videoLibrary.id'];
+        options.include = [Video];
+        options.attributes = ['name', [fn('COUNT', 'videos.id'), 'videosCount']];
+        return VideoLibrary.findAll(options);
     }
 
     async refreshLibraries(callback: (error, video, percentage) => void) {

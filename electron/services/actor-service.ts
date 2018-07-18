@@ -1,7 +1,7 @@
 import Actor, { ActorAttributes, ActorInstance, VideoActors } from '../data/models/actor-model';
-import { VideoAttributes, VideoInstance } from '../data/models/video-model';
+import Video, { VideoAttributes, VideoInstance } from '../data/models/video-model';
 import Bluebird = require('bluebird');
-import { FindOptions } from 'sequelize';
+import { FindOptions, fn } from 'sequelize';
 
 export class ActorService {
 
@@ -35,6 +35,15 @@ export class ActorService {
         if (!options.order) {
             options.order = [[ 'name', 'ASC' ]];
         }
+        return Actor.findAll(options);
+    }
+
+    findAllAndCountVideos(): Bluebird<ActorInstance[]> {
+        const options: FindOptions<ActorInstance> = {};
+        options.order = [[ 'name', 'ASC' ]];
+        options.group = ['actor.id'];
+        options.include = [Video];
+        options.attributes = ['name', [fn('COUNT', 'videos.id'), 'videosCount']];
         return Actor.findAll(options);
     }
 

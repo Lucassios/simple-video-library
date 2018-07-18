@@ -31,6 +31,10 @@ export default function() {
         event.returnValue = await videoLibraryService.findAll(options);
     });
 
+    ipcMain.on('videoLibraries:findAllAndCountVideos', async (event) => {
+        event.returnValue = await videoLibraryService.findAllAndCountVideos();
+    });
+
     ipcMain.on('videoLibraries:remove', async (event, videoLibraryId) => {
         event.returnValue = await videoLibraryService.remove(videoLibraryId);
     });

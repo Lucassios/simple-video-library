@@ -41,6 +41,10 @@ export class VideoLibraryService {
         }
     }
 
+    findAllAndCountVideos(): VideoLibrary[] {
+        return this.electronService.ipcRenderer.sendSync('videoLibraries:findAllAndCountVideos');
+    }
+
     findFirst() {
         const libraries = this.findAll();
         if (libraries && libraries.length > 0) {

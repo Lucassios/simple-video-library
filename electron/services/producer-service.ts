@@ -1,7 +1,7 @@
 import Producer, { ProducerAttributes, ProducerInstance, VideoProducers } from '../data/models/producer-model';
-import { VideoAttributes, VideoInstance } from '../data/models/video-model';
+import Video, { VideoAttributes, VideoInstance } from '../data/models/video-model';
 import Bluebird = require('bluebird');
-import { FindOptions } from 'sequelize';
+import { FindOptions, fn } from 'sequelize';
 
 export class ProducerService {
 
@@ -35,6 +35,15 @@ export class ProducerService {
         if (!options.order) {
             options.order = [[ 'name', 'ASC' ]];
         }
+        return Producer.findAll(options);
+    }
+
+    findAllAndCountVideos(): Bluebird<ProducerInstance[]> {
+        const options: FindOptions<ProducerInstance> = {};
+        options.order = [[ 'name', 'ASC' ]];
+        options.group = ['producer.id'];
+        options.include = [Video];
+        options.attributes = ['name', [fn('COUNT', 'videos.id'), 'videosCount']];
         return Producer.findAll(options);
     }
 

@@ -32,7 +32,7 @@ export class VideoLibraryService {
         options.order = [[ 'name', 'ASC' ]];
         options.group = ['videoLibrary.id'];
         options.include = [Video];
-        options.attributes = ['name', [fn('COUNT', 'videos.id'), 'videosCount']];
+        options.attributes = ['id', 'name', [fn('COUNT', 'videos.id'), 'videosCount']];
         return VideoLibrary.findAll(options);
     }
 

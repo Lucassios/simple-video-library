@@ -94,11 +94,15 @@ export class VideosComponent implements OnInit {
     @HostListener('document:click', ['$event'])
     clickedOutside(event: MouseEvent) {
 
-        const videoEditionElement = <HTMLInputElement> document.getElementsByClassName('video-edition')[0];
+
         const targetElement = event.target as HTMLElement;
+        const appVideosElement = <HTMLInputElement> document.getElementsByTagName('app-videos')[0];
         const elementClass = targetElement.getAttribute('class');
 
-        if ((!elementClass || elementClass.indexOf('video') < 0) && !videoEditionElement.contains(targetElement)) {
+        const isInsideAppVideosWrapper = appVideosElement.contains(targetElement);
+        const isInsideVideoWrapper = elementClass && elementClass.indexOf('video') >= 0;
+
+        if (isInsideAppVideosWrapper && !isInsideVideoWrapper) {
             this.clearSelectedVideos();
             this.videoService.setVideoEdition(null);
         }

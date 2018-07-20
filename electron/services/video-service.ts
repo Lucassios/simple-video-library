@@ -209,7 +209,9 @@ export class VideoService {
 
     async delete(videoAttributes: VideoInstance) {
         const video = await Video.findOne({ where: { id: videoAttributes.id } });
-        fs.unlinkSync(video.completePath);
+        if (fs.existsSync(video.completePath)) {
+            fs.unlinkSync(video.completePath);
+        }
         return video.destroy();
     }
 

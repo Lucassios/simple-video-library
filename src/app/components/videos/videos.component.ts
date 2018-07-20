@@ -79,14 +79,14 @@ export class VideosComponent implements OnInit {
 
     @HostListener('document:keyup', ['$event'])
     handleKeydownEvent(event: KeyboardEvent) {
-        if(event.key === 'Delete') {
+        if (event.key === 'Delete' || event.key === 'Backspace') {
             if (this.videosSelected.length > 0) {
                 if (confirm('Are you sure you want to delete those files from your disk?')) {
                     this.videosSelected.forEach(video => this.videoService.delete(video));
                     this.filterComponent.findVideos();
                 }
             }
-        } else if (event.key === 'Control') {
+        } else if (event.key === 'Control' || event.key === 'Command') {
             this.keyCtrlPressed = false;
         }
     }
